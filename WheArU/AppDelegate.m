@@ -10,6 +10,9 @@
 
 #import "Contact.h"
 
+
+NSString *const kWAUAppRemoteHost = @"pingpong.calvinx3.com";
+
 @interface AppDelegate ()
 
 @end
@@ -19,37 +22,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    /*
-    NSManagedObjectContext *context = [self managedObjectContext];
-    Contact *contactInfo = [NSEntityDescription insertNewObjectForEntityForName:@"Contact" inManagedObjectContext:context];
-    [contactInfo setUsername:@"Ally Tam"];
-    [contactInfo setLastUpdated:1409606089];
-    [contactInfo setUserColor:@"FFAAAA"];
-    
-    Contact *contactInfo2 = [NSEntityDescription insertNewObjectForEntityForName:@"Contact" inManagedObjectContext:context];
-    [contactInfo2 setUsername:@"Emily Ng"];
-    [contactInfo2 setLastUpdated:1409602489];
-    [contactInfo2 setUserColor:@"FFE3AA"];
-    
-    Contact *contactInfo4 = [NSEntityDescription insertNewObjectForEntityForName:@"Contact" inManagedObjectContext:context];
-    [contactInfo4 setUsername:@"Simon Ng"];
-    [contactInfo4 setLastUpdated:1409170389];
-    [contactInfo4 setUserColor:@"7887AB"];
-    
-    Contact *contactInfo3 = [NSEntityDescription insertNewObjectForEntityForName:@"Contact" inManagedObjectContext:context];
-    [contactInfo3 setUsername:@"Aki Zhuang"];
-    [contactInfo3 setLastUpdated:1409170489];
-    [contactInfo3 setUserColor:@"B77AAB"];
-    
-    NSError *error;
-    if (![context save:&error]) {
-        NSLog(@"Whoops, couldn't save: %@", [error localizedDescription]);
-    }
-    else {
-        NSLog(@"Saved");
-    }
-     */
-    
     return YES;
 }
 
@@ -74,7 +46,20 @@
     [self saveContext];
 }
 
-#pragma mark - Core Data stack
+#pragma mark - Protocol Delegates
+#pragma mark Push Notifcations
+
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+    if ([self notificationDelegate]) [[self notificationDelegate] didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
+}
+
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
+{
+    if ([self notificationDelegate]) [[self notificationDelegate] didFailToRegisterForRemoteNotificationsWithError:error];
+}
+
+#pragma mark - Core Data
 
 @synthesize managedObjectContext = _managedObjectContext;
 @synthesize managedObjectModel = _managedObjectModel;
@@ -137,7 +122,7 @@
     return _managedObjectContext;
 }
 
-#pragma mark - Core Data Saving support
+#pragma mark Save
 
 - (void)saveContext
 {

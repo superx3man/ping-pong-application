@@ -10,6 +10,8 @@
 
 #import "UserController.h"
 
+extern float const kWAUUserIconWidth;
+
 @interface UpdateUserIconViewController : UIViewController
 
 @property (nonatomic, strong) UserController *userController;

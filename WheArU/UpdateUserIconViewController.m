@@ -11,6 +11,11 @@
 
 #import "UpdateUserIconViewController.h"
 
+#import "UserController.h"
+
+
+float const kWAUUserIconWidth = 200.f;
+
 typedef NS_ENUM(NSInteger, WAUUpdateUserIconState)
 {
     WAUUpdateUserIconStateInitial,
@@ -194,14 +199,22 @@ typedef NS_ENUM(NSInteger, WAUUpdateUserIconState)
                      imageOrientation = UIImageOrientationLeft;
                      break;
                  case AVCaptureVideoOrientationLandscapeRight:
-                     imageOrientation = UIImageOrientationDown;
+                     imageOrientation = currentDevice == frontCameraDevice ? UIImageOrientationDown : UIImageOrientationUp;
                      break;
                  case AVCaptureVideoOrientationLandscapeLeft:
-                     imageOrientation = UIImageOrientationUp;
+                     imageOrientation = currentDevice == frontCameraDevice ? UIImageOrientationUp : UIImageOrientationDown;
                      break;
              }
-             UIImage *rotatedImage = [[UIImage alloc] initWithCGImage:[capturedImage CGImage] scale:1.0f orientation:imageOrientation];
-             [currentPictureImageView setImage:rotatedImage];
+             
+             float targetScale = MIN(capturedImage.size.width, capturedImage.size.height) / kWAUUserIconWidth;
+             UIImage *rotatedImage = [[UIImage alloc] initWithCGImage:[capturedImage CGImage] scale:targetScale orientation:imageOrientation];
+             
+             UIGraphicsBeginImageContext(CGSizeMake(kWAUUserIconWidth, kWAUUserIconWidth));
+             [rotatedImage drawInRect:CGRectMake(0 - ((rotatedImage.size.width - kWAUUserIconWidth) / 2), 0 - ((rotatedImage.size.height - kWAUUserIconWidth) / 2), rotatedImage.size.width, rotatedImage.size.height)];
+             UIImage *croppedIcon = UIGraphicsGetImageFromCurrentImageContext();
+             UIGraphicsEndImageContext();
+             
+             [currentPictureImageView setImage:croppedIcon];
              
              [captureSession stopRunning];
              for (AVCaptureInput *oldInput in [captureSession inputs]) {

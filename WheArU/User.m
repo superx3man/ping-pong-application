@@ -16,8 +16,12 @@ NSString *const kWAUCoreDataEntityUser = @"User";
 @dynamic userId;
 
 @dynamic username;
-@dynamic userIcon;
 @dynamic userColor;
+
+@dynamic userIcon;
+@dynamic userIconLink;
+
+@dynamic notificationKey;
 
 @dynamic fetchCount;
 @dynamic version;

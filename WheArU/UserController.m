@@ -10,7 +10,22 @@
 
 #import "AppDelegate.h"
 
+#import "Reachability.h"
 #import "UIColor+Hex.h"
+#import "WAULog.h"
+
+
+NSString *const kWAUImageUploadRemoteURL = @"icon_link";
+
+NSString *const kWAUImageUploadDictionaryKeyUserId = @"id";
+NSString *const kWAUImageUploadDictionaryKeyImageData = @"image";
+
+NSString *const kWAUUserDictionaryKeyUsername = @"username";
+NSString *const kWAUUserDictionaryKeyUserIcon = @"user_icon";
+NSString *const kWAUUserDictionaryKeyUserColor = @"user_color";
+NSString *const kWAUUserDictionaryKeyVersion = @"version";
+NSString *const kWAUUserDictionaryKeyNotificationKey = @"notification_key";
+NSString *const kWAUUserDictionaryKeyPlatform = @"platform";
 
 @implementation UserController
 {
@@ -18,6 +33,7 @@
     NSMutableArray *delegateList;
     
     User *currentUser;
+    Reachability* reachability;
 }
 
 - (id)init
@@ -36,19 +52,35 @@
         if (requestResult != nil) {
             if ([requestResult count] >= 1) {
                 currentUser = (User *) [requestResult lastObject];
-                [self setUsername:[currentUser username]];
-                [self setUserIcon:[UIImage imageWithData:[currentUser userIcon]]];
-                [self setUserColor:[UIColor colorFromHexString:[currentUser userColor]]];
+                _username = [currentUser username];
+                _userColor = [UIColor colorFromHexString:[currentUser userColor]];
                 
-                [self setFetchCount:[currentUser fetchCount]];
+                [self setUserIconUploadState:WAUUploadImageIconStateNoIcon];
+                if ([currentUser userIcon] != nil) {
+                    _userIcon = [UIImage imageWithData:[currentUser userIcon]];
+                    [self setUserIconUploadState:[currentUser userIconLink] == nil ? WAUUploadImageIconStateNotUploaded : WAUUploadImageIconStateUploaded];
+                }
+                
+                _notificationKey = [currentUser notificationKey];
+                _fetchCount = [currentUser fetchCount];
             }
         }
+        
+        reachability = [Reachability reachabilityWithHostname:kWAUAppRemoteHost];
+        [reachability setReachableOnWWAN:YES];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
+        [reachability startNotifier];
     }
     return self;
 }
 
 #pragma mark - Functions
 #pragma mark Support
+
+- (void)reachabilityChanged:(NSNotification*)notification
+{
+    [self uploadUserIcon];
+}
 
 #pragma mark External
 
@@ -74,6 +106,62 @@
         
         [managedObjectContext save:nil];
     }
+}
+
+- (void)uploadUserIcon
+{
+    if ([currentUser userIcon] == nil || [self userIconUploadState] != WAUUploadImageIconStateNotUploaded) return;
+    if (![reachability isReachable]) return;
+    
+    [self setUserIconUploadState:WAUUploadImageIconStateUploading];
+    
+    NSMutableDictionary *userDictionary = [[NSMutableDictionary alloc] init];
+    [userDictionary setObject:[currentUser userId] forKey:kWAUImageUploadDictionaryKeyUserId];
+    [userDictionary setObject:[[currentUser userIcon] base64EncodedStringWithOptions:0] forKey:kWAUImageUploadDictionaryKeyImageData];
+    
+    NSData *jsonImageInfo = [NSJSONSerialization dataWithJSONObject:userDictionary options:0 error:nil];
+    
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:nil];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@/%@", kWAUAppRemoteHost, kWAUImageUploadRemoteURL]];
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:30.f];
+    [request addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setHTTPMethod:@"POST"];
+    [request setHTTPBody:jsonImageInfo];
+    
+    NSURLSessionDataTask *postDataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error)
+                                          {
+                                              if (error != nil || [(NSHTTPURLResponse *) response statusCode] != 200) {
+                                                  [WAULog log:@"icon link failed to upload" from:self];
+                                                  [self setUserIconUploadState:WAUUploadImageIconStateNotUploaded];
+                                                  return;
+                                              }
+                                              
+                                              NSString *iconLink = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+                                              [WAULog log:[NSString stringWithFormat:@"icon link: %@", iconLink] from:self];
+                                              
+                                              [currentUser setUserIconLink:iconLink];
+                                              [currentUser setVersion:[currentUser version] + 1];
+                                              [managedObjectContext save:nil];
+                                              
+                                              [self setUserIconUploadState:WAUUploadImageIconStateUploaded];
+                                          }];
+    [postDataTask resume];
+}
+
+- (NSString *)JSONDescription
+{
+    NSMutableDictionary *userDictionary = [[NSMutableDictionary alloc] init];
+    [userDictionary setObject:[NSNumber numberWithInteger:WAUUserPlatformTypeIOS] forKey:kWAUUserDictionaryKeyPlatform];
+    [userDictionary setObject:[NSNumber numberWithInt:[currentUser version]] forKey:kWAUUserDictionaryKeyVersion];
+    
+    if ([currentUser notificationKey] != nil) [userDictionary setObject:[[currentUser notificationKey] base64EncodedStringWithOptions:0] forKey:kWAUUserDictionaryKeyNotificationKey];
+    
+    [userDictionary setObject:[currentUser username] forKey:kWAUUserDictionaryKeyUsername];
+    [userDictionary setObject:[currentUser userColor] forKey:kWAUUserDictionaryKeyUserColor];
+    
+    if ([currentUser userIconLink] != nil) [userDictionary setObject:[currentUser userIconLink] forKey:kWAUUserDictionaryKeyUserIcon];
+    
+    return [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:userDictionary options:0 error:nil] encoding:NSUTF8StringEncoding];
 }
 
 #pragma mark External Class
@@ -106,7 +194,7 @@
 
 - (void)setUsername:(NSString *)username
 {
-    if (_username == username) return;
+    if ([_username isEqualToString:username]) return;
     _username = username;
     
     [currentUser setUsername:username];
@@ -114,7 +202,7 @@
     [managedObjectContext save:nil];
     
     for (id<UserControllerDelegate> delegate in delegateList) {
-        [delegate userDidUpdateUsername:self];
+        if ([delegate respondsToSelector:@selector(userDidUpdateUsername:)]) [delegate userDidUpdateUsername:self];
     }
 }
 
@@ -123,18 +211,23 @@
     if (_userIcon == userIcon) return;
     _userIcon = userIcon;
     
+    [currentUser setUserIconLink:nil];
+    [self setUserIconUploadState:WAUUploadImageIconStateNotUploaded];
+    
     [currentUser setUserIcon:UIImageJPEGRepresentation(userIcon, 1.f)];
     [currentUser setVersion:[currentUser version] + 1];
     [managedObjectContext save:nil];
     
+    [self uploadUserIcon];
+    
     for (id<UserControllerDelegate> delegate in delegateList) {
-        [delegate userDidUpdateUserIcon:self];
+        if ([delegate respondsToSelector:@selector(userDidUpdateUserIcon:)]) [delegate userDidUpdateUserIcon:self];
     }
 }
 
 - (void)setUserColor:(UIColor *)userColor
 {
-    if (_userColor == userColor) return;
+    if ([_userColor isEqual:userColor]) return;
     _userColor = userColor;
     
     [currentUser setUserColor:[UIColor hexStringFromColor:userColor]];
@@ -142,8 +235,18 @@
     [managedObjectContext save:nil];
     
     for (id<UserControllerDelegate> delegate in delegateList) {
-        [delegate userDidUpdateUserColor:self];
+        if ([delegate respondsToSelector:@selector(userDidUpdateUserColor:)]) [delegate userDidUpdateUserColor:self];
     }
+}
+
+- (void)setNotificationKey:(NSData *)notificationKey
+{
+    if ([_notificationKey isEqualToData:notificationKey]) return;
+    _notificationKey = notificationKey;
+    
+    [currentUser setNotificationKey:notificationKey];
+    [currentUser setVersion:[currentUser version] + 1];
+    [managedObjectContext save:nil];
 }
 
 @end

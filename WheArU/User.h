@@ -17,8 +17,12 @@ extern NSString *const kWAUCoreDataEntityUser;
 @property (nonatomic, retain) NSString *userId;
 
 @property (nonatomic, retain) NSString *username;
-@property (nonatomic, retain) NSData *userIcon;
 @property (nonatomic, retain) NSString *userColor;
+
+@property (nonatomic, retain) NSData *userIcon;
+@property (nonatomic, retain) NSString *userIconLink;
+
+@property (nonatomic, retain) NSData *notificationKey;
 
 @property (nonatomic) int32_t fetchCount;
 @property (nonatomic) int32_t version;

@@ -15,6 +15,7 @@
 #import "ContactListController.h"
 #import "UserController.h"
 
+
 @interface ContactListViewController ()
 
 @end
@@ -31,11 +32,17 @@
     
     ContactListController *contactListController;
     UserController *userController;
+    
+    BOOL isNotificationRegistered;
 }
+
+
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    isNotificationRegistered = NO;
     
     [contactListTableView setHVTableViewDelegate:self];
     [contactListTableView setHVTableViewDataSource:self];
@@ -48,24 +55,38 @@
     UIBezierPath *circularPath=[UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, [currentUserIcon frame].size.width, [currentUserIcon frame].size.height) cornerRadius:MAX([currentUserIcon frame].size.width, [currentUserIcon frame].size.height)];
     [circle setPath:[circularPath CGPath]];
     [[currentUserIcon layer] setMask:circle];
+    
+    [((AppDelegate *) [[UIApplication sharedApplication] delegate]) setNotificationDelegate:self];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    if (![userController isUserRegistered]) return;
+    
+    [currentUserLabel setText:[userController username]];
+    [currentUserIcon setImage:[userController userIcon]];
+    
+    [currentUserFetchCount setText:[NSString stringWithFormat:@"%d", [userController fetchCount]]];
+    
+    [[self view] setBackgroundColor:[userController userColor]];
+    
+    [currentUserPingLabel setTextColor:[userController wordColor]];
+    [currentUserLabel setTextColor:[userController wordColor]];
+    [currentUserFetchCount setTextColor:[userController wordColor]];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     if (![userController isUserRegistered]) {
         [self performSegueWithIdentifier:@"RegisterUserSegue" sender:self];
+        return;
     }
-    else {
-        [currentUserLabel setText:[userController username]];
-        [currentUserIcon setImage:[userController userIcon]];
-        
-        [currentUserFetchCount setText:[NSString stringWithFormat:@"%d", [userController fetchCount]]];
-        
-        [[self view] setBackgroundColor:[userController userColor]];
-        
-        [currentUserPingLabel setTextColor:[userController wordColor]];
-        [currentUserLabel setTextColor:[userController wordColor]];
-        [currentUserFetchCount setTextColor:[userController wordColor]];
+    
+    if (!isNotificationRegistered) {
+        UIUserNotificationSettings* notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound categories:nil];
+        [[UIApplication sharedApplication] registerUserNotificationSettings:notificationSettings];
+        [[UIApplication sharedApplication] registerForRemoteNotifications];
+        isNotificationRegistered = YES;
     }
 }
 
@@ -136,7 +157,7 @@
     return count;
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath isExpanded:(BOOL)isExpanded
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath isExpanded:(BOOL)isExpanded
 {
     ContactListTableViewCell *cell = (ContactListTableViewCell *) [tableView dequeueReusableCellWithIdentifier:@"ContactCell"];
     
@@ -151,12 +172,12 @@
     return cell;
 }
 
--(void)tableView:(UITableView *)tableView collapseCell: (UITableViewCell*)cell withIndexPath:(NSIndexPath*) indexPath
+- (void)tableView:(UITableView *)tableView collapseCell: (UITableViewCell*)cell withIndexPath:(NSIndexPath*) indexPath
 {
     
 }
 
--(void)tableView:(UITableView *)tableView expandCell: (UITableViewCell*)cell withIndexPath:(NSIndexPath*) indexPath
+- (void)tableView:(UITableView *)tableView expandCell: (UITableViewCell*)cell withIndexPath:(NSIndexPath*) indexPath
 {
     
 }
@@ -166,6 +187,19 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath isExpanded:(BOOL)isExpanded
 {
     return 100.f;
+}
+
+#pragma mark NotificationRegisteredDelegate
+
+- (void)didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+    [userController setNotificationKey:deviceToken];
+    NSLog(@"%@", [userController JSONDescription]);
+}
+
+- (void)didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
+{
+    NSLog(@"error: %@", error);
 }
 
 @end

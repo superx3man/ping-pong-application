@@ -11,7 +11,8 @@
 #import "HVTableView.h"
 
 #import "UserController.h"
+#import "AppDelegate.h"
 
-@interface ContactListViewController : UIViewController <UserControllerDelegate, HVTableViewDelegate, HVTableViewDataSource>
+@interface ContactListViewController : UIViewController <UserControllerDelegate, HVTableViewDelegate, HVTableViewDataSource, NotificationRegisteredDelegate>
 
 @end
