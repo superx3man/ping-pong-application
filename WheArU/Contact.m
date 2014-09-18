@@ -14,15 +14,24 @@ NSString *const kWAUCoreDataEntityContact = @"Contact";
 
 @dynamic userId;
 
+@dynamic notificationKey;
+
 @dynamic username;
-@dynamic userIcon;
 @dynamic userColor;
 
+@dynamic userIcon;
+@dynamic userIconLink;
+
+@dynamic platform;
 @dynamic version;
 
 @dynamic lastUpdated;
 
+@dynamic locationState;
+
 @dynamic latitude;
 @dynamic longitude;
+@dynamic altitude;
+@dynamic accuracy;
 
 @end

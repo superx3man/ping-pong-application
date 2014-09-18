@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		4D48C66A19BB984100D09FDA /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D48C66919BB984100D09FDA /* User.m */; };
-		4D48C66D19BB9E4300D09FDA /* UserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D48C66C19BB9E4300D09FDA /* UserController.m */; };
 		4D48C67319BCC92800D09FDA /* UpdateUserColorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D48C67219BCC92800D09FDA /* UpdateUserColorViewController.m */; };
 		4D48C67619BCCDC300D09FDA /* UpdateUsernameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D48C67519BCCDC300D09FDA /* UpdateUsernameViewController.m */; };
 		4D48C67A19BCD1EF00D09FDA /* UpdateUserIconViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D48C67919BCD1EF00D09FDA /* UpdateUserIconViewController.m */; };
@@ -23,12 +22,35 @@
 		4D8267D519B3BA6E00076974 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D8267D419B3BA6E00076974 /* Images.xcassets */; };
 		4D8267E119B3BA6E00076974 /* WheArUTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D8267E019B3BA6E00076974 /* WheArUTests.m */; };
 		4D8267F119B3D29400076974 /* ContactListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D8267F019B3D29400076974 /* ContactListViewController.m */; };
-		4D8267F619B403C300076974 /* HVTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D8267F519B403C300076974 /* HVTableView.m */; };
+		4D8C11CD19C6321800698F6D /* id_card.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D8C11CB19C6321800698F6D /* id_card.png */; };
+		4D8C11CE19C6321800698F6D /* id_card@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D8C11CC19C6321800698F6D /* id_card@2x.png */; };
+		4D8C11D119C6328A00698F6D /* profile_settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D8C11CF19C6328A00698F6D /* profile_settings.png */; };
+		4D8C11D219C6328A00698F6D /* profile_settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D8C11D019C6328A00698F6D /* profile_settings@2x.png */; };
+		4D8C11D519C6347400698F6D /* add_user.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D8C11D319C6347400698F6D /* add_user.png */; };
+		4D8C11D619C6347400698F6D /* add_user@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D8C11D419C6347400698F6D /* add_user@2x.png */; };
+		4D8C11DA19C637B600698F6D /* IDCardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D8C11D919C637B600698F6D /* IDCardViewController.m */; };
+		4D8C11DF19C66A7700698F6D /* AddContactWithQRCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D8C11DE19C66A7700698F6D /* AddContactWithQRCodeViewController.m */; };
 		4D8C62DB19B6B00900F59CFF /* RegistrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D8C62DA19B6B00900F59CFF /* RegistrationViewController.m */; };
 		4D8C62DE19B6B7E900F59CFF /* UsernameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D8C62DD19B6B7E900F59CFF /* UsernameViewController.m */; };
 		4DD698AA19C4F27F00D9D65D /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD698A919C4F27F00D9D65D /* Reachability.m */; };
 		4DD698AC19C4F29700D9D65D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DD698AB19C4F29700D9D65D /* SystemConfiguration.framework */; };
 		4DD698B019C4FC6A00D9D65D /* WAULog.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD698AF19C4FC6A00D9D65D /* WAULog.m */; };
+		4DD698B919C5510C00D9D65D /* settings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DD698B719C5510C00D9D65D /* settings@2x.png */; };
+		4DD698BA19C5510C00D9D65D /* settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DD698B819C5510C00D9D65D /* settings.png */; };
+		4DD8863919C785B1003C7CE2 /* EntityController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD8863819C785B1003C7CE2 /* EntityController.m */; };
+		4DD8863C19C78EA7003C7CE2 /* UserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD8863B19C78EA7003C7CE2 /* UserController.m */; };
+		4DD8863F19C79981003C7CE2 /* ContactController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD8863E19C79981003C7CE2 /* ContactController.m */; };
+		4DEAF5A119C8767300CC1EC8 /* EncryptionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DEAF5A019C8767300CC1EC8 /* EncryptionController.m */; };
+		4DEAF5A519C87C0200CC1EC8 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DEAF5A419C87C0200CC1EC8 /* AVFoundation.framework */; };
+		4DEAF5B519C886BB00CC1EC8 /* RNCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DEAF5AD19C886BB00CC1EC8 /* RNCryptor.m */; };
+		4DEAF5B619C886BB00CC1EC8 /* RNCryptorEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DEAF5B019C886BB00CC1EC8 /* RNCryptorEngine.m */; };
+		4DEAF5B719C886BB00CC1EC8 /* RNDecryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DEAF5B219C886BB00CC1EC8 /* RNDecryptor.m */; };
+		4DEAF5B819C886BB00CC1EC8 /* RNEncryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DEAF5B419C886BB00CC1EC8 /* RNEncryptor.m */; };
+		4DEAF5BB19C8FAA200CC1EC8 /* Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DEAF5BA19C8FAA200CC1EC8 /* Internal.m */; };
+		4DEAF5BE19C933DC00CC1EC8 /* NotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DEAF5BD19C933DC00CC1EC8 /* NotificationController.m */; };
+		4DF6EAB819C9FD32001BC176 /* Reachability+SharedInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DF6EAB719C9FD32001BC176 /* Reachability+SharedInstance.m */; };
+		4DF6EABC19CA00DD001BC176 /* WAUServerConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DF6EABB19CA00DD001BC176 /* WAUServerConnector.m */; };
+		4DF6EAC219CA0A21001BC176 /* WAUServerConnectorRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DF6EAC119CA0A21001BC176 /* WAUServerConnectorRequest.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,8 +66,6 @@
 /* Begin PBXFileReference section */
 		4D48C66819BB984100D09FDA /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		4D48C66919BB984100D09FDA /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
-		4D48C66B19BB9E4300D09FDA /* UserController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserController.h; sourceTree = "<group>"; };
-		4D48C66C19BB9E4300D09FDA /* UserController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserController.m; sourceTree = "<group>"; };
 		4D48C67119BCC92800D09FDA /* UpdateUserColorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdateUserColorViewController.h; sourceTree = "<group>"; };
 		4D48C67219BCC92800D09FDA /* UpdateUserColorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateUserColorViewController.m; sourceTree = "<group>"; };
 		4D48C67419BCCDC300D09FDA /* UpdateUsernameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdateUsernameViewController.h; sourceTree = "<group>"; };
@@ -73,8 +93,16 @@
 		4D8267E019B3BA6E00076974 /* WheArUTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WheArUTests.m; sourceTree = "<group>"; };
 		4D8267EF19B3D29400076974 /* ContactListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactListViewController.h; sourceTree = "<group>"; };
 		4D8267F019B3D29400076974 /* ContactListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactListViewController.m; sourceTree = "<group>"; };
-		4D8267F419B403C300076974 /* HVTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HVTableView.h; sourceTree = "<group>"; };
-		4D8267F519B403C300076974 /* HVTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HVTableView.m; sourceTree = "<group>"; };
+		4D8C11CB19C6321800698F6D /* id_card.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = id_card.png; sourceTree = "<group>"; };
+		4D8C11CC19C6321800698F6D /* id_card@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "id_card@2x.png"; sourceTree = "<group>"; };
+		4D8C11CF19C6328A00698F6D /* profile_settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profile_settings.png; sourceTree = "<group>"; };
+		4D8C11D019C6328A00698F6D /* profile_settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "profile_settings@2x.png"; sourceTree = "<group>"; };
+		4D8C11D319C6347400698F6D /* add_user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = add_user.png; sourceTree = "<group>"; };
+		4D8C11D419C6347400698F6D /* add_user@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "add_user@2x.png"; sourceTree = "<group>"; };
+		4D8C11D819C637B600698F6D /* IDCardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDCardViewController.h; sourceTree = "<group>"; };
+		4D8C11D919C637B600698F6D /* IDCardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IDCardViewController.m; sourceTree = "<group>"; };
+		4D8C11DD19C66A7700698F6D /* AddContactWithQRCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddContactWithQRCodeViewController.h; sourceTree = "<group>"; };
+		4D8C11DE19C66A7700698F6D /* AddContactWithQRCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddContactWithQRCodeViewController.m; sourceTree = "<group>"; };
 		4D8C62D919B6B00900F59CFF /* RegistrationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegistrationViewController.h; sourceTree = "<group>"; };
 		4D8C62DA19B6B00900F59CFF /* RegistrationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegistrationViewController.m; sourceTree = "<group>"; };
 		4D8C62DC19B6B7E900F59CFF /* UsernameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsernameViewController.h; sourceTree = "<group>"; };
@@ -84,6 +112,37 @@
 		4DD698AB19C4F29700D9D65D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		4DD698AE19C4FC6A00D9D65D /* WAULog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WAULog.h; sourceTree = "<group>"; };
 		4DD698AF19C4FC6A00D9D65D /* WAULog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WAULog.m; sourceTree = "<group>"; };
+		4DD698B719C5510C00D9D65D /* settings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settings@2x.png"; sourceTree = "<group>"; };
+		4DD698B819C5510C00D9D65D /* settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settings.png; sourceTree = "<group>"; };
+		4DD8863719C785B1003C7CE2 /* EntityController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntityController.h; sourceTree = "<group>"; };
+		4DD8863819C785B1003C7CE2 /* EntityController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EntityController.m; sourceTree = "<group>"; };
+		4DD8863A19C78EA7003C7CE2 /* UserController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserController.h; sourceTree = "<group>"; };
+		4DD8863B19C78EA7003C7CE2 /* UserController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserController.m; sourceTree = "<group>"; };
+		4DD8863D19C79981003C7CE2 /* ContactController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactController.h; sourceTree = "<group>"; };
+		4DD8863E19C79981003C7CE2 /* ContactController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactController.m; sourceTree = "<group>"; };
+		4DEAF59F19C8767300CC1EC8 /* EncryptionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EncryptionController.h; sourceTree = "<group>"; };
+		4DEAF5A019C8767300CC1EC8 /* EncryptionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EncryptionController.m; sourceTree = "<group>"; };
+		4DEAF5A419C87C0200CC1EC8 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		4DEAF5AB19C886BB00CC1EC8 /* RNCryptor-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RNCryptor-Prefix.pch"; sourceTree = "<group>"; };
+		4DEAF5AC19C886BB00CC1EC8 /* RNCryptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNCryptor.h; sourceTree = "<group>"; };
+		4DEAF5AD19C886BB00CC1EC8 /* RNCryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNCryptor.m; sourceTree = "<group>"; };
+		4DEAF5AE19C886BB00CC1EC8 /* RNCryptor+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "RNCryptor+Private.h"; sourceTree = "<group>"; };
+		4DEAF5AF19C886BB00CC1EC8 /* RNCryptorEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNCryptorEngine.h; sourceTree = "<group>"; };
+		4DEAF5B019C886BB00CC1EC8 /* RNCryptorEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNCryptorEngine.m; sourceTree = "<group>"; };
+		4DEAF5B119C886BB00CC1EC8 /* RNDecryptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNDecryptor.h; sourceTree = "<group>"; };
+		4DEAF5B219C886BB00CC1EC8 /* RNDecryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNDecryptor.m; sourceTree = "<group>"; };
+		4DEAF5B319C886BB00CC1EC8 /* RNEncryptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNEncryptor.h; sourceTree = "<group>"; };
+		4DEAF5B419C886BB00CC1EC8 /* RNEncryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNEncryptor.m; sourceTree = "<group>"; };
+		4DEAF5B919C8FAA200CC1EC8 /* Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Internal.h; sourceTree = "<group>"; };
+		4DEAF5BA19C8FAA200CC1EC8 /* Internal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Internal.m; sourceTree = "<group>"; };
+		4DEAF5BC19C933DC00CC1EC8 /* NotificationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationController.h; sourceTree = "<group>"; };
+		4DEAF5BD19C933DC00CC1EC8 /* NotificationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationController.m; sourceTree = "<group>"; };
+		4DF6EAB619C9FD32001BC176 /* Reachability+SharedInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Reachability+SharedInstance.h"; sourceTree = "<group>"; };
+		4DF6EAB719C9FD32001BC176 /* Reachability+SharedInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Reachability+SharedInstance.m"; sourceTree = "<group>"; };
+		4DF6EABA19CA00DD001BC176 /* WAUServerConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WAUServerConnector.h; sourceTree = "<group>"; };
+		4DF6EABB19CA00DD001BC176 /* WAUServerConnector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WAUServerConnector.m; sourceTree = "<group>"; };
+		4DF6EAC019CA0A21001BC176 /* WAUServerConnectorRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WAUServerConnectorRequest.h; sourceTree = "<group>"; };
+		4DF6EAC119CA0A21001BC176 /* WAUServerConnectorRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WAUServerConnectorRequest.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +150,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DEAF5A519C87C0200CC1EC8 /* AVFoundation.framework in Frameworks */,
 				4DD698AC19C4F29700D9D65D /* SystemConfiguration.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -141,10 +201,18 @@
 		4D4C611519B4CFC3003AB18B /* BackEndControllers */ = {
 			isa = PBXGroup;
 			children = (
+				4DD8863D19C79981003C7CE2 /* ContactController.h */,
+				4DD8863E19C79981003C7CE2 /* ContactController.m */,
 				4D4C611619B4D01B003AB18B /* ContactListController.h */,
 				4D4C611719B4D01B003AB18B /* ContactListController.m */,
-				4D48C66B19BB9E4300D09FDA /* UserController.h */,
-				4D48C66C19BB9E4300D09FDA /* UserController.m */,
+				4DEAF59F19C8767300CC1EC8 /* EncryptionController.h */,
+				4DEAF5A019C8767300CC1EC8 /* EncryptionController.m */,
+				4DD8863719C785B1003C7CE2 /* EntityController.h */,
+				4DD8863819C785B1003C7CE2 /* EntityController.m */,
+				4DEAF5BC19C933DC00CC1EC8 /* NotificationController.h */,
+				4DEAF5BD19C933DC00CC1EC8 /* NotificationController.m */,
+				4DD8863A19C78EA7003C7CE2 /* UserController.h */,
+				4DD8863B19C78EA7003C7CE2 /* UserController.m */,
 			);
 			name = BackEndControllers;
 			sourceTree = "<group>";
@@ -154,6 +222,8 @@
 			children = (
 				4D4C612819B517C7003AB18B /* Contact.h */,
 				4D4C612919B517C7003AB18B /* Contact.m */,
+				4DEAF5B919C8FAA200CC1EC8 /* Internal.h */,
+				4DEAF5BA19C8FAA200CC1EC8 /* Internal.m */,
 				4D48C66819BB984100D09FDA /* User.h */,
 				4D48C66919BB984100D09FDA /* User.m */,
 			);
@@ -172,7 +242,8 @@
 		4D8267B819B3BA6E00076974 = {
 			isa = PBXGroup;
 			children = (
-				4DD698AD19C4F29B00D9D65D /* Framework */,
+				4DD698AD19C4F29B00D9D65D /* Frameworks */,
+				4DD698B219C54EC200D9D65D /* Images */,
 				4D8267C219B3BA6E00076974 /* Products */,
 				4D8267C319B3BA6E00076974 /* WheArU */,
 				4D8267DD19B3BA6E00076974 /* WheArUTests */,
@@ -234,6 +305,7 @@
 		4D8267EE19B3D26D00076974 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				4D8C11DC19C66A3B00698F6D /* AddContacts */,
 				4D4C611019B4CB82003AB18B /* ContactList */,
 				4D8267EF19B3D29400076974 /* ContactListViewController.h */,
 				4D8267F019B3D29400076974 /* ContactListViewController.m */,
@@ -246,7 +318,8 @@
 		4D8267F219B4036300076974 /* HelperClasses */ = {
 			isa = PBXGroup;
 			children = (
-				4D8267F319B4038900076974 /* HVTableView */,
+				4DF6EAB919CA007C001BC176 /* WAUServerConnector */,
+				4DEAF5AA19C886AA00CC1EC8 /* RNCryptor */,
 				4DD698A719C4F26800D9D65D /* Reachability */,
 				4D4C612B19B52CD7003AB18B /* UIColor+Hex */,
 				4DD698B119C4FC6E00D9D65D /* WAULog */,
@@ -254,13 +327,23 @@
 			name = HelperClasses;
 			sourceTree = "<group>";
 		};
-		4D8267F319B4038900076974 /* HVTableView */ = {
+		4D8C11D719C6377E00698F6D /* IDCard */ = {
 			isa = PBXGroup;
 			children = (
-				4D8267F419B403C300076974 /* HVTableView.h */,
-				4D8267F519B403C300076974 /* HVTableView.m */,
+				4D8C11D819C637B600698F6D /* IDCardViewController.h */,
+				4D8C11D919C637B600698F6D /* IDCardViewController.m */,
 			);
-			name = HVTableView;
+			name = IDCard;
+			sourceTree = "<group>";
+		};
+		4D8C11DC19C66A3B00698F6D /* AddContacts */ = {
+			isa = PBXGroup;
+			children = (
+				4D8C11D719C6377E00698F6D /* IDCard */,
+				4D8C11DD19C66A7700698F6D /* AddContactWithQRCodeViewController.h */,
+				4D8C11DE19C66A7700698F6D /* AddContactWithQRCodeViewController.m */,
+			);
+			name = AddContacts;
 			sourceTree = "<group>";
 		};
 		4DD698A719C4F26800D9D65D /* Reachability */ = {
@@ -268,16 +351,19 @@
 			children = (
 				4DD698A819C4F27F00D9D65D /* Reachability.h */,
 				4DD698A919C4F27F00D9D65D /* Reachability.m */,
+				4DF6EAB619C9FD32001BC176 /* Reachability+SharedInstance.h */,
+				4DF6EAB719C9FD32001BC176 /* Reachability+SharedInstance.m */,
 			);
 			name = Reachability;
 			sourceTree = "<group>";
 		};
-		4DD698AD19C4F29B00D9D65D /* Framework */ = {
+		4DD698AD19C4F29B00D9D65D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4DEAF5A419C87C0200CC1EC8 /* AVFoundation.framework */,
 				4DD698AB19C4F29700D9D65D /* SystemConfiguration.framework */,
 			);
-			name = Framework;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		4DD698B119C4FC6E00D9D65D /* WAULog */ = {
@@ -287,6 +373,49 @@
 				4DD698AF19C4FC6A00D9D65D /* WAULog.m */,
 			);
 			name = WAULog;
+			sourceTree = "<group>";
+		};
+		4DD698B219C54EC200D9D65D /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				4D8C11D319C6347400698F6D /* add_user.png */,
+				4D8C11D419C6347400698F6D /* add_user@2x.png */,
+				4D8C11CB19C6321800698F6D /* id_card.png */,
+				4D8C11CC19C6321800698F6D /* id_card@2x.png */,
+				4D8C11CF19C6328A00698F6D /* profile_settings.png */,
+				4D8C11D019C6328A00698F6D /* profile_settings@2x.png */,
+				4DD698B719C5510C00D9D65D /* settings@2x.png */,
+				4DD698B819C5510C00D9D65D /* settings.png */,
+			);
+			name = Images;
+			sourceTree = "<group>";
+		};
+		4DEAF5AA19C886AA00CC1EC8 /* RNCryptor */ = {
+			isa = PBXGroup;
+			children = (
+				4DEAF5AB19C886BB00CC1EC8 /* RNCryptor-Prefix.pch */,
+				4DEAF5AC19C886BB00CC1EC8 /* RNCryptor.h */,
+				4DEAF5AD19C886BB00CC1EC8 /* RNCryptor.m */,
+				4DEAF5AE19C886BB00CC1EC8 /* RNCryptor+Private.h */,
+				4DEAF5AF19C886BB00CC1EC8 /* RNCryptorEngine.h */,
+				4DEAF5B019C886BB00CC1EC8 /* RNCryptorEngine.m */,
+				4DEAF5B119C886BB00CC1EC8 /* RNDecryptor.h */,
+				4DEAF5B219C886BB00CC1EC8 /* RNDecryptor.m */,
+				4DEAF5B319C886BB00CC1EC8 /* RNEncryptor.h */,
+				4DEAF5B419C886BB00CC1EC8 /* RNEncryptor.m */,
+			);
+			name = RNCryptor;
+			sourceTree = "<group>";
+		};
+		4DF6EAB919CA007C001BC176 /* WAUServerConnector */ = {
+			isa = PBXGroup;
+			children = (
+				4DF6EABA19CA00DD001BC176 /* WAUServerConnector.h */,
+				4DF6EABB19CA00DD001BC176 /* WAUServerConnector.m */,
+				4DF6EAC019CA0A21001BC176 /* WAUServerConnectorRequest.h */,
+				4DF6EAC119CA0A21001BC176 /* WAUServerConnectorRequest.m */,
+			);
+			name = WAUServerConnector;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -375,8 +504,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DD698BA19C5510C00D9D65D /* settings.png in Resources */,
+				4D8C11D119C6328A00698F6D /* profile_settings.png in Resources */,
+				4D8C11D519C6347400698F6D /* add_user.png in Resources */,
+				4D8C11CE19C6321800698F6D /* id_card@2x.png in Resources */,
+				4D8C11CD19C6321800698F6D /* id_card.png in Resources */,
 				4D8267D319B3BA6E00076974 /* Main.storyboard in Resources */,
+				4D8C11D219C6328A00698F6D /* profile_settings@2x.png in Resources */,
+				4DD698B919C5510C00D9D65D /* settings@2x.png in Resources */,
 				4D8267D519B3BA6E00076974 /* Images.xcassets in Resources */,
+				4D8C11D619C6347400698F6D /* add_user@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -394,23 +531,36 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DEAF5A119C8767300CC1EC8 /* EncryptionController.m in Sources */,
 				4D4C612A19B517C7003AB18B /* Contact.m in Sources */,
+				4DEAF5BE19C933DC00CC1EC8 /* NotificationController.m in Sources */,
+				4DD8863C19C78EA7003C7CE2 /* UserController.m in Sources */,
 				4D4C611319B4CBAE003AB18B /* ContactListTableViewCell.m in Sources */,
 				4D8267F119B3D29400076974 /* ContactListViewController.m in Sources */,
 				4D48C67A19BCD1EF00D09FDA /* UpdateUserIconViewController.m in Sources */,
+				4DF6EAB819C9FD32001BC176 /* Reachability+SharedInstance.m in Sources */,
+				4DEAF5B819C886BB00CC1EC8 /* RNEncryptor.m in Sources */,
+				4DEAF5B519C886BB00CC1EC8 /* RNCryptor.m in Sources */,
 				4DD698B019C4FC6A00D9D65D /* WAULog.m in Sources */,
 				4D8267CA19B3BA6E00076974 /* AppDelegate.m in Sources */,
+				4DEAF5B719C886BB00CC1EC8 /* RNDecryptor.m in Sources */,
 				4D48C67619BCCDC300D09FDA /* UpdateUsernameViewController.m in Sources */,
-				4D48C66D19BB9E4300D09FDA /* UserController.m in Sources */,
+				4DD8863F19C79981003C7CE2 /* ContactController.m in Sources */,
+				4D8C11DA19C637B600698F6D /* IDCardViewController.m in Sources */,
 				4D4C613119B52D41003AB18B /* UIColor+Hex.m in Sources */,
 				4D8267C719B3BA6E00076974 /* main.m in Sources */,
-				4D8267F619B403C300076974 /* HVTableView.m in Sources */,
+				4DF6EABC19CA00DD001BC176 /* WAUServerConnector.m in Sources */,
+				4DD8863919C785B1003C7CE2 /* EntityController.m in Sources */,
+				4DF6EAC219CA0A21001BC176 /* WAUServerConnectorRequest.m in Sources */,
 				4D8C62DE19B6B7E900F59CFF /* UsernameViewController.m in Sources */,
+				4D8C11DF19C66A7700698F6D /* AddContactWithQRCodeViewController.m in Sources */,
 				4D48C66A19BB984100D09FDA /* User.m in Sources */,
 				4D48C67319BCC92800D09FDA /* UpdateUserColorViewController.m in Sources */,
 				4D8C62DB19B6B00900F59CFF /* RegistrationViewController.m in Sources */,
 				4D4C611819B4D01B003AB18B /* ContactListController.m in Sources */,
+				4DEAF5B619C886BB00CC1EC8 /* RNCryptorEngine.m in Sources */,
 				4D8267CD19B3BA6E00076974 /* WheArU.xcdatamodeld in Sources */,
+				4DEAF5BB19C8FAA200CC1EC8 /* Internal.m in Sources */,
 				4DD698AA19C4F27F00D9D65D /* Reachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -534,6 +684,10 @@
 				INFOPLIST_FILE = WheArU/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/usr/lib/system",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "WheArU/WheArU-Bridging-Header.h";
@@ -552,6 +706,10 @@
 				INFOPLIST_FILE = WheArU/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(SDKROOT)/usr/lib/system",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "WheArU/WheArU-Bridging-Header.h";

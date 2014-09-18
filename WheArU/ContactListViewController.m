@@ -11,9 +11,7 @@
 #import "ContactListTableViewCell.h"
 #import "RegistrationViewController.h"
 #import "UpdateUserColorViewController.h"
-
-#import "ContactListController.h"
-#import "UserController.h"
+#import "AddContactWithQRCodeViewController.h"
 
 
 @interface ContactListViewController ()
@@ -22,7 +20,7 @@
 
 @implementation ContactListViewController
 {
-    IBOutlet HVTableView *contactListTableView;
+    IBOutlet UITableView *contactListTableView;
     
     IBOutlet UIImageView *currentUserIcon;
     IBOutlet UILabel *currentUserLabel;
@@ -30,13 +28,15 @@
     
     IBOutlet UILabel *currentUserPingLabel;
     
+    IBOutlet UIScrollView *buttonsScrollView;
+    IBOutlet UIButton *profileSettingsButton;
+    IBOutlet UIButton *addContactButton;
+    
     ContactListController *contactListController;
     UserController *userController;
     
     BOOL isNotificationRegistered;
 }
-
-
 
 - (void)viewDidLoad
 {
@@ -44,23 +44,26 @@
     
     isNotificationRegistered = NO;
     
-    [contactListTableView setHVTableViewDelegate:self];
-    [contactListTableView setHVTableViewDataSource:self];
-    
-    contactListController = [[ContactListController alloc] init];
-    userController = [[UserController alloc] init];
+    contactListController = [ContactListController sharedInstance];
+    [contactListController addDelegate:self];
+    userController = [UserController sharedInstance];
     [userController addDelegate:self];
     
     CAShapeLayer *circle = [CAShapeLayer layer];
-    UIBezierPath *circularPath=[UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, [currentUserIcon frame].size.width, [currentUserIcon frame].size.height) cornerRadius:MAX([currentUserIcon frame].size.width, [currentUserIcon frame].size.height)];
+    UIBezierPath *circularPath=[UIBezierPath bezierPathWithRoundedRect:CGRectMake(0.f, 0.f, [currentUserIcon frame].size.width, [currentUserIcon frame].size.height) cornerRadius:MAX([currentUserIcon frame].size.width, [currentUserIcon frame].size.height)];
     [circle setPath:[circularPath CGPath]];
     [[currentUserIcon layer] setMask:circle];
+    
+    [profileSettingsButton setImage:[[[profileSettingsButton imageView] image] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
+    [addContactButton setImage:[[[addContactButton imageView] image] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
     
     [((AppDelegate *) [[UIApplication sharedApplication] delegate]) setNotificationDelegate:self];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
+    
     if (![userController isUserRegistered]) return;
     
     [currentUserLabel setText:[userController username]];
@@ -73,10 +76,17 @@
     [currentUserPingLabel setTextColor:[userController wordColor]];
     [currentUserLabel setTextColor:[userController wordColor]];
     [currentUserFetchCount setTextColor:[userController wordColor]];
+    
+    [profileSettingsButton setTintColor:[userController wordColor]];
+    [addContactButton setTintColor:[userController wordColor]];
+    
+    [buttonsScrollView scrollRectToVisible:CGRectMake(0.f, 0.f, 1.f, 1.f) animated:YES];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
+    [super viewDidAppear:animated];
+    
     if (![userController isUserRegistered]) {
         [self performSegueWithIdentifier:@"RegisterUserSegue" sender:self];
         return;
@@ -90,31 +100,15 @@
     }
 }
 
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
-    if ([[segue identifier] isEqualToString:@"RegisterUserSegue"]) {
-        RegistrationViewController *registerViewController = (RegistrationViewController *) [((UINavigationController *) [segue destinationViewController]) topViewController];
-        [registerViewController setUserController:userController];
-    }
-    else if ([[segue identifier] isEqualToString:@"UpdateUserSegue"]) {
-        UpdateUserColorViewController *updateUserColorViewController = (UpdateUserColorViewController *) [((UINavigationController *) [segue destinationViewController]) topViewController];
-        [updateUserColorViewController setUserController:userController];
-    }
-}
-
-#pragma mark - Controls
-#pragma mark Long Press
-
-- (IBAction)userDidLongPressOnUserInfo:(UILongPressGestureRecognizer *)sender
-{
-    if ([sender state] != UIGestureRecognizerStateBegan) return;
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
     
-    [self performSegueWithIdentifier:@"UpdateUserSegue" sender:self];
+    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context)
+     {
+         [buttonsScrollView scrollRectToVisible:CGRectMake(0.f, 0.f, 1.f, 1.f) animated:YES];
+     } completion:nil];
 }
-
-#pragma mark - Functions
-#pragma mark Support
-
 
 #pragma mark - Delegates
 #pragma mark UserControllerDelegate
@@ -138,7 +132,15 @@
     [currentUserFetchCount setTextColor:[userController wordColor]];
 }
 
-#pragma mark HVTableViewDataSource
+#pragma mark ContactListControllerDelegate
+
+- (void)newItemAddedToList:(ContactListController *)controller
+{
+    NSIndexSet *sections = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 1)];
+    [contactListTableView reloadSections:sections withRowAnimation:UITableViewRowAnimationFade];
+}
+
+#pragma mark UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -157,7 +159,7 @@
     return count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath isExpanded:(BOOL)isExpanded
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ContactListTableViewCell *cell = (ContactListTableViewCell *) [tableView dequeueReusableCellWithIdentifier:@"ContactCell"];
     
@@ -172,29 +174,11 @@
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView collapseCell: (UITableViewCell*)cell withIndexPath:(NSIndexPath*) indexPath
-{
-    
-}
-
-- (void)tableView:(UITableView *)tableView expandCell: (UITableViewCell*)cell withIndexPath:(NSIndexPath*) indexPath
-{
-    
-}
-
-#pragma mark HVTableViewDelegate
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath isExpanded:(BOOL)isExpanded
-{
-    return 100.f;
-}
-
 #pragma mark NotificationRegisteredDelegate
 
 - (void)didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
     [userController setNotificationKey:deviceToken];
-    NSLog(@"%@", [userController JSONDescription]);
 }
 
 - (void)didFailToRegisterForRemoteNotificationsWithError:(NSError *)error

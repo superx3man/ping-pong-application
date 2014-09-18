@@ -31,6 +31,8 @@ typedef NS_ENUM(NSInteger, WAUUpdateUserIconState)
 {
     IBOutlet UILabel *questionLabel;
     IBOutlet UIButton *submitButton;
+    IBOutlet UIButton *modifiedSubmitButton;
+    IBOutlet UIButton *modifiedCancelButton;
     
     IBOutlet UIImageView *currentPictureImageView;
     IBOutlet UIView *cameraView;
@@ -55,16 +57,23 @@ typedef NS_ENUM(NSInteger, WAUUpdateUserIconState)
     currentState = WAUUpdateUserIconStateInitial;
     imageModified = NO;
     
-    [[self view] setBackgroundColor:[[self userController] userColor]];
-    [questionLabel setTextColor:[[self userController] wordColor]];
-    [submitButton setTitleColor:[[self userController] wordColor] forState:UIControlStateNormal];
-    [submitButton setTitleColor:[[self userController] wordColor] forState:UIControlStateHighlighted];
-    [submitButton setTitleColor:[[self userController] wordColor] forState:UIControlStateSelected];
+    [[self view] setBackgroundColor:[[UserController sharedInstance] userColor]];
+    [questionLabel setTextColor:[[UserController sharedInstance] wordColor]];
+    [submitButton setTitleColor:[[UserController sharedInstance] wordColor] forState:UIControlStateNormal];
+    [submitButton setTitleColor:[[UserController sharedInstance] wordColor] forState:UIControlStateHighlighted];
+    [submitButton setTitleColor:[[UserController sharedInstance] wordColor] forState:UIControlStateSelected];
     
-    [[currentPictureImageView layer] setBorderColor:[[[self userController] wordColor] CGColor]];
+    [modifiedSubmitButton setTitleColor:[[UserController sharedInstance] wordColor] forState:UIControlStateNormal];
+    [modifiedSubmitButton setTitleColor:[[UserController sharedInstance] wordColor] forState:UIControlStateHighlighted];
+    [modifiedSubmitButton setTitleColor:[[UserController sharedInstance] wordColor] forState:UIControlStateSelected];
+    [modifiedCancelButton setTitleColor:[[UserController sharedInstance] wordColor] forState:UIControlStateNormal];
+    [modifiedCancelButton setTitleColor:[[UserController sharedInstance] wordColor] forState:UIControlStateHighlighted];
+    [modifiedCancelButton setTitleColor:[[UserController sharedInstance] wordColor] forState:UIControlStateSelected];
+    
+    [[currentPictureImageView layer] setBorderColor:[[[UserController sharedInstance] wordColor] CGColor]];
     [[currentPictureImageView layer] setBorderWidth:0.5f];
     
-    if ([[self userController] userIcon] != nil) [currentPictureImageView setImage:[[self userController] userIcon]];
+    if ([[UserController sharedInstance] userIcon] != nil) [currentPictureImageView setImage:[[UserController sharedInstance] userIcon]];
     
     for (AVCaptureDevice *videoDevice in [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo]) {
         NSError *error = nil;
@@ -88,8 +97,15 @@ typedef NS_ENUM(NSInteger, WAUUpdateUserIconState)
     [captureSession addOutput:deviceOutput];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self setButtonsHiddenForState];
+}
+
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
 {
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    
     [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context)
      {
          [self setCameraOrientation];
@@ -98,6 +114,20 @@ typedef NS_ENUM(NSInteger, WAUUpdateUserIconState)
 
 #pragma mark - Functions
 #pragma mark Support
+
+- (void)setButtonsHiddenForState
+{
+    if (!imageModified) {
+        [submitButton setHidden:NO];
+        [modifiedSubmitButton setHidden:YES];
+        [modifiedCancelButton setHidden:YES];
+    }
+    else {
+        [submitButton setHidden:YES];
+        [modifiedSubmitButton setHidden:NO];
+        [modifiedCancelButton setHidden:NO];
+    }
+}
 
 - (AVCaptureVideoOrientation)setCameraOrientation
 {
@@ -169,8 +199,6 @@ typedef NS_ENUM(NSInteger, WAUUpdateUserIconState)
 - (IBAction)didTapOnSubmit:(id)sender
 {
     if (currentState == WAUUpdateUserIconStateInitial) {
-        if (imageModified) [[self userController] setUserIcon:[currentPictureImageView image]];
-        
         [self dismissViewControllerAnimated:YES completion:nil];
     }
     else if (currentState == WAUUpdateUserIconStateCapturingVideo) {
@@ -222,15 +250,22 @@ typedef NS_ENUM(NSInteger, WAUUpdateUserIconState)
              }
              [cameraView setHidden:YES];
              
-             NSString *newButtonTitle = @"I look awesome now!";
-             [submitButton setTitle:newButtonTitle forState:UIControlStateNormal];
-             [submitButton setTitle:newButtonTitle forState:UIControlStateHighlighted];
-             [submitButton setTitle:newButtonTitle forState:UIControlStateSelected];
-             
              imageModified = YES;
              currentState = WAUUpdateUserIconStateInitial;
+             [self setButtonsHiddenForState];
          }];
     }
+}
+
+- (IBAction)didTapOnModifiedSubmit:(id)sender
+{
+    [[UserController sharedInstance] setUserIcon:[currentPictureImageView image]];
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)didTapOnModifiedCancel:(id)sender
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

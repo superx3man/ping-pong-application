@@ -8,10 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-#import "Contact.h"
+#import "ContactController.h"
 
-@interface ContactListTableViewCell : UITableViewCell
 
-@property (nonatomic, strong) Contact *contact;
+extern float const kWAUContactListUpdateAnimationDuration;
+
+@interface ContactListTableViewCell : UITableViewCell <ContactControllerDelegate>
+
+@property (nonatomic, strong) ContactController *contactController;
+
+- (void)setContact:(ContactController *)contactController;
 
 @end

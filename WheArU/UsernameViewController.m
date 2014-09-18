@@ -9,6 +9,8 @@
 #import "UsernameViewController.h"
 
 #import "AppDelegate.h"
+#import "UserController.h"
+
 
 @interface UsernameViewController ()
 
@@ -46,9 +48,9 @@
 
 - (void)saveUser
 {
-    [[self userController] createUser];
-    [[self userController] setUsername:[usernameTextView text]];
-    [[self userController] setUserColor:[self userColor]];
+    [[UserController sharedInstance] createUser];
+    [[UserController sharedInstance] setUsername:[usernameTextView text]];
+    [[UserController sharedInstance] setUserColor:[self userColor]];
 }
 
 #pragma mark - Delegates

@@ -8,11 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-#import "UserController.h"
 
 @interface UsernameViewController : UIViewController <UITextViewDelegate>
-
-@property (nonatomic, strong) UserController *userController;
 
 @property (nonatomic, strong) UIColor *userColor;
 

@@ -8,7 +8,10 @@
 
 #import "AppDelegate.h"
 
-#import "Contact.h"
+#import "ContactListController.h"
+#import "UserController.h"
+#import "EncryptionController.h"
+#import "NotificationController.h"
 
 
 NSString *const kWAUAppRemoteHost = @"pingpong.calvinx3.com";
@@ -18,10 +21,25 @@ NSString *const kWAUAppRemoteHost = @"pingpong.calvinx3.com";
 @end
 
 @implementation AppDelegate
-            
+{
+    ContactListController *contactListController;
+    UserController *userController;
+    
+    EncryptionController *encryptionController;
+    NotificationController *notificationController;
+}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    contactListController = [ContactListController sharedInstance];
+    userController = [UserController sharedInstance];
+    
+    encryptionController = [EncryptionController sharedInstance];
+    notificationController = [NotificationController sharedInstance];
+    
+    [encryptionController addDelegate:notificationController];
+    [userController addDelegate:encryptionController];
+    
     return YES;
 }
 

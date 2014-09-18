@@ -10,8 +10,7 @@
 
 #import "UserController.h"
 
-@interface UpdateUserColorViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate>
 
-@property (nonatomic, strong) UserController *userController;
+@interface UpdateUserColorViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate>
 
 @end

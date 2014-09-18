@@ -10,6 +10,9 @@
 
 #import "UpdateUserIconViewController.h"
 
+#import "UserController.h"
+
+
 @interface UpdateUsernameViewController ()
 
 @end
@@ -24,18 +27,12 @@
 {
     [super viewDidLoad];
     
-    [[self view] setBackgroundColor:[[self userController] userColor]];
-    [questionLabel setTextColor:[[self userController] wordColor]];
-    [usernameTextView setTextColor:[[self userController] wordColor]];
+    [[self view] setBackgroundColor:[[UserController sharedInstance] userColor]];
+    [questionLabel setTextColor:[[UserController sharedInstance] wordColor]];
+    [usernameTextView setTextColor:[[UserController sharedInstance] wordColor]];
     
-    [usernameTextView setText:[[self userController] username]];
+    [usernameTextView setText:[[UserController sharedInstance] username]];
     [usernameTextView becomeFirstResponder];
-}
-
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    UpdateUserIconViewController *userIconViewController = [segue destinationViewController];
-    [userIconViewController setUserController:[self userController]];
 }
 
 #pragma mark - Delegates
@@ -47,7 +44,7 @@
     if ([text isEqual:@"\n"] && [[textView text] length] == 0) return NO;
     
     [textView resignFirstResponder];
-    if (![[textView text] isEqualToString:[[self userController] username]]) [[self userController] setUsername:[textView text]];
+    if (![[textView text] isEqualToString:[[UserController sharedInstance] username]]) [[UserController sharedInstance] setUsername:[textView text]];
     
     [self performSegueWithIdentifier:@"UsernameSetSegue" sender:self];
     

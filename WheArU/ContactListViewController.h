@@ -8,11 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-#import "HVTableView.h"
-
-#import "UserController.h"
 #import "AppDelegate.h"
+#import "ContactListController.h"
+#import "UserController.h"
 
-@interface ContactListViewController : UIViewController <UserControllerDelegate, HVTableViewDelegate, HVTableViewDataSource, NotificationRegisteredDelegate>
+@interface ContactListViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UserControllerDelegate, ContactListControllerDelegate, NotificationRegisteredDelegate>
 
 @end

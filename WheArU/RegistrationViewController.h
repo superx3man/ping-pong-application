@@ -8,10 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import "UserController.h"
 
 @interface RegistrationViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate>
-
-@property (nonatomic, strong) UserController *userController;
 
 @end

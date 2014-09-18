@@ -10,7 +10,10 @@
 
 #import "UsernameViewController.h"
 
+#import "UserController.h"
+
 #import "UIColor+Hex.h"
+
 
 @interface RegistrationViewController ()
 
@@ -32,11 +35,11 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    UsernameViewController *usernameViewController = [segue destinationViewController];
-    [usernameViewController setUserController:[self userController]];
-    
-    NSInteger selectedIndex = [[[colorCollectionView indexPathsForSelectedItems] objectAtIndex:0] row];
-    [usernameViewController setUserColor:[colorList objectAtIndex:selectedIndex]];
+    if ([[segue identifier] isEqualToString:@"ColorPickSegue"]) {
+        UsernameViewController *usernameViewController = [segue destinationViewController];
+        NSInteger selectedIndex = [[[colorCollectionView indexPathsForSelectedItems] objectAtIndex:0] row];
+        [usernameViewController setUserColor:[colorList objectAtIndex:selectedIndex]];
+    }
 }
 
 #pragma mark - Delegates

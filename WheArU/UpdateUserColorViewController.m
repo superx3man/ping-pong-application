@@ -10,6 +10,9 @@
 
 #import "UpdateUsernameViewController.h"
 
+#import "UserController.h"
+
+
 @interface UpdateUserColorViewController ()
 
 @end
@@ -27,21 +30,18 @@
     [super viewDidLoad];
     
     colorList = [UserController availableUserColor];
-    [keepOriginalButton setBackgroundColor:[[self userController] userColor]];
-    [keepOriginalButton setTitleColor:[[self userController] wordColor] forState:UIControlStateNormal];
-    [keepOriginalButton setTitleColor:[[self userController] wordColor] forState:UIControlStateHighlighted];
-    [keepOriginalButton setTitleColor:[[self userController] wordColor] forState:UIControlStateSelected];
+    [keepOriginalButton setBackgroundColor:[[UserController sharedInstance] userColor]];
+    [keepOriginalButton setTitleColor:[[UserController sharedInstance] wordColor] forState:UIControlStateNormal];
+    [keepOriginalButton setTitleColor:[[UserController sharedInstance] wordColor] forState:UIControlStateHighlighted];
+    [keepOriginalButton setTitleColor:[[UserController sharedInstance] wordColor] forState:UIControlStateSelected];
 }
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    UpdateUsernameViewController *usernameViewController = [segue destinationViewController];
-    [usernameViewController setUserController:[self userController]];
-    
     if ([[segue identifier] isEqualToString:@"ColorPickSegue"]) {
         NSInteger selectedIndex = [[[colorCollectionView indexPathsForSelectedItems] objectAtIndex:0] row];
         UIColor *selectedColor = [colorList objectAtIndex:selectedIndex];
-        if (![selectedColor isEqual:[[self userController] userColor]]) [[self userController] setUserColor:selectedColor];
+        if (![selectedColor isEqual:[[UserController sharedInstance] userColor]]) [[UserController sharedInstance] setUserColor:selectedColor];
     }
 }
 

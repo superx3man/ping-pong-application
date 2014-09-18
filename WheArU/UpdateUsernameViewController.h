@@ -8,10 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import "UserController.h"
 
 @interface UpdateUsernameViewController : UIViewController <UITextViewDelegate>
-
-@property (nonatomic, strong) UserController *userController;
 
 @end
