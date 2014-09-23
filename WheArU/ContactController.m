@@ -88,12 +88,12 @@
 
 - (void)addDelegate:(id<ContactControllerDelegate>)delegate;
 {
-    [delegateList addObject:delegate];
+    [delegateList addObject:[NSValue valueWithNonretainedObject:delegate]];
 }
 
 - (void)removeDelegate:(id<ContactControllerDelegate>)delegate
 {
-    [delegateList removeObject:delegate];
+    [delegateList removeObject:[NSValue valueWithNonretainedObject:delegate]];
 }
 
 - (void)validateContactVersion:(int)version

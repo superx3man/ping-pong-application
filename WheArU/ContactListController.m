@@ -80,7 +80,7 @@
 
 - (void)addDelegate:(id<ContactListControllerDelegate>)delegate
 {
-    [delegateList addObject:delegate];
+    [delegateList addObject:[NSValue valueWithNonretainedObject:delegate]];
 }
 
 - (ContactController *)createContactWithJSONDescription:(NSString *)encryptedJsonString

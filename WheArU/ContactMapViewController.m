@@ -12,6 +12,7 @@
 #import "ContactMapAnnotationView.h"
 
 #import "MKCircle+ContactController.h"
+#import "MKMapView+SharedInstance.h"
 #import "WAUConstant.h"
 
 
@@ -27,7 +28,8 @@
     IBOutlet UILabel *userLastUpdatedLabel;
     IBOutlet UILabel *userLastUpdatedDescriptionLabel;
     
-    IBOutlet MKMapView *contactMapView;
+    IBOutlet UIView *mapContainerView;
+    MKMapView *contactMapView;
     
     NSMutableDictionary *annotationDictionary;
     BOOL isMapViewFirstAppeared;
@@ -45,12 +47,17 @@
     annotationDictionary = [[NSMutableDictionary alloc] init];
     isMapViewFirstAppeared = YES;
     
-    [contactMapView setDelegate:self];
+    contactMapView = [MKMapView sharedInstance];
+    [contactMapView setTranslatesAutoresizingMaskIntoConstraints:NO];
+    [mapContainerView addSubview:contactMapView];
+    [mapContainerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[contactMapView]|" options:kNilOptions metrics:nil views:NSDictionaryOfVariableBindings(contactMapView)]];
+    [mapContainerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[contactMapView]|" options:kNilOptions metrics:nil views:NSDictionaryOfVariableBindings(contactMapView)]];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [[self contactController] addDelegate:self];
+    [contactMapView setDelegate:self];
     
     [usernameLabel setText:[[self contactController] username]];
     [[self view] setBackgroundColor:[[self contactController] userColor]];
@@ -65,11 +72,23 @@
     
     [self createAnnotationForContactController:[self contactController]];
     [self zoomToFitMapAnnotations:contactMapView withCurrentLocation:NO];
+    
+    [contactMapView setShowsUserLocation:YES];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
 {
+    [contactMapView setShowsUserLocation:NO];
+    
     [[self contactController] removeDelegate:self];
+    [contactMapView setDelegate:nil];
+    
+    for (NSString *userId in annotationDictionary) {
+        NSArray *annotationInfo = [annotationDictionary objectForKey:userId];
+        [contactMapView removeAnnotation:[annotationInfo objectAtIndex:0]];
+        [contactMapView removeOverlay:[annotationInfo objectAtIndex:1]];
+    }
+    [annotationDictionary removeAllObjects];
 }
 
 #pragma mark - Controls

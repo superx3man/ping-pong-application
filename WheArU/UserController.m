@@ -141,7 +141,7 @@
 
 - (void)addDelegate:(id<UserControllerDelegate>)delegate
 {
-    [delegateList addObject:delegate];
+    [delegateList addObject:[NSValue valueWithNonretainedObject:delegate]];
     
     if ([self userId] != nil && [delegate respondsToSelector:@selector(controllerDidSetUserId:)]) [delegate controllerDidSetUserId:self];
 }

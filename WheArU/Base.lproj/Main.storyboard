@@ -700,10 +700,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" pitchEnabled="NO" showsUserLocation="YES" showsBuildings="NO" showsPointsOfInterest="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X8f-NX-hYd">
-                                <rect key="frame" x="16" y="120" width="584" height="480"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            </mapView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UMk-o6-wVG">
                                 <rect key="frame" x="0.0" y="20" width="600" height="100"/>
                                 <subviews>
@@ -791,28 +787,34 @@
                                 <rect key="frame" x="0.0" y="120" width="16" height="480"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="16" id="0AB-d4-ZNy"/>
+                                </constraints>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="O4e-qA-qdo" appends="YES" id="sWx-Y1-vF6"/>
                                 </connections>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7c1-EZ-jnf">
+                                <rect key="frame" x="16" y="120" width="584" height="480"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="deviceRGB"/>
                         <constraints>
-                            <constraint firstItem="X8f-NX-hYd" firstAttribute="top" secondItem="UMk-o6-wVG" secondAttribute="bottom" id="0JN-21-e4g"/>
                             <constraint firstItem="L7z-d5-RQ2" firstAttribute="leading" secondItem="DkJ-aK-UQq" secondAttribute="leading" id="0rj-sh-ppi"/>
-                            <constraint firstItem="X8f-NX-hYd" firstAttribute="leading" secondItem="L7z-d5-RQ2" secondAttribute="trailing" id="1PI-NJ-LJg"/>
+                            <constraint firstItem="7c1-EZ-jnf" firstAttribute="leading" secondItem="L7z-d5-RQ2" secondAttribute="trailing" id="3KM-Gp-6Dy"/>
                             <constraint firstAttribute="trailing" secondItem="UMk-o6-wVG" secondAttribute="trailing" id="91Q-nH-TT4"/>
                             <constraint firstItem="JNa-f2-qol" firstAttribute="top" secondItem="L7z-d5-RQ2" secondAttribute="bottom" id="Au1-Tw-323"/>
                             <constraint firstItem="UMk-o6-wVG" firstAttribute="leading" secondItem="DkJ-aK-UQq" secondAttribute="leading" id="BME-Ys-k3C"/>
-                            <constraint firstItem="X8f-NX-hYd" firstAttribute="leading" secondItem="DkJ-aK-UQq" secondAttribute="leading" constant="16" id="M2W-AT-yqS"/>
-                            <constraint firstItem="JNa-f2-qol" firstAttribute="top" secondItem="X8f-NX-hYd" secondAttribute="bottom" id="S2w-UU-eR1"/>
+                            <constraint firstAttribute="trailing" secondItem="7c1-EZ-jnf" secondAttribute="trailing" id="NIw-gP-xwf"/>
+                            <constraint firstItem="JNa-f2-qol" firstAttribute="top" secondItem="7c1-EZ-jnf" secondAttribute="bottom" id="cuE-hh-H02"/>
+                            <constraint firstItem="7c1-EZ-jnf" firstAttribute="top" secondItem="UMk-o6-wVG" secondAttribute="bottom" id="y4A-AH-jXF"/>
                             <constraint firstItem="L7z-d5-RQ2" firstAttribute="top" secondItem="UMk-o6-wVG" secondAttribute="bottom" id="yDq-58-h6g"/>
                             <constraint firstItem="UMk-o6-wVG" firstAttribute="top" secondItem="3AK-Rk-gP0" secondAttribute="bottom" id="ySb-XB-f7u"/>
-                            <constraint firstAttribute="trailing" secondItem="X8f-NX-hYd" secondAttribute="trailing" id="zQl-7f-ehD"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="contactMapView" destination="X8f-NX-hYd" id="RIT-jE-Wds"/>
+                        <outlet property="mapContainerView" destination="7c1-EZ-jnf" id="Aul-6g-8AC"/>
                         <outlet property="userIconImageView" destination="8Fs-PL-qF7" id="XGX-9h-Bv7"/>
                         <outlet property="userLastUpdatedDescriptionLabel" destination="DUh-ty-u8I" id="qHi-BI-36t"/>
                         <outlet property="userLastUpdatedLabel" destination="a1E-pB-OEn" id="QgH-Cs-kYk"/>

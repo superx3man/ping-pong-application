@@ -10,6 +10,7 @@
 		4D09BF7C19D0C2360009D0CF /* ContactMapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D09BF7B19D0C2360009D0CF /* ContactMapAnnotation.m */; };
 		4D09BF7F19D0CD840009D0CF /* ContactMapAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D09BF7E19D0CD840009D0CF /* ContactMapAnnotationView.m */; };
 		4D09BF9019D1254D0009D0CF /* MKCircle+ContactController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D09BF8F19D1254D0009D0CF /* MKCircle+ContactController.m */; };
+		4D1A983D19D2007C0017CC7D /* MKMapView+SharedInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D1A983C19D2007C0017CC7D /* MKMapView+SharedInstance.m */; };
 		4D44828019CB949E007E3220 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D44827F19CB949E007E3220 /* Security.framework */; };
 		4D44828A19CBC133007E3220 /* NSData+Conversion.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D44828919CBC133007E3220 /* NSData+Conversion.m */; };
 		4D48C66A19BB984100D09FDA /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D48C66919BB984100D09FDA /* User.m */; };
@@ -84,6 +85,8 @@
 		4D09BF7E19D0CD840009D0CF /* ContactMapAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactMapAnnotationView.m; sourceTree = "<group>"; };
 		4D09BF8E19D1254D0009D0CF /* MKCircle+ContactController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKCircle+ContactController.h"; sourceTree = "<group>"; };
 		4D09BF8F19D1254D0009D0CF /* MKCircle+ContactController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKCircle+ContactController.m"; sourceTree = "<group>"; };
+		4D1A983B19D2007C0017CC7D /* MKMapView+SharedInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKMapView+SharedInstance.h"; sourceTree = "<group>"; };
+		4D1A983C19D2007C0017CC7D /* MKMapView+SharedInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKMapView+SharedInstance.m"; sourceTree = "<group>"; };
 		4D44827F19CB949E007E3220 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		4D44828819CBC133007E3220 /* NSData+Conversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Conversion.h"; sourceTree = "<group>"; };
 		4D44828919CBC133007E3220 /* NSData+Conversion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Conversion.m"; sourceTree = "<group>"; };
@@ -226,6 +229,15 @@
 			name = "MKCircle+ContactController";
 			sourceTree = "<group>";
 		};
+		4D1A983A19D200650017CC7D /* MKMapView+SharedInstance */ = {
+			isa = PBXGroup;
+			children = (
+				4D1A983B19D2007C0017CC7D /* MKMapView+SharedInstance.h */,
+				4D1A983C19D2007C0017CC7D /* MKMapView+SharedInstance.m */,
+			);
+			name = "MKMapView+SharedInstance";
+			sourceTree = "<group>";
+		};
 		4D44828719CBC119007E3220 /* NSData+HexConversion */ = {
 			isa = PBXGroup;
 			children = (
@@ -283,7 +295,6 @@
 				4DD8863819C785B1003C7CE2 /* EntityController.m */,
 				4DD3F54E19CB433000A77C1C /* LocationController.h */,
 				4DD3F54F19CB433000A77C1C /* LocationController.m */,
-				4DD3F54919CB2FA100A77C1C /* Notification */,
 				4DEAF5BC19C933DC00CC1EC8 /* NotificationController.h */,
 				4DEAF5BD19C933DC00CC1EC8 /* NotificationController.m */,
 				4DD8863A19C78EA7003C7CE2 /* UserController.h */,
@@ -402,6 +413,7 @@
 		4D8267F219B4036300076974 /* HelperClasses */ = {
 			isa = PBXGroup;
 			children = (
+				4D1A983A19D200650017CC7D /* MKMapView+SharedInstance */,
 				4D09BF8D19D125390009D0CF /* MKCircle+ContactController */,
 				4D44828719CBC119007E3220 /* NSData+HexConversion */,
 				4D5BD6D819CF254700B7BC01 /* NSString+Hash */,
@@ -431,13 +443,6 @@
 				4D8C11DE19C66A7700698F6D /* AddContactWithQRCodeViewController.m */,
 			);
 			name = AddContacts;
-			sourceTree = "<group>";
-		};
-		4DD3F54919CB2FA100A77C1C /* Notification */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Notification;
 			sourceTree = "<group>";
 		};
 		4DD698A719C4F26800D9D65D /* Reachability */ = {
@@ -648,6 +653,7 @@
 				4DEAF5B519C886BB00CC1EC8 /* RNCryptor.m in Sources */,
 				4D5BD6D719CF179000B7BC01 /* WAUConstant.m in Sources */,
 				4DD698B019C4FC6A00D9D65D /* WAULog.m in Sources */,
+				4D1A983D19D2007C0017CC7D /* MKMapView+SharedInstance.m in Sources */,
 				4D8267CA19B3BA6E00076974 /* AppDelegate.m in Sources */,
 				4DD3F55019CB433000A77C1C /* LocationController.m in Sources */,
 				4DEAF5B719C886BB00CC1EC8 /* RNDecryptor.m in Sources */,
