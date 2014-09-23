@@ -10,26 +10,10 @@
 #import <UIKit/UIKit.h>
 
 
-extern NSString *const kWAUUserDictionaryKeyUserId;
-extern NSString *const kWAUUserDictionaryKeyUsername;
-extern NSString *const kWAUUserDictionaryKeyUserIcon;
-extern NSString *const kWAUUserDictionaryKeyUserColor;
-extern NSString *const kWAUUserDictionaryKeyVersion;
-extern NSString *const kWAUUserDictionaryKeyNotificationKey;
-extern NSString *const kWAUUserDictionaryKeyPlatform;
-
 typedef NS_ENUM(int, WAUUserPlatformType)
 {
     WAUUserPlatformTypeIOS,
     WAUUserPlatformTypeAndroid
-};
-
-typedef NS_ENUM(int, WAUImageIconState)
-{
-    WAUImageIconStateNoIcon,
-    WAUImageIconStateNotSynced,
-    WAUImageIconStateSyncing,
-    WAUImageIconStateSynced
 };
 
 @interface EntityController : NSObject
@@ -39,7 +23,7 @@ typedef NS_ENUM(int, WAUImageIconState)
 @property (nonatomic, strong) NSString *userId;
 
 @property (nonatomic, assign) WAUUserPlatformType platform;
-@property (nonatomic, strong) NSData *notificationKey;
+@property (nonatomic, strong) NSString *notificationKey;
 
 @property (nonatomic, strong) NSString *username;
 
@@ -47,8 +31,6 @@ typedef NS_ENUM(int, WAUImageIconState)
 @property (nonatomic, readonly, strong) UIColor *wordColor;
 
 @property (nonatomic, strong) UIImage *userIcon;
-@property (nonatomic, strong) NSString *userIconLink;
-@property (nonatomic, assign) WAUImageIconState userIconState;
 
 + (NSArray *)availableUserColor;
 

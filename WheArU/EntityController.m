@@ -13,14 +13,6 @@
 #import "UIColor+Hex.h"
 
 
-NSString *const kWAUUserDictionaryKeyUserId = @"id";
-NSString *const kWAUUserDictionaryKeyUsername = @"name";
-NSString *const kWAUUserDictionaryKeyUserIcon = @"icon";
-NSString *const kWAUUserDictionaryKeyUserColor = @"color";
-NSString *const kWAUUserDictionaryKeyVersion = @"version";
-NSString *const kWAUUserDictionaryKeyNotificationKey = @"key";
-NSString *const kWAUUserDictionaryKeyPlatform = @"os";
-
 @implementation EntityController
 
 - (id)init
@@ -60,15 +52,6 @@ NSString *const kWAUUserDictionaryKeyPlatform = @"os";
     if (blue >= 0.8f) lightCount++;
     
     _wordColor = lightCount >= 2 ? [UIColor lightGrayColor] : [UIColor whiteColor];
-}
-
-- (void)setUserIcon:(UIImage *)userIcon
-{
-    if ([UIImagePNGRepresentation(_userIcon) isEqualToData:UIImagePNGRepresentation(userIcon)]) return;
-    _userIcon = userIcon;
-    
-    _userIconLink = nil;
-    _userIconState = WAUImageIconStateNotSynced;
 }
 
 @end

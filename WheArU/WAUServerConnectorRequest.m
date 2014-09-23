@@ -10,11 +10,13 @@
 
 #import "AppDelegate.h"
 
+#import "WAUConstant.h"
+
 @implementation WAUServerConnectorRequest
 
 - (id)initWithEndPoint:(NSString *)endPoint method:(NSString *)method parameters:(NSDictionary *)parameters
 {
-    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@/%@", kWAUAppRemoteHost, endPoint]];
+    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://%@/%@", kWAUServerEndpoint, endPoint]];
     self = [self initWithURL:url method:method parameters:parameters];
     return self;
 }
@@ -28,6 +30,7 @@
         
         [self setEncryptionNeeded:YES];
         [self setDecryptionNeeded:YES];
+        [self setSignatureNeeded:YES];
         [self setResultInJSON:YES];
     }
     return self;

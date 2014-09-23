@@ -8,10 +8,12 @@
 
 #import "ContactListViewController.h"
 
+#import "ContactMapViewController.h"
 #import "ContactListTableViewCell.h"
 #import "RegistrationViewController.h"
 #import "UpdateUserColorViewController.h"
 #import "AddContactWithQRCodeViewController.h"
+#import "AppDelegate.h"
 
 
 @interface ContactListViewController ()
@@ -34,15 +36,11 @@
     
     ContactListController *contactListController;
     UserController *userController;
-    
-    BOOL isNotificationRegistered;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    isNotificationRegistered = NO;
     
     contactListController = [ContactListController sharedInstance];
     [contactListController addDelegate:self];
@@ -57,7 +55,7 @@
     [profileSettingsButton setImage:[[[profileSettingsButton imageView] image] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
     [addContactButton setImage:[[[addContactButton imageView] image] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
     
-    [((AppDelegate *) [[UIApplication sharedApplication] delegate]) setNotificationDelegate:self];
+    [[[self navigationController] interactivePopGestureRecognizer] setEnabled:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -80,7 +78,7 @@
     [profileSettingsButton setTintColor:[userController wordColor]];
     [addContactButton setTintColor:[userController wordColor]];
     
-    [buttonsScrollView scrollRectToVisible:CGRectMake(0.f, 0.f, 1.f, 1.f) animated:YES];
+    [self scrollToOriginalPositionAnimated:NO];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -91,13 +89,6 @@
         [self performSegueWithIdentifier:@"RegisterUserSegue" sender:self];
         return;
     }
-    
-    if (!isNotificationRegistered) {
-        UIUserNotificationSettings* notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound categories:nil];
-        [[UIApplication sharedApplication] registerUserNotificationSettings:notificationSettings];
-        [[UIApplication sharedApplication] registerForRemoteNotifications];
-        isNotificationRegistered = YES;
-    }
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
@@ -106,8 +97,33 @@
     
     [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context)
      {
-         [buttonsScrollView scrollRectToVisible:CGRectMake(0.f, 0.f, 1.f, 1.f) animated:YES];
+         [self scrollToOriginalPositionAnimated:YES];
      } completion:nil];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"OpenMapViewSegue"]) {
+        UIView *parentViewCell = [(UIButton *) sender superview];
+        while (parentViewCell && ![parentViewCell isKindOfClass:[ContactListTableViewCell class]]) {
+            parentViewCell = [parentViewCell superview];
+        }
+        
+        ContactListTableViewCell *selectedCell = (ContactListTableViewCell *)parentViewCell;
+        ContactMapViewController *contactMapViewController = (ContactMapViewController *) [segue destinationViewController];
+        [contactMapViewController setContactController:[selectedCell contactController]];
+    }
+}
+
+#pragma mark - Functions
+#pragma mark Support
+
+- (void)scrollToOriginalPositionAnimated:(BOOL)animated
+{
+    [buttonsScrollView scrollRectToVisible:CGRectMake(0.f, 0.f, 1.f, 1.f) animated:animated];
+    for (ContactListTableViewCell *tableViewCell in [contactListTableView visibleCells]) {
+        [tableViewCell scrollToOriginalPositionAnimated:animated];
+    };
 }
 
 #pragma mark - Delegates
@@ -140,6 +156,11 @@
     [contactListTableView reloadSections:sections withRowAnimation:UITableViewRowAnimationFade];
 }
 
+- (void)itemMovedToRecentContactList:(ContactListController *)controller
+{
+    [contactListTableView reloadData];
+}
+
 #pragma mark UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -166,24 +187,12 @@
     NSInteger row = [indexPath row];
     NSInteger section = [indexPath section];
     if (section == 0) {
-        [cell setContact:[[contactListController recentContactList] objectAtIndex:row]];
+        [cell setContactController:[[contactListController recentContactList] objectAtIndex:row]];
     }
     else if (section == 1) {
-        [cell setContact:[[contactListController contactList] objectAtIndex:row]];
+        [cell setContactController:[[contactListController contactList] objectAtIndex:row]];
     }
     return cell;
-}
-
-#pragma mark NotificationRegisteredDelegate
-
-- (void)didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
-{
-    [userController setNotificationKey:deviceToken];
-}
-
-- (void)didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
-{
-    NSLog(@"error: %@", error);
 }
 
 @end

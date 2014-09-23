@@ -8,40 +8,31 @@
 
 #import "NotificationController.h"
 
-#import "AppDelegate.h"
-#import "Internal.h"
 #import "UserController.h"
+#import "LocationController.h"
 
+#import "NSData+Conversion.h"
 #import "Reachability.h"
+#import "WAUConstant.h"
 #import "WAULog.h"
 #import "WAUServerConnector.h"
 #import "WAUServerConnectorRequest.h"
 
 
-NSString *const kWAURequestInfoDictionaryKeyUserId = @"id";
-
-NSString *const kWAURequestInfoDictionaryKeyIOSInfo = @"ios";
-NSString *const kWAURequestInfoDictionaryKeyAndroidInfo = @"android";
-
-NSString *const kWAURequestInfoDictionaryKeyExpiration = @"exp";
-
-NSString *const kWAUNotificationKeyRemoteURL = @"update";
+NSString *const kWAUNotificationCategoryIdentifierRequestLocation = @"kWAUNotificationCategoryIdentifierRequestLocation";
+NSString *const kWAUNotificationActionIdentifierSend = @"kWAUNotificationActionIdentifierSend";
 
 @implementation NotificationController
 {
-    NSManagedObjectContext *managedObjectContext;
-    Internal *notificationInternal;
-    
     NSMutableArray *delegateList;
 }
 
 - (id)init
 {
     if (self = [super init]) {
-        managedObjectContext = [(AppDelegate *) [[UIApplication sharedApplication] delegate] managedObjectContext];
         delegateList = [[NSMutableArray alloc] init];
         
-        [self setNotificationKeyState:WAUNotificationKeyStateNoGeneratedKey];
+        [((AppDelegate *) [[UIApplication sharedApplication] delegate]) setNotificationRegistrationDelegate:self];
     }
     return self;
 }
@@ -61,79 +52,22 @@ NSString *const kWAUNotificationKeyRemoteURL = @"update";
 #pragma mark - Functions
 #pragma mark Support
 
-- (void)validateNotificationKey
+- (void)registerRemoteNotification
 {
-    if ([self notificationKeyState] == WAUNotificationKeyStateRequestingNotificationKey || [self notificationKeyState] == WAUNotificationKeyStateNoGeneratedKey) return;
-    [WAULog log:@"validating notification key" from:self];
+    UIMutableUserNotificationAction *sendAction = [[UIMutableUserNotificationAction alloc] init];
+    [sendAction setTitle:@"Send"];
+    [sendAction setIdentifier:kWAUNotificationActionIdentifierSend];
+    [sendAction setActivationMode:UIUserNotificationActivationModeBackground];
+    [sendAction setAuthenticationRequired:NO];
     
-    NSEntityDescription *entity = [NSEntityDescription entityForName:kWAUCoreDataEntityInternal inManagedObjectContext:managedObjectContext];
-    NSFetchRequest *request = [[NSFetchRequest alloc] init];
-    [request setEntity:entity];
-    [request setReturnsObjectsAsFaults:NO];
+    UIMutableUserNotificationCategory *locationRequestCategory = [[UIMutableUserNotificationCategory alloc] init];
+    [locationRequestCategory setIdentifier:kWAUNotificationCategoryIdentifierRequestLocation];
+    [locationRequestCategory setActions:[NSArray arrayWithObjects:sendAction, nil] forContext:UIUserNotificationActionContextDefault];
     
-    NSArray *requestResult = [managedObjectContext executeFetchRequest:request error:nil];
-    
-    BOOL validKey = NO;
-    if (requestResult != nil && [requestResult count] >= 1) {
-        notificationInternal = (Internal *) [requestResult lastObject];
-        
-        int64_t currentTimestamp = [[NSDate date] timeIntervalSince1970];
-        if ([notificationInternal ios] != nil && [notificationInternal android] != nil && [notificationInternal expiration] > currentTimestamp) {
-            NSString *iosKey = [[EncryptionController sharedInstance] decryptStringWithGeneratedKey:[notificationInternal ios]];
-            NSString *androidKey = [[EncryptionController sharedInstance] decryptStringWithGeneratedKey:[notificationInternal android]];
-            if ([iosKey length] != 0 && [androidKey length] != 0) {
-                [self setIOSKey:iosKey];
-                [self setAndroidKey:androidKey];
-                
-                validKey = YES;
-                [self setNotificationKeyState:WAUNotificationKeyStateValidNotificationKey];
-                
-                for (id<NotificationControllerDelegate>delegate in delegateList) {
-                    if ([delegate respondsToSelector:@selector(controllerDidValidateNotificationKey:)]) [delegate controllerDidValidateNotificationKey:self];
-                }
-            }
-        }
-    }
-    if (!validKey) {
-        [self setNotificationKeyState:WAUNotificationKeyStateNoNotificationKey];
-        [self fetchNotificationKey];
-    }
-}
-
-- (void)fetchNotificationKey
-{
-    if ([[UserController sharedInstance] userId] == nil || [self notificationKeyState] != WAUNotificationKeyStateNoNotificationKey) return;
-    [self setNotificationKeyState:WAUNotificationKeyStateRequestingNotificationKey];
-    
-    NSMutableDictionary *userDictionary = [[NSMutableDictionary alloc] init];
-    [userDictionary setObject:[[UserController sharedInstance] userId] forKey:kWAURequestInfoDictionaryKeyUserId];
-    
-    WAUServerConnectorRequest *request = [[WAUServerConnectorRequest alloc] initWithEndPoint:kWAUNotificationKeyRemoteURL method:@"POST" parameters:userDictionary];
-    [request setFailureHandler:^(WAUServerConnectorRequest *connectorRequest)
-     {
-         [WAULog log:@"failed to download notification key" from:self];
-         [self setNotificationKeyState:WAUNotificationKeyStateNoNotificationKey];
-         
-         [self performSelector:@selector(validateNotificationKey) withObject:nil afterDelay:300];
-     }];
-    [request setSuccessHandler:^(WAUServerConnectorRequest *connectorRequest, NSObject *requestResult)
-     {
-         NSString *ios = [(NSDictionary *) requestResult objectForKey:kWAURequestInfoDictionaryKeyIOSInfo];
-         NSString *android = [[(NSDictionary *) requestResult objectForKey:kWAURequestInfoDictionaryKeyAndroidInfo] objectForKey:kWAURequestInfoDictionaryKeyIOSInfo];
-         int64_t expirationTime = [[(NSDictionary *) requestResult objectForKey:kWAURequestInfoDictionaryKeyExpiration] longLongValue];
-         
-         if (notificationInternal == nil) notificationInternal = [NSEntityDescription insertNewObjectForEntityForName:kWAUCoreDataEntityInternal inManagedObjectContext:managedObjectContext];
-         
-         [notificationInternal setIos:ios];
-         [notificationInternal setAndroid:android];
-         [notificationInternal setExpiration:expirationTime];
-         [managedObjectContext save:nil];
-         
-         [WAULog log:[NSString stringWithFormat:@"notification key expiration time: %lld", expirationTime] from:self];
-         [self setNotificationKeyState:WAUNotificationKeyStateNoNotificationKey];
-         [self validateNotificationKey];
-     }];
-    [[WAUServerConnector sharedInstance] sendRequest:request withTag:@"RequestNotificationKey"];
+    NSSet *categorySet = [NSSet setWithObjects:locationRequestCategory, nil];
+    UIUserNotificationSettings* notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert | UIUserNotificationTypeBadge | UIUserNotificationTypeSound categories:categorySet];
+    [[UIApplication sharedApplication] registerUserNotificationSettings:notificationSettings];
+    [[UIApplication sharedApplication] registerForRemoteNotifications];
 }
 
 #pragma mark External
@@ -143,13 +77,62 @@ NSString *const kWAUNotificationKeyRemoteURL = @"update";
     [delegateList addObject:delegate];
 }
 
+- (void)requestForLocationFromContact:(ContactController *)contact
+{
+    [[LocationController sharedInstance] retrieveLocationWithUpdateBlock:^(CLLocation *location)
+    {
+        if ([[UserController sharedInstance] userId] == nil) return;
+        
+        NSMutableDictionary *userDictionary = [[NSMutableDictionary alloc] init];
+        [userDictionary setObject:[[UserController sharedInstance] userId] forKey:kWAUDictionaryKeyUserId];
+        [userDictionary setObject:[contact userId] forKey:kWAUDictionaryKeyContactId];
+        [userDictionary setObject:[NSNumber numberWithInt:0] forKey:kWAUDictionaryKeyPingType];
+        
+        NSMutableArray *locationInfo = [[NSMutableArray alloc] init];
+        [locationInfo addObject:[NSNumber numberWithDouble:[location coordinate].latitude]];
+        [locationInfo addObject:[NSNumber numberWithDouble:[location coordinate].longitude]];
+        [locationInfo addObject:[NSNumber numberWithDouble:[location altitude]]];
+        [locationInfo addObject:[NSNumber numberWithDouble:[location horizontalAccuracy]]];
+        [locationInfo addObject:[NSNumber numberWithLongLong:[[NSDate date] timeIntervalSince1970]]];
+        NSString *locationString = [locationInfo componentsJoinedByString:@":"];
+        [userDictionary setObject:locationString forKey:kWAUDictionaryKeyLocationInfo];
+        
+        WAUServerConnectorRequest *request = [[WAUServerConnectorRequest alloc] initWithEndPoint:kWAUServerEndpointPing method:@"POST" parameters:userDictionary];
+        [request setFailureHandler:^(WAUServerConnectorRequest *connectorRequest)
+         {
+             [WAULog log:[NSString stringWithFormat:@"failed to ping contact: %@", [contact userId]] from:self];
+         }];
+        [request setSuccessHandler:^(WAUServerConnectorRequest *connectorRequest, NSObject *requestResult)
+         {
+             [WAULog log:[NSString stringWithFormat:@"ping contact: %@", [contact userId]] from:self];
+         }];
+        [[WAUServerConnector sharedInstance] sendRequest:request withTag:@"SyncUser"];
+    }];
+}
+
 #pragma mark - Delegates
 #pragma mark EncryptionControllerDelegate
 
-- (void)controllerDidValidateGeneratedKey:(EncryptionController *)controller
+- (void)controllerDidSetGeneratedKey:(EncryptionController *)controller
 {
-    [self setNotificationKeyState:WAUNotificationKeyStateNoNotificationKey];
-    [self validateNotificationKey];
+    [self registerRemoteNotification];
+}
+
+#pragma mark NotificationRegistrationDelegate
+
+- (void)didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
+{
+}
+
+- (void)didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+    [WAULog log:@"device registered for remote notification" from:self];
+    [[UserController sharedInstance] setNotificationKey:[deviceToken hexadecimalString]];
+}
+
+- (void)didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
+{
+    [WAULog log:[NSString stringWithFormat:@"device failed to register remote notification error: %@", [error localizedDescription]] from:self];
 }
 
 @end

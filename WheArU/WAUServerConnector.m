@@ -11,12 +11,14 @@
 #import "AppDelegate.h"
 #import "EncryptionController.h"
 
+#import "NSString+Hash.h"
 #import "Reachability.h"
 #import "Reachability+SharedInstance.h"
+#import "WAUConstant.h"
 #import "WAULog.h"
 
 
-float const kWAUServerConnectorRequestTimeout = 30.f;
+float const kWAUServerConnectorRequestTimeout = 5.f;
 
 @implementation WAUServerConnector
 {
@@ -84,10 +86,15 @@ float const kWAUServerConnectorRequestTimeout = 30.f;
         }
     }
     if (httpBodyData != nil) [request setHTTPBody:httpBodyData];
+    if ([connectorRequest isSignatureNeeded]) {
+        NSString *nonce = [[[NSUUID UUID] UUIDString] sha1];
+        NSString *encryptedHash = [[EncryptionController sharedInstance] encryptStringWithGeneratedKey:nonce];
+        [request setValue:[NSString stringWithFormat:@"WAUSign %@|%@", nonce, encryptedHash] forHTTPHeaderField:@"Authorization"];
+    }
     
     NSURLSessionDataTask *postDataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error)
                                           {
-                                              int httpStatusCode = [(NSHTTPURLResponse *) response statusCode];
+                                              int httpStatusCode = (int) [(NSHTTPURLResponse *) response statusCode];
                                               if (error != nil || httpStatusCode != 200) {
                                                   [WAULog log:[NSString stringWithFormat:@"http request error: %@ status code: %d", [error localizedDescription], httpStatusCode] from:self];
                                                   if ([connectorRequest failureHandler] != nil) {

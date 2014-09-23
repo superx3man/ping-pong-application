@@ -24,6 +24,10 @@
 - (void)addDelegate:(id<ContactListControllerDelegate>)delegate;
 
 - (ContactController *)createContactWithJSONDescription:(NSString *)encryptedJsonString;
+- (ContactController *)createContactWithContactInfo:(NSDictionary *)contactInfo;
+
+- (ContactController *)updateContactWithUserId:(NSString *)userId withLocationInfo:(NSString *)locationInfo;
+- (ContactController *)validateContactWithUserId:(NSString *)userId withVersion:(int)version;
 
 @end
 
@@ -31,5 +35,7 @@
 
 @optional
 - (void)newItemAddedToList:(ContactListController *)controller;
+
+- (void)itemMovedToRecentContactList:(ContactListController *)controller;
 
 @end

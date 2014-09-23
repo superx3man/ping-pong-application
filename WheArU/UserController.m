@@ -14,17 +14,11 @@
 #import "NotificationController.h"
 
 #import "UIColor+Hex.h"
+#import "WAUConstant.h"
 #import "WAULog.h"
 #import "WAUServerConnector.h"
 #import "WAUServerConnectorRequest.h"
 
-
-NSString *const kWAUImageUploadRemoteURL = @"icon_link";
-
-NSString *const kWAUImageUploadDictionaryKeyUserId = @"id";
-NSString *const kWAUImageUploadDictionaryKeyImageData = @"image";
-
-NSString *const kWAUImageUploadDictionaryKeyIconLink = @"url";
 
 @implementation UserController
 {
@@ -49,26 +43,20 @@ NSString *const kWAUImageUploadDictionaryKeyIconLink = @"url";
         
         if (requestResult != nil && [requestResult count] >= 1) {
             currentUser = (User *) [requestResult lastObject];
-            [self setUserId:[currentUser userId]];
+            if ([currentUser userId] != nil) [self setUserId:[currentUser userId]];
+            else [self registerUser];
             
             [super setUsername:[currentUser username]];
             [super setUserColor:[UIColor colorFromHexString:[currentUser userColor]]];
             
-            [super setUserIconState:WAUImageIconStateNoIcon];
-            if ([currentUser userIcon] != nil) {
-                [super setUserIcon:[UIImage imageWithData:[currentUser userIcon]]];
-                if ([currentUser userIconLink] == nil) {
-                    [super setUserIconState:WAUImageIconStateNotSynced];
-                    [self uploadUserIcon];
-                }
-                else {
-                    [super setUserIconLink:[currentUser userIconLink]];
-                    [super setUserIconState:WAUImageIconStateSynced];
-                }
-            }
+            if ([currentUser userIcon] != nil) [super setUserIcon:[UIImage imageWithData:[currentUser userIcon]]];
             
             [super setNotificationKey:[currentUser notificationKey]];
             _fetchCount = [currentUser fetchCount];
+            
+            if ([currentUser isModified]) {
+                [self setModified:YES withSyncDelay:0];
+            }
         }
     }
     return self;
@@ -89,31 +77,64 @@ NSString *const kWAUImageUploadDictionaryKeyIconLink = @"url";
 #pragma mark - Functions
 #pragma mark Support
 
-- (void)uploadUserIcon
+- (void)registerUser
 {
-    if ([self userIcon] == nil || [self userIconState] != WAUImageIconStateNotSynced) return;
-    
-    [self setUserIconState:WAUImageIconStateSyncing];
+    if ([self userId] != nil) return;
     
     NSMutableDictionary *userDictionary = [[NSMutableDictionary alloc] init];
-    [userDictionary setObject:[currentUser userId] forKey:kWAUImageUploadDictionaryKeyUserId];
-    [userDictionary setObject:[[currentUser userIcon] base64EncodedStringWithOptions:kNilOptions] forKey:kWAUImageUploadDictionaryKeyImageData];
+    [userDictionary setObject:[NSNumber numberWithInt:[self platform]] forKey:kWAUDictionaryKeyPlatform];
     
-    WAUServerConnectorRequest *request = [[WAUServerConnectorRequest alloc] initWithEndPoint:kWAUImageUploadRemoteURL method:@"POST" parameters:userDictionary];
+    WAUServerConnectorRequest *request = [[WAUServerConnectorRequest alloc] initWithEndPoint:kWAUServerEndpointRegister method:@"POST" parameters:userDictionary];
+    [request setSignatureNeeded:NO];
     [request setFailureHandler:^(WAUServerConnectorRequest *connectorRequest)
-    {
-        [WAULog log:@"icon link failed to upload" from:self];
-        [self setUserIconState:WAUImageIconStateNotSynced];
-    }];
+     {
+         [WAULog log:@"failed to register user" from:self];
+         [self performSelector:@selector(registerUser) withObject:nil afterDelay:60];
+     }];
     [request setSuccessHandler:^(WAUServerConnectorRequest *connectorRequest, NSObject *requestResult)
-    {
-        NSString *iconLink = [(NSDictionary *) requestResult objectForKey:kWAUImageUploadDictionaryKeyIconLink];
-        [WAULog log:[NSString stringWithFormat:@"icon link: %@", iconLink] from:self];
-        
-        [self setUserIconLink:iconLink];
-        [self setUserIconState:WAUImageIconStateSynced];
-    }];
-    [[WAUServerConnector sharedInstance] sendRequest:request withTag:@"UploadUserIcon"];
+     {
+         NSString *userId = [(NSDictionary *) requestResult objectForKey:kWAUDictionaryKeyUserId];
+         NSString *generatedKey = [(NSDictionary *) requestResult objectForKey:kWAUDictionaryKeyGeneratedKey];
+         [WAULog log:[NSString stringWithFormat:@"user id: %@", userId] from:self];
+         
+         [currentUser setUserId:userId];
+         [[self managedObjectContext] save:nil];
+         
+         [self setUserId:userId];
+         
+         [[EncryptionController sharedInstance] setGeneratedKey:generatedKey];
+         if ([self isModified]) [self syncUser];
+     }];
+    [[WAUServerConnector sharedInstance] sendRequest:request withTag:@"RegisterUser"];
+}
+
+- (void)syncUser
+{
+    if ([self userId] == nil || ![self isModified]) return;
+    [self setModified:NO];
+    
+    NSMutableDictionary *userDictionary = [[NSMutableDictionary alloc] init];
+    [userDictionary setObject:[self userId] forKey:kWAUDictionaryKeyUserId];
+    
+    NSMutableDictionary *modifiedDictionary = [[NSMutableDictionary alloc] init];
+    [modifiedDictionary setObject:[currentUser username] forKey:kWAUDictionaryKeyUsername];
+    [modifiedDictionary setObject:[currentUser userColor] forKey:kWAUDictionaryKeyUserColor];
+    if ([currentUser userIcon] != nil) [modifiedDictionary setObject:[[currentUser userIcon] base64EncodedStringWithOptions:kNilOptions] forKey:kWAUDictionaryKeyUserIcon];
+    if ([currentUser notificationKey] != nil) [modifiedDictionary setObject:[currentUser notificationKey] forKey:kWAUDictionaryKeyNotificationKey];
+    [userDictionary setObject:modifiedDictionary forKey:kWAUDictionaryKeyModifiedList];
+    
+    WAUServerConnectorRequest *request = [[WAUServerConnectorRequest alloc] initWithEndPoint:kWAUServerEndpointUserSync method:@"POST" parameters:userDictionary];
+    [request setFailureHandler:^(WAUServerConnectorRequest *connectorRequest)
+     {
+         [WAULog log:@"failed to sync user" from:self];
+         
+         [self setModified:YES withSyncDelay:60];
+     }];
+    [request setSuccessHandler:^(WAUServerConnectorRequest *connectorRequest, NSObject *requestResult)
+     {
+         [WAULog log:@"user synced" from:self];
+     }];
+    [[WAUServerConnector sharedInstance] sendRequest:request withTag:@"SyncUser"];
 }
 
 #pragma mark External
@@ -135,32 +156,20 @@ NSString *const kWAUImageUploadDictionaryKeyIconLink = @"url";
     if (![self isUserRegistered]) {
         currentUser = [NSEntityDescription insertNewObjectForEntityForName:kWAUCoreDataEntityUser inManagedObjectContext:[self managedObjectContext]];
         
-        NSString *currentTimestamp = [NSString stringWithFormat:@"%d", (int) [[NSDate date] timeIntervalSince1970]];
-        [currentUser setUserId:[NSString stringWithFormat:@"%@-%@", [[NSProcessInfo processInfo] globallyUniqueString], currentTimestamp]];
         [currentUser setFetchCount:0];
-        [currentUser setVersion:1];
-        
         [[self managedObjectContext] save:nil];
         
-        [self setUserId:[currentUser userId]];
         _fetchCount = 0;
+        [self registerUser];
     }
 }
 
 - (NSString *)QRCodeDescription
 {
     NSMutableDictionary *userDictionary = [[NSMutableDictionary alloc] init];
-    [userDictionary setObject:[currentUser userId] forKey:kWAUUserDictionaryKeyUserId];
-    
-    [userDictionary setObject:[NSNumber numberWithInt:[self platform]] forKey:kWAUUserDictionaryKeyPlatform];
-    [userDictionary setObject:[NSNumber numberWithInt:[currentUser version]] forKey:kWAUUserDictionaryKeyVersion];
-    
-    if ([currentUser notificationKey] != nil) [userDictionary setObject:[[currentUser notificationKey] base64EncodedStringWithOptions:kNilOptions] forKey:kWAUUserDictionaryKeyNotificationKey];
-    
-    [userDictionary setObject:[currentUser username] forKey:kWAUUserDictionaryKeyUsername];
-    [userDictionary setObject:[currentUser userColor] forKey:kWAUUserDictionaryKeyUserColor];
-    
-    if ([currentUser userIconLink] != nil) [userDictionary setObject:[currentUser userIconLink] forKey:kWAUUserDictionaryKeyUserIcon];
+    [userDictionary setObject:[currentUser userId] forKey:kWAUDictionaryKeyUserId];
+    [userDictionary setObject:[currentUser username] forKey:kWAUDictionaryKeyUsername];
+    [userDictionary setObject:[currentUser userColor] forKey:kWAUDictionaryKeyUserColor];
     
     NSString *plainJsonString = [[NSString alloc] initWithData:[NSJSONSerialization dataWithJSONObject:userDictionary options:kNilOptions error:nil] encoding:NSUTF8StringEncoding];
     return [[EncryptionController sharedInstance] encryptStringWithSystemKey:plainJsonString];
@@ -178,14 +187,31 @@ NSString *const kWAUImageUploadDictionaryKeyIconLink = @"url";
     }
 }
 
-- (void)setNotificationKey:(NSData *)notificationKey
+- (void)setModified:(BOOL)isModified
 {
-    if ([[self notificationKey] isEqualToData:notificationKey]) return;
+    [self setModified:isModified withSyncDelay:120];
+}
+
+- (void)setModified:(BOOL)isModified withSyncDelay:(NSTimeInterval)delay
+{
+    if (_isModified == isModified) return;
+    _isModified = isModified;
+    
+    [currentUser setIsModified:isModified];
+    [[self managedObjectContext] save:nil];
+    
+    if (isModified && [self userId] != nil) [self performSelector:@selector(syncUser) withObject:nil afterDelay:delay];
+}
+
+- (void)setNotificationKey:(NSString *)notificationKey
+{
+    if ([[self notificationKey] isEqualToString:notificationKey]) return;
     [super setNotificationKey:notificationKey];
     
     [currentUser setNotificationKey:notificationKey];
-    [currentUser setVersion:[currentUser version] + 1];
     [[self managedObjectContext] save:nil];
+    
+    [self setModified:YES withSyncDelay:0];
 }
 
 - (void)setUsername:(NSString *)username
@@ -194,12 +220,13 @@ NSString *const kWAUImageUploadDictionaryKeyIconLink = @"url";
     [super setUsername:username];
     
     [currentUser setUsername:username];
-    [currentUser setVersion:[currentUser version] + 1];
     [[self managedObjectContext] save:nil];
     
     for (id<UserControllerDelegate> delegate in delegateList) {
         if ([delegate respondsToSelector:@selector(userDidUpdateUsername:)]) [delegate userDidUpdateUsername:self];
     }
+    
+    [self setModified:YES];
 }
 
 - (void)setUserIcon:(UIImage *)userIcon
@@ -208,24 +235,13 @@ NSString *const kWAUImageUploadDictionaryKeyIconLink = @"url";
     [super setUserIcon:userIcon];
     
     [currentUser setUserIcon:UIImageJPEGRepresentation(userIcon, 1.f)];
-    [currentUser setVersion:[currentUser version] + 1];
     [[self managedObjectContext] save:nil];
-    
-    [self uploadUserIcon];
     
     for (id<UserControllerDelegate> delegate in delegateList) {
         if ([delegate respondsToSelector:@selector(userDidUpdateUserIcon:)]) [delegate userDidUpdateUserIcon:self];
     }
-}
-
-- (void)setUserIconLink:(NSString *)userIconLink
-{
-    if ([[self userIconLink] isEqualToString:userIconLink]) return;
-    [super setUserIconLink:userIconLink];
     
-    [currentUser setUserIconLink:userIconLink];
-    [currentUser setVersion:[currentUser version] + 1];
-    [[self managedObjectContext] save:nil];
+    [self setModified:YES];
 }
 
 - (void)setUserColor:(UIColor *)userColor
@@ -234,12 +250,13 @@ NSString *const kWAUImageUploadDictionaryKeyIconLink = @"url";
     [super setUserColor:userColor];
     
     [currentUser setUserColor:[UIColor hexStringFromColor:userColor]];
-    [currentUser setVersion:[currentUser version] + 1];
     [[self managedObjectContext] save:nil];
     
     for (id<UserControllerDelegate> delegate in delegateList) {
         if ([delegate respondsToSelector:@selector(userDidUpdateUserColor:)]) [delegate userDidUpdateUserColor:self];
     }
+    
+    [self setModified:YES];
 }
 
 @end

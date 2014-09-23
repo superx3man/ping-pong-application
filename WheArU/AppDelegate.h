@@ -10,15 +10,13 @@
 #import <CoreData/CoreData.h>
 
 
-extern NSString *const kWAUAppRemoteHost;
-
-@protocol NotificationRegisteredDelegate;
+@protocol NotificationRegistrationDelegate;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (nonatomic, strong) UIWindow *window;
 
-@property (nonatomic, strong) id<NotificationRegisteredDelegate> notificationDelegate;
+@property (nonatomic, strong) id<NotificationRegistrationDelegate> notificationRegistrationDelegate;
 
 @property (nonatomic, readonly, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, readonly, strong) NSManagedObjectModel *managedObjectModel;
@@ -29,9 +27,11 @@ extern NSString *const kWAUAppRemoteHost;
 
 @end
 
-@protocol NotificationRegisteredDelegate <NSObject>
+@protocol NotificationRegistrationDelegate <NSObject>
 
-@required
+@optional
+- (void)didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings;
+
 - (void)didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken;
 - (void)didFailToRegisterForRemoteNotificationsWithError:(NSError *)error;
 

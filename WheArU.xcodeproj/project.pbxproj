@@ -7,14 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D09BF7C19D0C2360009D0CF /* ContactMapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D09BF7B19D0C2360009D0CF /* ContactMapAnnotation.m */; };
+		4D09BF7F19D0CD840009D0CF /* ContactMapAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D09BF7E19D0CD840009D0CF /* ContactMapAnnotationView.m */; };
+		4D09BF9019D1254D0009D0CF /* MKCircle+ContactController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D09BF8F19D1254D0009D0CF /* MKCircle+ContactController.m */; };
+		4D44828019CB949E007E3220 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D44827F19CB949E007E3220 /* Security.framework */; };
+		4D44828A19CBC133007E3220 /* NSData+Conversion.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D44828919CBC133007E3220 /* NSData+Conversion.m */; };
 		4D48C66A19BB984100D09FDA /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D48C66919BB984100D09FDA /* User.m */; };
 		4D48C67319BCC92800D09FDA /* UpdateUserColorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D48C67219BCC92800D09FDA /* UpdateUserColorViewController.m */; };
 		4D48C67619BCCDC300D09FDA /* UpdateUsernameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D48C67519BCCDC300D09FDA /* UpdateUsernameViewController.m */; };
 		4D48C67A19BCD1EF00D09FDA /* UpdateUserIconViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D48C67919BCD1EF00D09FDA /* UpdateUserIconViewController.m */; };
+		4D49A8A019CFCF1400F8B382 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D49A89F19CFCF1400F8B382 /* MapKit.framework */; };
+		4D49A8A419CFDCD900F8B382 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D49A8A319CFDCD900F8B382 /* LaunchScreen.xib */; };
 		4D4C611319B4CBAE003AB18B /* ContactListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D4C611219B4CBAE003AB18B /* ContactListTableViewCell.m */; };
 		4D4C611819B4D01B003AB18B /* ContactListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D4C611719B4D01B003AB18B /* ContactListController.m */; };
 		4D4C612A19B517C7003AB18B /* Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D4C612919B517C7003AB18B /* Contact.m */; };
 		4D4C613119B52D41003AB18B /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D4C613019B52D41003AB18B /* UIColor+Hex.m */; };
+		4D5BD6D719CF179000B7BC01 /* WAUConstant.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5BD6D619CF179000B7BC01 /* WAUConstant.m */; };
+		4D5BD6DB19CF256200B7BC01 /* NSString+Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5BD6DA19CF256200B7BC01 /* NSString+Hash.m */; };
 		4D8267C719B3BA6E00076974 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D8267C619B3BA6E00076974 /* main.m */; };
 		4D8267CA19B3BA6E00076974 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D8267C919B3BA6E00076974 /* AppDelegate.m */; };
 		4D8267CD19B3BA6E00076974 /* WheArU.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4D8267CB19B3BA6E00076974 /* WheArU.xcdatamodeld */; };
@@ -32,6 +41,11 @@
 		4D8C11DF19C66A7700698F6D /* AddContactWithQRCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D8C11DE19C66A7700698F6D /* AddContactWithQRCodeViewController.m */; };
 		4D8C62DB19B6B00900F59CFF /* RegistrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D8C62DA19B6B00900F59CFF /* RegistrationViewController.m */; };
 		4D8C62DE19B6B7E900F59CFF /* UsernameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D8C62DD19B6B7E900F59CFF /* UsernameViewController.m */; };
+		4DD3F54B19CB42F700A77C1C /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DD3F54A19CB42F700A77C1C /* CoreData.framework */; };
+		4DD3F54D19CB42FD00A77C1C /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DD3F54C19CB42FD00A77C1C /* CoreLocation.framework */; };
+		4DD3F55019CB433000A77C1C /* LocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD3F54F19CB433000A77C1C /* LocationController.m */; };
+		4DD3F55319CB5C8500A77C1C /* locate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DD3F55119CB5C8500A77C1C /* locate.png */; };
+		4DD3F55419CB5C8500A77C1C /* locate@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DD3F55219CB5C8500A77C1C /* locate@2x.png */; };
 		4DD698AA19C4F27F00D9D65D /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD698A919C4F27F00D9D65D /* Reachability.m */; };
 		4DD698AC19C4F29700D9D65D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DD698AB19C4F29700D9D65D /* SystemConfiguration.framework */; };
 		4DD698B019C4FC6A00D9D65D /* WAULog.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD698AF19C4FC6A00D9D65D /* WAULog.m */; };
@@ -46,11 +60,11 @@
 		4DEAF5B619C886BB00CC1EC8 /* RNCryptorEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DEAF5B019C886BB00CC1EC8 /* RNCryptorEngine.m */; };
 		4DEAF5B719C886BB00CC1EC8 /* RNDecryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DEAF5B219C886BB00CC1EC8 /* RNDecryptor.m */; };
 		4DEAF5B819C886BB00CC1EC8 /* RNEncryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DEAF5B419C886BB00CC1EC8 /* RNEncryptor.m */; };
-		4DEAF5BB19C8FAA200CC1EC8 /* Internal.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DEAF5BA19C8FAA200CC1EC8 /* Internal.m */; };
 		4DEAF5BE19C933DC00CC1EC8 /* NotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DEAF5BD19C933DC00CC1EC8 /* NotificationController.m */; };
 		4DF6EAB819C9FD32001BC176 /* Reachability+SharedInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DF6EAB719C9FD32001BC176 /* Reachability+SharedInstance.m */; };
 		4DF6EABC19CA00DD001BC176 /* WAUServerConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DF6EABB19CA00DD001BC176 /* WAUServerConnector.m */; };
 		4DF6EAC219CA0A21001BC176 /* WAUServerConnectorRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DF6EAC119CA0A21001BC176 /* WAUServerConnectorRequest.m */; };
+		4DF76E2B19CFC91B001BCE04 /* ContactMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DF76E2A19CFC91B001BCE04 /* ContactMapViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +78,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4D09BF7A19D0C2360009D0CF /* ContactMapAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactMapAnnotation.h; sourceTree = "<group>"; };
+		4D09BF7B19D0C2360009D0CF /* ContactMapAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactMapAnnotation.m; sourceTree = "<group>"; };
+		4D09BF7D19D0CD840009D0CF /* ContactMapAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactMapAnnotationView.h; sourceTree = "<group>"; };
+		4D09BF7E19D0CD840009D0CF /* ContactMapAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactMapAnnotationView.m; sourceTree = "<group>"; };
+		4D09BF8E19D1254D0009D0CF /* MKCircle+ContactController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKCircle+ContactController.h"; sourceTree = "<group>"; };
+		4D09BF8F19D1254D0009D0CF /* MKCircle+ContactController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKCircle+ContactController.m"; sourceTree = "<group>"; };
+		4D44827F19CB949E007E3220 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		4D44828819CBC133007E3220 /* NSData+Conversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Conversion.h"; sourceTree = "<group>"; };
+		4D44828919CBC133007E3220 /* NSData+Conversion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Conversion.m"; sourceTree = "<group>"; };
 		4D48C66819BB984100D09FDA /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		4D48C66919BB984100D09FDA /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		4D48C67119BCC92800D09FDA /* UpdateUserColorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdateUserColorViewController.h; sourceTree = "<group>"; };
@@ -72,6 +95,8 @@
 		4D48C67519BCCDC300D09FDA /* UpdateUsernameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateUsernameViewController.m; sourceTree = "<group>"; };
 		4D48C67819BCD1EF00D09FDA /* UpdateUserIconViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpdateUserIconViewController.h; sourceTree = "<group>"; };
 		4D48C67919BCD1EF00D09FDA /* UpdateUserIconViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpdateUserIconViewController.m; sourceTree = "<group>"; };
+		4D49A89F19CFCF1400F8B382 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		4D49A8A319CFDCD900F8B382 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		4D4C611119B4CBAE003AB18B /* ContactListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactListTableViewCell.h; sourceTree = "<group>"; };
 		4D4C611219B4CBAE003AB18B /* ContactListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactListTableViewCell.m; sourceTree = "<group>"; };
 		4D4C611619B4D01B003AB18B /* ContactListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactListController.h; sourceTree = "<group>"; };
@@ -80,6 +105,10 @@
 		4D4C612919B517C7003AB18B /* Contact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Contact.m; sourceTree = "<group>"; };
 		4D4C612F19B52D41003AB18B /* UIColor+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Hex.h"; sourceTree = "<group>"; };
 		4D4C613019B52D41003AB18B /* UIColor+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Hex.m"; sourceTree = "<group>"; };
+		4D5BD6D519CF179000B7BC01 /* WAUConstant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WAUConstant.h; sourceTree = "<group>"; };
+		4D5BD6D619CF179000B7BC01 /* WAUConstant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WAUConstant.m; sourceTree = "<group>"; };
+		4D5BD6D919CF256200B7BC01 /* NSString+Hash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Hash.h"; sourceTree = "<group>"; };
+		4D5BD6DA19CF256200B7BC01 /* NSString+Hash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Hash.m"; sourceTree = "<group>"; };
 		4D8267C119B3BA6E00076974 /* WheArU.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WheArU.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D8267C519B3BA6E00076974 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4D8267C619B3BA6E00076974 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -107,6 +136,12 @@
 		4D8C62DA19B6B00900F59CFF /* RegistrationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegistrationViewController.m; sourceTree = "<group>"; };
 		4D8C62DC19B6B7E900F59CFF /* UsernameViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UsernameViewController.h; sourceTree = "<group>"; };
 		4D8C62DD19B6B7E900F59CFF /* UsernameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UsernameViewController.m; sourceTree = "<group>"; };
+		4DD3F54A19CB42F700A77C1C /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		4DD3F54C19CB42FD00A77C1C /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		4DD3F54E19CB433000A77C1C /* LocationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationController.h; sourceTree = "<group>"; };
+		4DD3F54F19CB433000A77C1C /* LocationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationController.m; sourceTree = "<group>"; };
+		4DD3F55119CB5C8500A77C1C /* locate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = locate.png; sourceTree = "<group>"; };
+		4DD3F55219CB5C8500A77C1C /* locate@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "locate@2x.png"; sourceTree = "<group>"; };
 		4DD698A819C4F27F00D9D65D /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		4DD698A919C4F27F00D9D65D /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		4DD698AB19C4F29700D9D65D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -133,8 +168,6 @@
 		4DEAF5B219C886BB00CC1EC8 /* RNDecryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNDecryptor.m; sourceTree = "<group>"; };
 		4DEAF5B319C886BB00CC1EC8 /* RNEncryptor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNEncryptor.h; sourceTree = "<group>"; };
 		4DEAF5B419C886BB00CC1EC8 /* RNEncryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNEncryptor.m; sourceTree = "<group>"; };
-		4DEAF5B919C8FAA200CC1EC8 /* Internal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Internal.h; sourceTree = "<group>"; };
-		4DEAF5BA19C8FAA200CC1EC8 /* Internal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Internal.m; sourceTree = "<group>"; };
 		4DEAF5BC19C933DC00CC1EC8 /* NotificationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationController.h; sourceTree = "<group>"; };
 		4DEAF5BD19C933DC00CC1EC8 /* NotificationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationController.m; sourceTree = "<group>"; };
 		4DF6EAB619C9FD32001BC176 /* Reachability+SharedInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Reachability+SharedInstance.h"; sourceTree = "<group>"; };
@@ -143,6 +176,8 @@
 		4DF6EABB19CA00DD001BC176 /* WAUServerConnector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WAUServerConnector.m; sourceTree = "<group>"; };
 		4DF6EAC019CA0A21001BC176 /* WAUServerConnectorRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WAUServerConnectorRequest.h; sourceTree = "<group>"; };
 		4DF6EAC119CA0A21001BC176 /* WAUServerConnectorRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WAUServerConnectorRequest.m; sourceTree = "<group>"; };
+		4DF76E2919CFC91B001BCE04 /* ContactMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactMapViewController.h; sourceTree = "<group>"; };
+		4DF76E2A19CFC91B001BCE04 /* ContactMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactMapViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +186,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				4DEAF5A519C87C0200CC1EC8 /* AVFoundation.framework in Frameworks */,
+				4DD3F54B19CB42F700A77C1C /* CoreData.framework in Frameworks */,
+				4DD3F54D19CB42FD00A77C1C /* CoreLocation.framework in Frameworks */,
+				4D49A8A019CFCF1400F8B382 /* MapKit.framework in Frameworks */,
+				4D44828019CB949E007E3220 /* Security.framework in Frameworks */,
 				4DD698AC19C4F29700D9D65D /* SystemConfiguration.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -165,6 +204,37 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4D09BF7919D0C1FB0009D0CF /* ContactMap */ = {
+			isa = PBXGroup;
+			children = (
+				4D09BF7A19D0C2360009D0CF /* ContactMapAnnotation.h */,
+				4D09BF7B19D0C2360009D0CF /* ContactMapAnnotation.m */,
+				4D09BF7D19D0CD840009D0CF /* ContactMapAnnotationView.h */,
+				4D09BF7E19D0CD840009D0CF /* ContactMapAnnotationView.m */,
+				4DF76E2919CFC91B001BCE04 /* ContactMapViewController.h */,
+				4DF76E2A19CFC91B001BCE04 /* ContactMapViewController.m */,
+			);
+			name = ContactMap;
+			sourceTree = "<group>";
+		};
+		4D09BF8D19D125390009D0CF /* MKCircle+ContactController */ = {
+			isa = PBXGroup;
+			children = (
+				4D09BF8E19D1254D0009D0CF /* MKCircle+ContactController.h */,
+				4D09BF8F19D1254D0009D0CF /* MKCircle+ContactController.m */,
+			);
+			name = "MKCircle+ContactController";
+			sourceTree = "<group>";
+		};
+		4D44828719CBC119007E3220 /* NSData+HexConversion */ = {
+			isa = PBXGroup;
+			children = (
+				4D44828819CBC133007E3220 /* NSData+Conversion.h */,
+				4D44828919CBC133007E3220 /* NSData+Conversion.m */,
+			);
+			name = "NSData+HexConversion";
+			sourceTree = "<group>";
+		};
 		4D48C67719BCCF7A00D09FDA /* UpdateUserInfo */ = {
 			isa = PBXGroup;
 			children = (
@@ -194,6 +264,8 @@
 			children = (
 				4D4C611119B4CBAE003AB18B /* ContactListTableViewCell.h */,
 				4D4C611219B4CBAE003AB18B /* ContactListTableViewCell.m */,
+				4D8267EF19B3D29400076974 /* ContactListViewController.h */,
+				4D8267F019B3D29400076974 /* ContactListViewController.m */,
 			);
 			name = ContactList;
 			sourceTree = "<group>";
@@ -209,6 +281,9 @@
 				4DEAF5A019C8767300CC1EC8 /* EncryptionController.m */,
 				4DD8863719C785B1003C7CE2 /* EntityController.h */,
 				4DD8863819C785B1003C7CE2 /* EntityController.m */,
+				4DD3F54E19CB433000A77C1C /* LocationController.h */,
+				4DD3F54F19CB433000A77C1C /* LocationController.m */,
+				4DD3F54919CB2FA100A77C1C /* Notification */,
 				4DEAF5BC19C933DC00CC1EC8 /* NotificationController.h */,
 				4DEAF5BD19C933DC00CC1EC8 /* NotificationController.m */,
 				4DD8863A19C78EA7003C7CE2 /* UserController.h */,
@@ -222,8 +297,6 @@
 			children = (
 				4D4C612819B517C7003AB18B /* Contact.h */,
 				4D4C612919B517C7003AB18B /* Contact.m */,
-				4DEAF5B919C8FAA200CC1EC8 /* Internal.h */,
-				4DEAF5BA19C8FAA200CC1EC8 /* Internal.m */,
 				4D48C66819BB984100D09FDA /* User.h */,
 				4D48C66919BB984100D09FDA /* User.m */,
 			);
@@ -237,6 +310,15 @@
 				4D4C613019B52D41003AB18B /* UIColor+Hex.m */,
 			);
 			name = "UIColor+Hex";
+			sourceTree = "<group>";
+		};
+		4D5BD6D819CF254700B7BC01 /* NSString+Hash */ = {
+			isa = PBXGroup;
+			children = (
+				4D5BD6D919CF256200B7BC01 /* NSString+Hash.h */,
+				4D5BD6DA19CF256200B7BC01 /* NSString+Hash.m */,
+			);
+			name = "NSString+Hash";
 			sourceTree = "<group>";
 		};
 		4D8267B819B3BA6E00076974 = {
@@ -268,9 +350,12 @@
 				4D4C612119B4D2A7003AB18B /* CoreDataObjects */,
 				4D8267F219B4036300076974 /* HelperClasses */,
 				4D8267D419B3BA6E00076974 /* Images.xcassets */,
+				4D49A8A319CFDCD900F8B382 /* LaunchScreen.xib */,
 				4D8267D119B3BA6E00076974 /* Main.storyboard */,
 				4D8267C419B3BA6E00076974 /* Supporting Files */,
 				4D8267EE19B3D26D00076974 /* ViewControllers */,
+				4D5BD6D519CF179000B7BC01 /* WAUConstant.h */,
+				4D5BD6D619CF179000B7BC01 /* WAUConstant.m */,
 				4D8267CB19B3BA6E00076974 /* WheArU.xcdatamodeld */,
 			);
 			path = WheArU;
@@ -307,8 +392,7 @@
 			children = (
 				4D8C11DC19C66A3B00698F6D /* AddContacts */,
 				4D4C611019B4CB82003AB18B /* ContactList */,
-				4D8267EF19B3D29400076974 /* ContactListViewController.h */,
-				4D8267F019B3D29400076974 /* ContactListViewController.m */,
+				4D09BF7919D0C1FB0009D0CF /* ContactMap */,
 				4D48C67B19BD20CE00D09FDA /* Registration */,
 				4D48C67719BCCF7A00D09FDA /* UpdateUserInfo */,
 			);
@@ -318,32 +402,42 @@
 		4D8267F219B4036300076974 /* HelperClasses */ = {
 			isa = PBXGroup;
 			children = (
-				4DF6EAB919CA007C001BC176 /* WAUServerConnector */,
-				4DEAF5AA19C886AA00CC1EC8 /* RNCryptor */,
+				4D09BF8D19D125390009D0CF /* MKCircle+ContactController */,
+				4D44828719CBC119007E3220 /* NSData+HexConversion */,
+				4D5BD6D819CF254700B7BC01 /* NSString+Hash */,
 				4DD698A719C4F26800D9D65D /* Reachability */,
+				4DEAF5AA19C886AA00CC1EC8 /* RNCryptor */,
 				4D4C612B19B52CD7003AB18B /* UIColor+Hex */,
 				4DD698B119C4FC6E00D9D65D /* WAULog */,
+				4DF6EAB919CA007C001BC176 /* WAUServerConnector */,
 			);
 			name = HelperClasses;
 			sourceTree = "<group>";
 		};
-		4D8C11D719C6377E00698F6D /* IDCard */ = {
+		4D8C11D719C6377E00698F6D /* QRCode */ = {
 			isa = PBXGroup;
 			children = (
 				4D8C11D819C637B600698F6D /* IDCardViewController.h */,
 				4D8C11D919C637B600698F6D /* IDCardViewController.m */,
 			);
-			name = IDCard;
+			name = QRCode;
 			sourceTree = "<group>";
 		};
 		4D8C11DC19C66A3B00698F6D /* AddContacts */ = {
 			isa = PBXGroup;
 			children = (
-				4D8C11D719C6377E00698F6D /* IDCard */,
+				4D8C11D719C6377E00698F6D /* QRCode */,
 				4D8C11DD19C66A7700698F6D /* AddContactWithQRCodeViewController.h */,
 				4D8C11DE19C66A7700698F6D /* AddContactWithQRCodeViewController.m */,
 			);
 			name = AddContacts;
+			sourceTree = "<group>";
+		};
+		4DD3F54919CB2FA100A77C1C /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Notification;
 			sourceTree = "<group>";
 		};
 		4DD698A719C4F26800D9D65D /* Reachability */ = {
@@ -360,7 +454,11 @@
 		4DD698AD19C4F29B00D9D65D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4D49A89F19CFCF1400F8B382 /* MapKit.framework */,
+				4D44827F19CB949E007E3220 /* Security.framework */,
 				4DEAF5A419C87C0200CC1EC8 /* AVFoundation.framework */,
+				4DD3F54A19CB42F700A77C1C /* CoreData.framework */,
+				4DD3F54C19CB42FD00A77C1C /* CoreLocation.framework */,
 				4DD698AB19C4F29700D9D65D /* SystemConfiguration.framework */,
 			);
 			name = Frameworks;
@@ -382,6 +480,8 @@
 				4D8C11D419C6347400698F6D /* add_user@2x.png */,
 				4D8C11CB19C6321800698F6D /* id_card.png */,
 				4D8C11CC19C6321800698F6D /* id_card@2x.png */,
+				4DD3F55119CB5C8500A77C1C /* locate.png */,
+				4DD3F55219CB5C8500A77C1C /* locate@2x.png */,
 				4D8C11CF19C6328A00698F6D /* profile_settings.png */,
 				4D8C11D019C6328A00698F6D /* profile_settings@2x.png */,
 				4DD698B719C5510C00D9D65D /* settings@2x.png */,
@@ -504,13 +604,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DD3F55319CB5C8500A77C1C /* locate.png in Resources */,
 				4DD698BA19C5510C00D9D65D /* settings.png in Resources */,
 				4D8C11D119C6328A00698F6D /* profile_settings.png in Resources */,
 				4D8C11D519C6347400698F6D /* add_user.png in Resources */,
 				4D8C11CE19C6321800698F6D /* id_card@2x.png in Resources */,
 				4D8C11CD19C6321800698F6D /* id_card.png in Resources */,
+				4DD3F55419CB5C8500A77C1C /* locate@2x.png in Resources */,
 				4D8267D319B3BA6E00076974 /* Main.storyboard in Resources */,
 				4D8C11D219C6328A00698F6D /* profile_settings@2x.png in Resources */,
+				4D49A8A419CFDCD900F8B382 /* LaunchScreen.xib in Resources */,
 				4DD698B919C5510C00D9D65D /* settings@2x.png in Resources */,
 				4D8267D519B3BA6E00076974 /* Images.xcassets in Resources */,
 				4D8C11D619C6347400698F6D /* add_user@2x.png in Resources */,
@@ -531,6 +634,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D09BF9019D1254D0009D0CF /* MKCircle+ContactController.m in Sources */,
 				4DEAF5A119C8767300CC1EC8 /* EncryptionController.m in Sources */,
 				4D4C612A19B517C7003AB18B /* Contact.m in Sources */,
 				4DEAF5BE19C933DC00CC1EC8 /* NotificationController.m in Sources */,
@@ -539,28 +643,34 @@
 				4D8267F119B3D29400076974 /* ContactListViewController.m in Sources */,
 				4D48C67A19BCD1EF00D09FDA /* UpdateUserIconViewController.m in Sources */,
 				4DF6EAB819C9FD32001BC176 /* Reachability+SharedInstance.m in Sources */,
+				4DF76E2B19CFC91B001BCE04 /* ContactMapViewController.m in Sources */,
 				4DEAF5B819C886BB00CC1EC8 /* RNEncryptor.m in Sources */,
 				4DEAF5B519C886BB00CC1EC8 /* RNCryptor.m in Sources */,
+				4D5BD6D719CF179000B7BC01 /* WAUConstant.m in Sources */,
 				4DD698B019C4FC6A00D9D65D /* WAULog.m in Sources */,
 				4D8267CA19B3BA6E00076974 /* AppDelegate.m in Sources */,
+				4DD3F55019CB433000A77C1C /* LocationController.m in Sources */,
 				4DEAF5B719C886BB00CC1EC8 /* RNDecryptor.m in Sources */,
 				4D48C67619BCCDC300D09FDA /* UpdateUsernameViewController.m in Sources */,
 				4DD8863F19C79981003C7CE2 /* ContactController.m in Sources */,
+				4D09BF7C19D0C2360009D0CF /* ContactMapAnnotation.m in Sources */,
 				4D8C11DA19C637B600698F6D /* IDCardViewController.m in Sources */,
 				4D4C613119B52D41003AB18B /* UIColor+Hex.m in Sources */,
 				4D8267C719B3BA6E00076974 /* main.m in Sources */,
 				4DF6EABC19CA00DD001BC176 /* WAUServerConnector.m in Sources */,
 				4DD8863919C785B1003C7CE2 /* EntityController.m in Sources */,
 				4DF6EAC219CA0A21001BC176 /* WAUServerConnectorRequest.m in Sources */,
+				4D5BD6DB19CF256200B7BC01 /* NSString+Hash.m in Sources */,
 				4D8C62DE19B6B7E900F59CFF /* UsernameViewController.m in Sources */,
 				4D8C11DF19C66A7700698F6D /* AddContactWithQRCodeViewController.m in Sources */,
 				4D48C66A19BB984100D09FDA /* User.m in Sources */,
 				4D48C67319BCC92800D09FDA /* UpdateUserColorViewController.m in Sources */,
+				4D09BF7F19D0CD840009D0CF /* ContactMapAnnotationView.m in Sources */,
+				4D44828A19CBC133007E3220 /* NSData+Conversion.m in Sources */,
 				4D8C62DB19B6B00900F59CFF /* RegistrationViewController.m in Sources */,
 				4D4C611819B4D01B003AB18B /* ContactListController.m in Sources */,
 				4DEAF5B619C886BB00CC1EC8 /* RNCryptorEngine.m in Sources */,
 				4D8267CD19B3BA6E00076974 /* WheArU.xcdatamodeld in Sources */,
-				4DEAF5BB19C8FAA200CC1EC8 /* Internal.m in Sources */,
 				4DD698AA19C4F27F00D9D65D /* Reachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

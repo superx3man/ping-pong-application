@@ -11,26 +11,14 @@
 #import "UserController.h"
 
 
-extern NSString *const kWAUGenerateKeyRemoteURL;
-
-extern NSString *const kWAUDeviceInfoDictionaryKeyUserId;
-extern NSString *const kWAUDeviceInfoDictionaryKeyGeneratedKey;
-
 extern NSString *const kWAUSystemKey;
 extern NSString *const kWAUUserDictionaryKeyGeneratedKey;
 
-typedef NS_ENUM(int, WAUGeneratedKeyState)
-{
-    WAUGeneratedKeyStateNoGeneratedKey,
-    WAUGeneratedKeyStateRequestingGeneratedKey,
-    WAUGeneratedKeyStateValidGeneratedKey,
-};
-
 @protocol EncryptionControllerDelegate;
 
-@interface EncryptionController : NSObject <UserControllerDelegate>
+@interface EncryptionController : NSObject
 
-@property (nonatomic, assign) WAUGeneratedKeyState generatedKeyState;
+@property (nonatomic, strong) NSString *generatedKey;
 
 + (EncryptionController *)sharedInstance;
 
@@ -47,6 +35,6 @@ typedef NS_ENUM(int, WAUGeneratedKeyState)
 @protocol EncryptionControllerDelegate <NSObject>
 
 @optional
-- (void)controllerDidValidateGeneratedKey:(EncryptionController *)controller;
+- (void)controllerDidSetGeneratedKey:(EncryptionController *)controller;
 
 @end

@@ -13,6 +13,7 @@
 #import "EncryptionController.h"
 
 #import "UIColor+Hex.h"
+#import "WAUConstant.h"
 #import "WAULog.h"
 
 @implementation ContactListController
@@ -90,52 +91,82 @@
     NSDictionary *contactInfo = [NSJSONSerialization JSONObjectWithData:contactInfoJSONData options:kNilOptions error:&error];
     
     ContactController *contactController = nil;
-    if (error == nil) {
-        NSString *userId = [contactInfo objectForKey:kWAUUserDictionaryKeyUserId];
-        contactController = [userIdContactListDictionary objectForKey:userId];
-        if (contactController == nil) {
-            NSString *base64NotificationKey = nil;
-            if ((base64NotificationKey = [contactInfo objectForKey:kWAUUserDictionaryKeyNotificationKey])) {
-                NSData *notificationKey = [[NSData alloc] initWithBase64EncodedString:base64NotificationKey options:kNilOptions];
-                
-                NSString *username = [contactInfo objectForKey:kWAUUserDictionaryKeyUsername];
-                NSString *userColorString = [contactInfo objectForKey:kWAUUserDictionaryKeyUserColor];
-                UIColor *userColor = [UIColor colorFromHexString:userColorString];
-                
-                int platform = [[contactInfo objectForKey:kWAUUserDictionaryKeyPlatform] intValue];
-                int version = [[contactInfo objectForKey:kWAUUserDictionaryKeyVersion] intValue];
-                
-                if (notificationKey != nil && [username length] > 0 && userColor != nil) {
-                    [WAULog log:[NSString stringWithFormat:@"new user userId: %@", userId] from:self];
-                    NSString *userIconLink = [contactInfo objectForKey:kWAUUserDictionaryKeyUserIcon];
-                    
-                    Contact *newContact = [NSEntityDescription insertNewObjectForEntityForName:kWAUCoreDataEntityContact inManagedObjectContext:managedObjectContext];
-                    [newContact setUserId:userId];
-                    
-                    [newContact setNotificationKey:notificationKey];
-                    [newContact setPlatform:platform];
-                    [newContact setVersion:version];
-                    
-                    [newContact setUsername:username];
-                    [newContact setUserColor:userColorString];
-                    if (userIconLink != nil) [newContact setUserIconLink:userIconLink];
-                    
-                    int64_t currentTimestamp = [[NSDate date] timeIntervalSince1970];
-                    [newContact setLastUpdated:currentTimestamp];
-                    [newContact setLocationState:WAUContactLocationStateNotSet];
-                    
-                    [managedObjectContext save:nil];
-                    
-                    contactController = [[ContactController alloc] initWithContact:newContact];
-                    [userIdContactListDictionary setObject:contactController forKey:userId];
-                    [[self recentContactList] insertObject:contactController atIndex:0];
-                    
-                    for (id<ContactListControllerDelegate>delegate in delegateList) {
-                        if ([delegate respondsToSelector:@selector(newItemAddedToList:)]) [delegate newItemAddedToList:self];
-                    }
-                }
+    return error == nil ? [self createContactWithContactInfo:contactInfo] : contactController;
+}
+
+- (ContactController *)createContactWithContactInfo:(NSDictionary *)contactInfo
+{
+    ContactController *contactController = nil;
+    NSString *userId = [contactInfo objectForKey:kWAUDictionaryKeyUserId];
+    contactController = [userIdContactListDictionary objectForKey:userId];
+    if (contactController == nil) {
+        NSString *username = [contactInfo objectForKey:kWAUDictionaryKeyUsername];
+        NSString *userColorString = [contactInfo objectForKey:kWAUDictionaryKeyUserColor];
+        UIColor *userColor = [UIColor colorFromHexString:userColorString];
+        
+        if ([username length] > 0 && userColor != nil) {
+            [WAULog log:[NSString stringWithFormat:@"new user userId: %@", userId] from:self];
+            
+            Contact *newContact = [NSEntityDescription insertNewObjectForEntityForName:kWAUCoreDataEntityContact inManagedObjectContext:managedObjectContext];
+            [newContact setUserId:userId];
+            
+            [newContact setVersion:0];
+            
+            [newContact setUsername:username];
+            [newContact setUserColor:userColorString];
+            
+            int64_t currentTimestamp = [[NSDate date] timeIntervalSince1970];
+            [newContact setLastUpdated:currentTimestamp];
+            
+            [managedObjectContext save:nil];
+            
+            contactController = [[ContactController alloc] initWithContact:newContact];
+            [userIdContactListDictionary setObject:contactController forKey:userId];
+            [[self recentContactList] insertObject:contactController atIndex:0];
+            
+            for (id<ContactListControllerDelegate> delegate in delegateList) {
+                if ([delegate respondsToSelector:@selector(newItemAddedToList:)]) [delegate newItemAddedToList:self];
             }
         }
+    }
+    return contactController;
+}
+
+- (ContactController *)updateContactWithUserId:(NSString *)userId withLocationInfo:(NSString *)locationInfo
+{
+    ContactController *contactController = nil;
+    contactController = [userIdContactListDictionary objectForKey:userId];
+    if (contactController != nil) {
+        NSArray *locationInfoList = [locationInfo componentsSeparatedByString:@":"];
+        [contactController setLatitude:[[locationInfoList objectAtIndex:0] doubleValue]];
+        [contactController setLongitude:[[locationInfoList objectAtIndex:1] doubleValue]];
+        [contactController setAltitude:[[locationInfoList objectAtIndex:2] doubleValue]];
+        [contactController setAccuracy:[[locationInfoList objectAtIndex:3] doubleValue]];
+        
+        [contactController setLastUpdated:[[locationInfoList objectAtIndex:4] longLongValue]];
+        
+        if ([[self recentContactList] containsObject:contactController]) {
+            [[self recentContactList] removeObject:contactController];
+            [[self recentContactList] insertObject:contactController atIndex:0];
+        }
+        else if ([[self contactList] containsObject:contactController]) {
+            [[self contactList] removeObject:contactController];
+            [[self recentContactList] insertObject:contactController atIndex:0];
+        }
+        
+        for (id<ContactListControllerDelegate> delegate in delegateList) {
+            if ([delegate respondsToSelector:@selector(itemMovedToRecentContactList:)]) [delegate itemMovedToRecentContactList:self];
+        }
+    }
+    return contactController;
+}
+
+- (ContactController *)validateContactWithUserId:(NSString *)userId withVersion:(int)version
+{
+    ContactController *contactController = nil;
+    contactController = [userIdContactListDictionary objectForKey:userId];
+    if (contactController != nil) {
+        [contactController validateContactVersion:version];
     }
     return contactController;
 }

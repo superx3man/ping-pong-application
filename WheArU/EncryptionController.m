@@ -19,18 +19,11 @@
 #import "WAUServerConnectorRequest.h"
 
 
-NSString *const kWAUGenerateKeyRemoteURL = @"generate";
-
-NSString *const kWAUDeviceInfoDictionaryKeyUserId = @"id";
-NSString *const kWAUDeviceInfoDictionaryKeyGeneratedKey = @"gen";
-
 NSString *const kWAUSystemKey = @"4pl5YeFT1MX7QZsND!6v116@7lM1vIxz(SEX*aG)";
 NSString *const kWAUUserDictionaryKeyGeneratedKey = @"WAUGeneratedKey";
 
 @implementation EncryptionController
 {
-    NSString *generatedKey;
-    
     NSMutableArray *delegateList;
 }
 
@@ -39,7 +32,8 @@ NSString *const kWAUUserDictionaryKeyGeneratedKey = @"WAUGeneratedKey";
     if (self = [super init]) {
         delegateList = [[NSMutableArray alloc] init];
         
-        [self setGeneratedKeyState:WAUGeneratedKeyStateNoGeneratedKey];
+        NSString *generatedKey = [[NSUserDefaults standardUserDefaults] objectForKey:kWAUUserDictionaryKeyGeneratedKey];
+        if (generatedKey != nil) [self setGeneratedKey:generatedKey];
     }
     return self;
 }
@@ -79,55 +73,13 @@ NSString *const kWAUUserDictionaryKeyGeneratedKey = @"WAUGeneratedKey";
     return plainText;
 }
 
-- (void)validateGeneratedKey
-{
-    if ([self generatedKeyState] == WAUGeneratedKeyStateRequestingGeneratedKey) return;
-    [WAULog log:@"validating generated key" from:self];
-    
-    generatedKey = [[NSUserDefaults standardUserDefaults] objectForKey:kWAUUserDictionaryKeyGeneratedKey];
-    [self setGeneratedKeyState:generatedKey == nil ? WAUGeneratedKeyStateNoGeneratedKey : WAUGeneratedKeyStateValidGeneratedKey];
-    
-    if ([self generatedKeyState] == WAUGeneratedKeyStateNoGeneratedKey) [self fetchGeneratedKey];
-    else if ([self generatedKeyState] == WAUGeneratedKeyStateValidGeneratedKey) {
-        for (id<EncryptionControllerDelegate>delegate in delegateList) {
-            if ([delegate respondsToSelector:@selector(controllerDidValidateGeneratedKey:)]) [delegate controllerDidValidateGeneratedKey:self];
-        }
-    }
-}
-
-- (void)fetchGeneratedKey
-{
-    if ([[UserController sharedInstance] userId] == nil || [self generatedKeyState] != WAUGeneratedKeyStateNoGeneratedKey) return;
-    [self setGeneratedKeyState:WAUGeneratedKeyStateRequestingGeneratedKey];
-    
-    NSMutableDictionary *userDictionary = [[NSMutableDictionary alloc] init];
-    [userDictionary setObject:[[UserController sharedInstance] userId] forKey:kWAUDeviceInfoDictionaryKeyUserId];
-    
-    WAUServerConnectorRequest *request = [[WAUServerConnectorRequest alloc] initWithEndPoint:kWAUGenerateKeyRemoteURL method:@"POST" parameters:userDictionary];
-    [request setFailureHandler:^(WAUServerConnectorRequest *connectorRequest)
-    {
-        [WAULog log:@"failed to download generated key" from:self];
-        [self setGeneratedKeyState:WAUGeneratedKeyStateNoGeneratedKey];
-        
-        [self performSelector:@selector(validateGeneratedKey) withObject:nil afterDelay:300];
-    }];
-    [request setSuccessHandler:^(WAUServerConnectorRequest *connectorRequest, NSObject *requestResult)
-    {
-        generatedKey = [(NSDictionary *) requestResult objectForKey:kWAUDeviceInfoDictionaryKeyGeneratedKey];
-        [[NSUserDefaults standardUserDefaults] setObject:generatedKey forKey:kWAUUserDictionaryKeyGeneratedKey];
-        
-        [WAULog log:[NSString stringWithFormat:@"generated key downloaded"] from:self];
-        [self setGeneratedKeyState:WAUGeneratedKeyStateNoGeneratedKey];
-        [self validateGeneratedKey];
-    }];
-    [[WAUServerConnector sharedInstance] sendRequest:request withTag:@"RequestGeneratedKey"];
-}
-
 #pragma mark External
 
 - (void)addDelegate:(id<EncryptionControllerDelegate>)delegate
 {
     [delegateList addObject:delegate];
+    
+    if ([self generatedKey] != nil && [delegate respondsToSelector:@selector(controllerDidSetGeneratedKey:)]) [delegate controllerDidSetGeneratedKey:self];
 }
 
 - (NSString *)encryptStringWithSystemKey:(NSString *)plainText
@@ -142,20 +94,25 @@ NSString *const kWAUUserDictionaryKeyGeneratedKey = @"WAUGeneratedKey";
 
 - (NSString *)encryptStringWithGeneratedKey:(NSString *)plainText
 {
-    return [self encryptString:plainText withKey:generatedKey];
+    return [self encryptString:plainText withKey:[self generatedKey]];
 }
 
 - (NSString *)decryptStringWithGeneratedKey:(NSString *)cipherText
 {
-    return [self decryptString:cipherText withKey:generatedKey];
+    return [self decryptString:cipherText withKey:[self generatedKey]];
 }
 
-#pragma mark - Delegates
-#pragma mark UserControllerDelegate
+#pragma mark - Properties
 
-- (void)controllerDidSetUserId:(UserController *)controller
+- (void)setGeneratedKey:(NSString *)generatedKey
 {
-    [self validateGeneratedKey];
+    _generatedKey = generatedKey;
+    
+    [[NSUserDefaults standardUserDefaults] setObject:generatedKey forKey:kWAUUserDictionaryKeyGeneratedKey];
+    
+    for (id<EncryptionControllerDelegate> delegate in delegateList) {
+        if ([delegate respondsToSelector:@selector(controllerDidSetGeneratedKey:)]) [delegate controllerDidSetGeneratedKey:self];
+    }
 }
 
 @end

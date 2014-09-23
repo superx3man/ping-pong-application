@@ -7,39 +7,25 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <Security/Security.h>
 
+#import "AppDelegate.h"
+#import "ContactController.h"
 #import "EncryptionController.h"
 
 
-extern NSString *const kWAURequestInfoDictionaryKeyUserId;
-
-extern NSString *const kWAURequestInfoDictionaryKeyIOSInfo;
-extern NSString *const kWAURequestInfoDictionaryKeyAndroidInfo;
-
-extern NSString *const kWAURequestInfoDictionaryKeyExpiration;
-
-extern NSString *const kWAUNotificationKeyRemoteURL;
-
-typedef NS_ENUM(int, WAUNotificationKeyState)
-{
-    WAUNotificationKeyStateNoGeneratedKey,
-    WAUNotificationKeyStateNoNotificationKey,
-    WAUNotificationKeyStateRequestingNotificationKey,
-    WAUNotificationKeyStateValidNotificationKey,
-};
+extern NSString *const kWAUNotificationCategoryIdentifierRequestLocation;
+extern NSString *const kWAUNotificationActionIdentifierSend;
 
 @protocol NotificationControllerDelegate;
 
-@interface NotificationController : NSObject <EncryptionControllerDelegate>
-
-@property (nonatomic, assign) WAUNotificationKeyState notificationKeyState;
-
-@property (nonatomic, strong) NSString *IOSKey;
-@property (nonatomic, strong) NSString *androidKey;
+@interface NotificationController : NSObject <EncryptionControllerDelegate, NotificationRegistrationDelegate>
 
 + (NotificationController *)sharedInstance;
 
 - (void)addDelegate:(id<NotificationControllerDelegate>)delegate;
+
+- (void)requestForLocationFromContact:(ContactController *)contact;
 
 @end
 

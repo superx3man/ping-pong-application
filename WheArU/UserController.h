@@ -11,18 +11,12 @@
 #import "EntityController.h"
 
 
-extern NSString *const kWAUImageUploadRemoteURL;
-
-extern NSString *const kWAUImageUploadDictionaryKeyUserId;
-extern NSString *const kWAUImageUploadDictionaryKeyImageData;
-
-extern NSString *const kWAUImageUploadDictionaryKeyIconLink;
-
 @protocol UserControllerDelegate;
 
 @interface UserController : EntityController
 
 @property (nonatomic, assign) int fetchCount;
+@property (nonatomic, assign, setter = setModified:) BOOL isModified;
 
 + (UserController *)sharedInstance;
 

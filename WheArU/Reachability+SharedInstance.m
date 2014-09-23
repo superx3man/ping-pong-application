@@ -10,6 +10,8 @@
 
 #import "AppDelegate.h"
 
+#import "WAUConstant.h"
+
 
 @implementation Reachability (SharedInstance)
 
@@ -21,7 +23,7 @@
     
     @synchronized(self) {
         if (sharedInstance == nil) {
-            sharedInstance = [Reachability reachabilityWithHostname:kWAUAppRemoteHost];
+            sharedInstance = [Reachability reachabilityWithHostname:kWAUServerEndpoint];
             [sharedInstance setReachableOnWWAN:YES];
             [sharedInstance startNotifier];
         }

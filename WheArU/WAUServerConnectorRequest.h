@@ -16,6 +16,7 @@
 
 @property (nonatomic, assign, setter = setEncryptionNeeded:) BOOL isEncryptionNeeded;
 @property (nonatomic, assign, setter = setDecryptionNeeded:) BOOL isDecryptionNeeded;
+@property (nonatomic, assign, setter = setSignatureNeeded:) BOOL isSignatureNeeded;
 @property (nonatomic, assign, setter = setResultInJSON:) BOOL isResultInJSON;
 
 @property (nonatomic, strong) void (^successHandler)(WAUServerConnectorRequest *, NSObject *);

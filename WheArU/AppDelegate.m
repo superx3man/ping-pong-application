@@ -12,9 +12,12 @@
 #import "UserController.h"
 #import "EncryptionController.h"
 #import "NotificationController.h"
+#import "LocationController.h"
 
+#import "NSData+Conversion.h"
+#import "WAUConstant.h"
+#import "WAULog.h"
 
-NSString *const kWAUAppRemoteHost = @"pingpong.calvinx3.com";
 
 @interface AppDelegate ()
 
@@ -27,10 +30,13 @@ NSString *const kWAUAppRemoteHost = @"pingpong.calvinx3.com";
     
     EncryptionController *encryptionController;
     NotificationController *notificationController;
+    LocationController *locationController;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    //locationController = [LocationController sharedInstance];
+    
     contactListController = [ContactListController sharedInstance];
     userController = [UserController sharedInstance];
     
@@ -38,7 +44,6 @@ NSString *const kWAUAppRemoteHost = @"pingpong.calvinx3.com";
     notificationController = [NotificationController sharedInstance];
     
     [encryptionController addDelegate:notificationController];
-    [userController addDelegate:encryptionController];
     
     return YES;
 }
@@ -65,16 +70,53 @@ NSString *const kWAUAppRemoteHost = @"pingpong.calvinx3.com";
 }
 
 #pragma mark - Protocol Delegates
+#pragma mark Notifcations
+
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
+{
+    if ([self notificationRegistrationDelegate] != nil) {
+        if ([[self notificationRegistrationDelegate] respondsToSelector:@selector(didRegisterUserNotificationSettings:)]) [[self notificationRegistrationDelegate] didRegisterUserNotificationSettings:notificationSettings];
+    }
+}
+
 #pragma mark Push Notifcations
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
-    if ([self notificationDelegate]) [[self notificationDelegate] didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
+    if ([self notificationRegistrationDelegate] != nil) {
+        if ([[self notificationRegistrationDelegate] respondsToSelector:@selector(didRegisterForRemoteNotificationsWithDeviceToken:)]) [[self notificationRegistrationDelegate] didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
+    }
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
 {
-    if ([self notificationDelegate]) [[self notificationDelegate] didFailToRegisterForRemoteNotificationsWithError:error];
+    if ([self notificationRegistrationDelegate] != nil) {
+        if ([[self notificationRegistrationDelegate] respondsToSelector:@selector(didFailToRegisterForRemoteNotificationsWithError:)]) [[self notificationRegistrationDelegate] didFailToRegisterForRemoteNotificationsWithError:error];
+    }
+}
+
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+{
+    NSString *messageType = [userInfo objectForKey:kWAUDictionaryKeyContentType];
+    UIBackgroundFetchResult fetchResult = UIBackgroundFetchResultNoData;
+    
+    [WAULog log:[NSString stringWithFormat:@"Received notification type: %@", messageType] from:self];
+    
+    if ([messageType isEqualToString:@"contact"]) {
+        [contactListController createContactWithContactInfo:userInfo];
+        fetchResult = UIBackgroundFetchResultNewData;
+    }
+    else if ([messageType isEqualToString:@"ping"]) {
+        NSString *userId = [userInfo objectForKey:kWAUDictionaryKeyUserId];
+        NSString *locationInfo = [userInfo objectForKey:kWAUDictionaryKeyLocationInfo];
+        if (locationInfo != nil) [contactListController updateContactWithUserId:userId withLocationInfo:locationInfo];
+        
+        NSString *version = [userInfo objectForKey:kWAUDictionaryKeyVersion];
+        if (version != nil) [contactListController validateContactWithUserId:userId withVersion:[version intValue]];
+        
+        fetchResult = UIBackgroundFetchResultNewData;
+    }
+    completionHandler(fetchResult);
 }
 
 #pragma mark - Core Data
@@ -155,7 +197,5 @@ NSString *const kWAUAppRemoteHost = @"pingpong.calvinx3.com";
         }
     }
 }
-
-
 
 @end
