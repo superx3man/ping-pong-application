@@ -500,7 +500,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dw7-qm-jC1" id="YC0-jx-az7">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8vZ-Z4-0iY">
+                                                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8vZ-Z4-0iY">
                                                     <rect key="frame" x="0.0" y="0.0" width="600" height="100"/>
                                                     <subviews>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vFn-Mk-DLd">
@@ -513,16 +513,13 @@
                                                                         <constraint firstAttribute="width" constant="68" id="ug2-nr-q41"/>
                                                                     </constraints>
                                                                 </imageView>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EkP-np-ECe">
+                                                                <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EkP-np-ECe">
                                                                     <rect key="frame" x="108" y="8" width="372" height="84"/>
                                                                     <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="30"/>
                                                                     <state key="normal" title="Abi Juang">
                                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                         <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                     </state>
-                                                                    <connections>
-                                                                        <segue destination="VRP-ka-veb" kind="show" identifier="OpenMapViewSegue" id="Syx-tw-agQ"/>
-                                                                    </connections>
                                                                 </button>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="999dys" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="viw-Z7-Gdf">
                                                                     <rect key="frame" x="496" y="8" width="96" height="84"/>
@@ -570,6 +567,7 @@
                                                                 </view>
                                                             </subviews>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                            <gestureRecognizers/>
                                                             <constraints>
                                                                 <constraint firstItem="EkP-np-ECe" firstAttribute="leading" secondItem="GAu-dg-jJu" secondAttribute="trailing" constant="24" id="7xL-D8-b4q"/>
                                                                 <constraint firstItem="EkP-np-ECe" firstAttribute="leading" secondItem="vFn-Mk-DLd" secondAttribute="leading" constant="8" id="CKP-R8-43S"/>
@@ -609,6 +607,9 @@
                                                         <constraint firstItem="vFn-Mk-DLd" firstAttribute="top" secondItem="8vZ-Z4-0iY" secondAttribute="top" id="xVr-zD-lkb"/>
                                                         <constraint firstAttribute="bottom" secondItem="vFn-Mk-DLd" secondAttribute="bottom" id="yge-hy-AOi"/>
                                                     </constraints>
+                                                    <connections>
+                                                        <outletCollection property="gestureRecognizers" destination="DxA-Mi-Q1u" appends="YES" id="WA4-51-HyB"/>
+                                                    </connections>
                                                 </scrollView>
                                             </subviews>
                                             <color key="backgroundColor" red="1" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="deviceRGB"/>
@@ -679,6 +680,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="left" id="DxA-Mi-Q1u">
+                    <connections>
+                        <segue destination="VRP-ka-veb" kind="show" identifier="OpenMapViewSegue" id="FZ0-Tg-9Qr"/>
+                    </connections>
+                </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-1602" y="108"/>
         </scene>
@@ -777,13 +783,15 @@
                                     <constraint firstAttribute="trailing" secondItem="dYA-yE-d9B" secondAttribute="trailing" id="uE5-ld-R8y"/>
                                     <constraint firstItem="dYA-yE-d9B" firstAttribute="leading" secondItem="UMk-o6-wVG" secondAttribute="leading" id="xrM-zi-rxA"/>
                                 </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="O4e-qA-qdo" appends="YES" id="IBc-DS-1ZD"/>
+                                </connections>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L7z-d5-RQ2">
                                 <rect key="frame" x="0.0" y="120" width="16" height="480"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
                                 <connections>
-                                    <outletCollection property="gestureRecognizers" destination="u5R-4x-Jnb" appends="YES" id="8ko-L1-cXL"/>
                                     <outletCollection property="gestureRecognizers" destination="O4e-qA-qdo" appends="YES" id="sWx-Y1-vF6"/>
                                 </connections>
                             </view>
@@ -812,11 +820,6 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iLd-ET-uL5" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="u5R-4x-Jnb">
-                    <connections>
-                        <action selector="tapOnSideSpace:" destination="VRP-ka-veb" id="cRf-mq-hT0"/>
-                    </connections>
-                </tapGestureRecognizer>
                 <swipeGestureRecognizer direction="right" id="O4e-qA-qdo">
                     <connections>
                         <action selector="tapOnSideSpace:" destination="VRP-ka-veb" id="6FX-N4-ze5"/>

@@ -30,6 +30,7 @@
     IBOutlet MKMapView *contactMapView;
     
     NSMutableDictionary *annotationDictionary;
+    BOOL isMapViewFirstAppeared;
 }
 
 - (void)viewDidLoad
@@ -41,13 +42,16 @@
     [circle setPath:[circularPath CGPath]];
     [[userIconImageView layer] setMask:circle];
     
-    [contactMapView setDelegate:self];
-    
     annotationDictionary = [[NSMutableDictionary alloc] init];
+    isMapViewFirstAppeared = YES;
+    
+    [contactMapView setDelegate:self];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [[self contactController] addDelegate:self];
+    
     [usernameLabel setText:[[self contactController] username]];
     [[self view] setBackgroundColor:[[self contactController] userColor]];
     
@@ -60,7 +64,12 @@
     if ([[self contactController] userIcon] != nil) [userIconImageView setImage:[[self contactController] userIcon]];
     
     [self createAnnotationForContactController:[self contactController]];
-    [self zoomToFitMapAnnotations:contactMapView];
+    [self zoomToFitMapAnnotations:contactMapView withCurrentLocation:NO];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [[self contactController] removeDelegate:self];
 }
 
 #pragma mark - Controls
@@ -130,19 +139,21 @@
     if (nextTimeInterval > 0) [self performSelector:@selector(updateLastUpdatedLabelWithCurrentTime) withObject:nil afterDelay:nextTimeInterval];
 }
 
-- (void)zoomToFitMapAnnotations:(MKMapView *)mapView
+- (void)zoomToFitMapAnnotations:(MKMapView *)mapView withCurrentLocation:(BOOL)currentLocationTracked
 {
-    if ([mapView.annotations count] == 0) return;
+    NSMutableArray *mapAnnotation = [[mapView annotations] mutableCopy];
+    if (currentLocationTracked && [mapView showsUserLocation]) [mapAnnotation addObject:[mapView userLocation]];
+    if ([mapAnnotation count] == 0) return;
     
     CLLocationCoordinate2D topLeftCoord;
-    topLeftCoord.latitude = -90;
-    topLeftCoord.longitude = 180;
+    topLeftCoord.latitude = -90.f;
+    topLeftCoord.longitude = 180.f;
     
     CLLocationCoordinate2D bottomRightCoord;
-    bottomRightCoord.latitude = 90;
-    bottomRightCoord.longitude = -180;
+    bottomRightCoord.latitude = 90.f;
+    bottomRightCoord.longitude = -180.f;
     
-    for(id<MKAnnotation> annotation in mapView.annotations) {
+    for(id<MKAnnotation> annotation in mapAnnotation) {
         topLeftCoord.longitude = fmin(topLeftCoord.longitude, annotation.coordinate.longitude);
         topLeftCoord.latitude = fmax(topLeftCoord.latitude, annotation.coordinate.latitude);
         bottomRightCoord.longitude = fmax(bottomRightCoord.longitude, annotation.coordinate.longitude);
@@ -150,24 +161,15 @@
     }
     
     MKCoordinateRegion region;
-    region.center.latitude = topLeftCoord.latitude - (topLeftCoord.latitude - bottomRightCoord.latitude) * 0.5;
-    region.center.longitude = topLeftCoord.longitude + (bottomRightCoord.longitude - topLeftCoord.longitude) * 0.5;
+    region.center.latitude = topLeftCoord.latitude - (topLeftCoord.latitude - bottomRightCoord.latitude) * 0.5f;
+    region.center.longitude = topLeftCoord.longitude + (bottomRightCoord.longitude - topLeftCoord.longitude) * 0.5f;
     
     // Add a little extra space on the sides
-    region.span.latitudeDelta = fabs(topLeftCoord.latitude - bottomRightCoord.latitude) * 1.1;
-    region.span.longitudeDelta = fabs(bottomRightCoord.longitude - topLeftCoord.longitude) * 1.1;
+    region.span.latitudeDelta = fabs(topLeftCoord.latitude - bottomRightCoord.latitude) * 1.2f;
+    region.span.longitudeDelta = fabs(bottomRightCoord.longitude - topLeftCoord.longitude) * 1.2f;
     
     region = [mapView regionThatFits:region];
     [mapView setRegion:region animated:YES];
-}
-
-#pragma mark - Properties
-
-- (void)setContactController:(ContactController *)contactController
-{
-    if (_contactController != nil) [_contactController removeDelegate:self];
-    _contactController = contactController;
-    [contactController addDelegate:self];
 }
 
 #pragma mark - Delegates
@@ -201,6 +203,21 @@
     else return nil;
 }
 
+- (void)mapView:(MKMapView *)mapView didUpdateUserLocation:(MKUserLocation *)userLocation
+{
+    if (!isMapViewFirstAppeared) return;
+    
+    [self zoomToFitMapAnnotations:mapView withCurrentLocation:YES];
+    isMapViewFirstAppeared = NO;
+}
+
+- (void)mapView:(MKMapView *)mapView didFailToLocateUserWithError:(NSError *)error
+{
+    if ([error code] != kCLErrorDenied) return;
+    
+    [mapView setShowsUserLocation:NO];
+}
+
 #pragma mark ContactControllerDelegate
 
 - (void)contactDidUpdateLocation:(ContactController *)controller
@@ -208,7 +225,8 @@
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(updateLastUpdatedLabelWithCurrentTime) object:nil];
     [self updateLastUpdatedLabelWithCurrentTime];
     [self createAnnotationForContactController:controller];
-    [self zoomToFitMapAnnotations:contactMapView];
+    
+    [self zoomToFitMapAnnotations:contactMapView withCurrentLocation:YES];
 }
 
 - (void)contactDidUpdateUsername:(ContactController *)controller

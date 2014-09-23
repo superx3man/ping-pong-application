@@ -104,7 +104,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([[segue identifier] isEqualToString:@"OpenMapViewSegue"]) {
-        UIView *parentViewCell = [(UIButton *) sender superview];
+        UIView *parentViewCell = [(UIGestureRecognizer *) sender view];
         while (parentViewCell && ![parentViewCell isKindOfClass:[ContactListTableViewCell class]]) {
             parentViewCell = [parentViewCell superview];
         }
