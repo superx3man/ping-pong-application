@@ -182,7 +182,8 @@
     if ([[self userId] isEqualToString:userId]) return;
     [super setUserId:userId];
     
-    for (id<UserControllerDelegate> delegate in delegateList) {
+    for (id retainedDelegate in delegateList) {
+        id<UserControllerDelegate> delegate = [retainedDelegate nonretainedObjectValue];
         if ([delegate respondsToSelector:@selector(controllerDidSetUserId:)]) [delegate controllerDidSetUserId:self];
     }
 }
@@ -222,7 +223,8 @@
     [currentUser setUsername:username];
     [[self managedObjectContext] save:nil];
     
-    for (id<UserControllerDelegate> delegate in delegateList) {
+    for (id retainedDelegate in delegateList) {
+        id<UserControllerDelegate> delegate = [retainedDelegate nonretainedObjectValue];
         if ([delegate respondsToSelector:@selector(userDidUpdateUsername:)]) [delegate userDidUpdateUsername:self];
     }
     
@@ -237,7 +239,8 @@
     [currentUser setUserIcon:UIImageJPEGRepresentation(userIcon, 1.f)];
     [[self managedObjectContext] save:nil];
     
-    for (id<UserControllerDelegate> delegate in delegateList) {
+    for (id retainedDelegate in delegateList) {
+        id<UserControllerDelegate> delegate = [retainedDelegate nonretainedObjectValue];
         if ([delegate respondsToSelector:@selector(userDidUpdateUserIcon:)]) [delegate userDidUpdateUserIcon:self];
     }
     
@@ -252,7 +255,8 @@
     [currentUser setUserColor:[UIColor hexStringFromColor:userColor]];
     [[self managedObjectContext] save:nil];
     
-    for (id<UserControllerDelegate> delegate in delegateList) {
+    for (id retainedDelegate in delegateList) {
+        id<UserControllerDelegate> delegate = [retainedDelegate nonretainedObjectValue];
         if ([delegate respondsToSelector:@selector(userDidUpdateUserColor:)]) [delegate userDidUpdateUserColor:self];
     }
     

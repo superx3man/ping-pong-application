@@ -11,10 +11,20 @@
 #import "ContactController.h"
 
 
+@protocol ContactListTableViewCellDelegate;
+
 @interface ContactListTableViewCell : UITableViewCell <ContactControllerDelegate>
 
 @property (nonatomic, strong) ContactController *contactController;
+@property (nonatomic, weak) id<ContactListTableViewCellDelegate> delegate;
 
 - (void)scrollToOriginalPositionAnimated:(BOOL)animated;
+
+@end
+
+@protocol ContactListTableViewCellDelegate <NSObject>
+
+@optional
+- (void)didSwipeWithContactController:(ContactController *)controller;
 
 @end

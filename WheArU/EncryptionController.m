@@ -110,7 +110,8 @@ NSString *const kWAUUserDictionaryKeyGeneratedKey = @"WAUGeneratedKey";
     
     [[NSUserDefaults standardUserDefaults] setObject:generatedKey forKey:kWAUUserDictionaryKeyGeneratedKey];
     
-    for (id<EncryptionControllerDelegate> delegate in delegateList) {
+    for (id retainedDelegate in delegateList) {
+        id<EncryptionControllerDelegate> delegate = [retainedDelegate nonretainedObjectValue];
         if ([delegate respondsToSelector:@selector(controllerDidSetGeneratedKey:)]) [delegate controllerDidSetGeneratedKey:self];
     }
 }

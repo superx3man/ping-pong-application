@@ -9,7 +9,6 @@
 #import "ContactListViewController.h"
 
 #import "ContactMapViewController.h"
-#import "ContactListTableViewCell.h"
 #import "RegistrationViewController.h"
 #import "UpdateUserColorViewController.h"
 #import "AddContactWithQRCodeViewController.h"
@@ -104,14 +103,8 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     if ([[segue identifier] isEqualToString:@"OpenMapViewSegue"]) {
-        UIView *parentViewCell = [(UIGestureRecognizer *) sender view];
-        while (parentViewCell && ![parentViewCell isKindOfClass:[ContactListTableViewCell class]]) {
-            parentViewCell = [parentViewCell superview];
-        }
-        
-        ContactListTableViewCell *selectedCell = (ContactListTableViewCell *)parentViewCell;
         ContactMapViewController *contactMapViewController = (ContactMapViewController *) [segue destinationViewController];
-        [contactMapViewController setContactController:[selectedCell contactController]];
+        [contactMapViewController setContactController:(ContactController *) sender];
     }
 }
 
@@ -183,6 +176,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ContactListTableViewCell *cell = (ContactListTableViewCell *) [tableView dequeueReusableCellWithIdentifier:@"ContactCell"];
+    [cell setDelegate:self];
     
     NSInteger row = [indexPath row];
     NSInteger section = [indexPath section];
@@ -193,6 +187,13 @@
         [cell setContactController:[[contactListController contactList] objectAtIndex:row]];
     }
     return cell;
+}
+
+#pragma mark ContactListTableViewCellDelegate
+
+- (void)didSwipeWithContactController:(ContactController *)controller
+{
+    [self performSegueWithIdentifier:@"OpenMapViewSegue" sender:controller];
 }
 
 @end

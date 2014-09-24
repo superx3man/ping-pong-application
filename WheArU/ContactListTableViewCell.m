@@ -22,6 +22,8 @@
     IBOutlet UILabel *userLastUpdatedLabel;
     IBOutlet UILabel *userLastUpdatedDescriptionLabel;
     
+    IBOutlet UILabel *instructionLabel;
+    
     IBOutlet UIScrollView *buttonsScrollView;
     IBOutlet UIButton *locateButton;
 }
@@ -35,10 +37,53 @@
     
     [locateButton setImage:[[[locateButton imageView] image] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
     
+    UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(locateContactWithGesture:)];
+    [longPressGesture setMinimumPressDuration:2.f];
+    [usernameButton addGestureRecognizer:longPressGesture];
+    
+    UISwipeGestureRecognizer *swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeContactWithGesture:)];
+    [swipeGesture setDirection:UISwipeGestureRecognizerDirectionLeft];
+    [buttonsScrollView addGestureRecognizer:swipeGesture];
+    
     [self scrollToOriginalPositionAnimated:NO];
 }
 
 #pragma mark - Controls
+
+- (IBAction)showTextPlaceholder:(id)sender
+{
+    [UIView animateWithDuration:1.f animations:^
+     {
+         [instructionLabel setAlpha:1.f];
+         [usernameButton setAlpha:0.f];
+     }];
+}
+
+- (IBAction)restoreTextPlaceholder:(id)sender
+{
+    [UIView animateWithDuration:0.5f animations:^
+     {
+         [instructionLabel setAlpha:0.f];
+         [usernameButton setAlpha:1.f];
+     }];
+}
+
+- (void)swipeContactWithGesture:(UIGestureRecognizer *)gesture
+{
+    [self restoreTextPlaceholder:nil];
+    
+    if ([self delegate] != nil) {
+        if ([[self delegate] respondsToSelector:@selector(didSwipeWithContactController:)]) [[self delegate]didSwipeWithContactController:[self contactController]];
+    }
+}
+
+- (void)locateContactWithGesture:(UIGestureRecognizer *)gesture
+{
+    if ([gesture state] != UIGestureRecognizerStateBegan) return;
+    
+    [self restoreTextPlaceholder:nil];
+    [self locateContact:nil];
+}
 
 - (IBAction)locateContact:(id)sender
 {
@@ -94,6 +139,9 @@
 
 - (void)scrollToOriginalPositionAnimated:(BOOL)animated
 {
+    [instructionLabel setAlpha:0.f];
+    [usernameButton setAlpha:1.f];
+    
     [buttonsScrollView scrollRectToVisible:CGRectMake(0.f, 0.f, 1.f, 1.f) animated:animated];
 }
 
@@ -119,6 +167,8 @@
     [userLastUpdatedLabel setTextColor:[contactController wordColor]];
     [userLastUpdatedDescriptionLabel setTextColor:[contactController wordColor]];
     
+    [instructionLabel setTextColor:[contactController wordColor]];
+    
     [locateButton setTintColor:[contactController wordColor]];
     
     if ([contactController userIcon] != nil) [userIconImageView setImage:[contactController userIcon]];
@@ -135,7 +185,7 @@
 
 - (void)contactDidUpdateUsername:(ContactController *)controller
 {
-    [UIView transitionWithView:userIconImageView duration:kWAUContactUpdateAnimationDuration options:UIViewAnimationOptionTransitionCrossDissolve animations:^
+    [UIView transitionWithView:usernameButton duration:kWAUContactUpdateAnimationDuration options:UIViewAnimationOptionTransitionCrossDissolve animations:^
      {
          [usernameButton setTitle:[controller username] forState:UIControlStateNormal];
          [usernameButton setTitle:[controller username] forState:UIControlStateHighlighted];
@@ -153,7 +203,7 @@
 
 - (void)contactDidUpdateUserColor:(ContactController *)controller
 {
-    [UIView transitionWithView:userIconImageView duration:kWAUContactUpdateAnimationDuration options:UIViewAnimationOptionTransitionCrossDissolve animations:^
+    [UIView transitionWithView:[self contentView] duration:kWAUContactUpdateAnimationDuration options:UIViewAnimationOptionTransitionCrossDissolve animations:^
      {
          [[self contentView] setBackgroundColor:[controller userColor]];
          

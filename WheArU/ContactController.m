@@ -111,7 +111,8 @@
     [currentContact setUsername:username];
     [[self managedObjectContext] save:nil];
     
-    for (id<ContactControllerDelegate> delegate in delegateList) {
+    for (id retainedDelegate in delegateList) {
+        id<ContactControllerDelegate> delegate = [retainedDelegate nonretainedObjectValue];
         if ([delegate respondsToSelector:@selector(contactDidUpdateUsername:)]) [delegate contactDidUpdateUsername:self];
     }
 }
@@ -124,7 +125,8 @@
     [currentContact setUserIcon:UIImageJPEGRepresentation(userIcon, 1.f)];
     [[self managedObjectContext] save:nil];
     
-    for (id<ContactControllerDelegate> delegate in delegateList) {
+    for (id retainedDelegate in delegateList) {
+        id<ContactControllerDelegate> delegate = [retainedDelegate nonretainedObjectValue];
         if ([delegate respondsToSelector:@selector(contactDidUpdateUserIcon:)]) [delegate contactDidUpdateUserIcon:self];
     }
 }
@@ -137,7 +139,8 @@
     [currentContact setUserColor:[UIColor hexStringFromColor:userColor]];
     [[self managedObjectContext] save:nil];
     
-    for (id<ContactControllerDelegate> delegate in delegateList) {
+    for (id retainedDelegate in delegateList) {
+        id<ContactControllerDelegate> delegate = [retainedDelegate nonretainedObjectValue];
         if ([delegate respondsToSelector:@selector(contactDidUpdateUserColor:)]) [delegate contactDidUpdateUserColor:self];
     }
 }
@@ -159,7 +162,8 @@
     [currentContact setLastUpdated:lastUpdated];
     [[self managedObjectContext] save:nil];
     
-    for (id<ContactControllerDelegate> delegate in delegateList) {
+    for (id retainedDelegate in delegateList) {
+        id<ContactControllerDelegate> delegate = [retainedDelegate nonretainedObjectValue];
         if ([delegate respondsToSelector:@selector(contactDidUpdateLocation:)]) [delegate contactDidUpdateLocation:self];
     }
 }

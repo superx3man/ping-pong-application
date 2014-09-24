@@ -513,13 +513,18 @@
                                                                         <constraint firstAttribute="width" constant="68" id="ug2-nr-q41"/>
                                                                     </constraints>
                                                                 </imageView>
-                                                                <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EkP-np-ECe">
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EkP-np-ECe">
                                                                     <rect key="frame" x="108" y="8" width="372" height="84"/>
                                                                     <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="30"/>
                                                                     <state key="normal" title="Abi Juang">
                                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                         <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                     </state>
+                                                                    <connections>
+                                                                        <action selector="restoreTextPlaceholder:" destination="dw7-qm-jC1" eventType="touchUpOutside" id="bX3-Pb-EL9"/>
+                                                                        <action selector="restoreTextPlaceholder:" destination="dw7-qm-jC1" eventType="touchUpInside" id="pqa-lp-53l"/>
+                                                                        <action selector="showTextPlaceholder:" destination="dw7-qm-jC1" eventType="touchDown" id="Nh1-6X-3J6"/>
+                                                                    </connections>
                                                                 </button>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="999dys" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="viw-Z7-Gdf">
                                                                     <rect key="frame" x="496" y="8" width="96" height="84"/>
@@ -565,16 +570,26 @@
                                                                         <constraint firstAttribute="width" constant="50" id="vvG-19-hI6"/>
                                                                     </constraints>
                                                                 </view>
+                                                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hold To Ping!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oCv-O4-AEw">
+                                                                    <rect key="frame" x="108" y="8" width="372" height="84"/>
+                                                                    <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="30"/>
+                                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
                                                             </subviews>
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                             <gestureRecognizers/>
                                                             <constraints>
+                                                                <constraint firstItem="oCv-O4-AEw" firstAttribute="width" secondItem="EkP-np-ECe" secondAttribute="width" id="4Wq-ga-pTn"/>
                                                                 <constraint firstItem="EkP-np-ECe" firstAttribute="leading" secondItem="GAu-dg-jJu" secondAttribute="trailing" constant="24" id="7xL-D8-b4q"/>
                                                                 <constraint firstItem="EkP-np-ECe" firstAttribute="leading" secondItem="vFn-Mk-DLd" secondAttribute="leading" constant="8" id="CKP-R8-43S"/>
+                                                                <constraint firstItem="oCv-O4-AEw" firstAttribute="centerX" secondItem="EkP-np-ECe" secondAttribute="centerX" id="Frc-WN-hDy"/>
                                                                 <constraint firstItem="EkP-np-ECe" firstAttribute="top" secondItem="vFn-Mk-DLd" secondAttribute="top" constant="8" id="Gtj-x9-UQc"/>
                                                                 <constraint firstAttribute="bottom" secondItem="EkP-np-ECe" secondAttribute="bottom" constant="8" id="HMI-mZ-92V"/>
                                                                 <constraint firstItem="GJw-HA-pF4" firstAttribute="leading" secondItem="qhh-hI-sKF" secondAttribute="trailing" constant="38" id="HYd-To-ICd"/>
                                                                 <constraint firstItem="GJw-HA-pF4" firstAttribute="leading" secondItem="viw-Z7-Gdf" secondAttribute="trailing" constant="38" id="LYY-1p-x6k"/>
+                                                                <constraint firstItem="oCv-O4-AEw" firstAttribute="height" secondItem="EkP-np-ECe" secondAttribute="height" id="OUy-R2-kWA"/>
+                                                                <constraint firstItem="oCv-O4-AEw" firstAttribute="centerY" secondItem="EkP-np-ECe" secondAttribute="centerY" id="Pge-cB-2k5"/>
                                                                 <constraint firstItem="GJw-HA-pF4" firstAttribute="top" secondItem="vFn-Mk-DLd" secondAttribute="top" id="dNT-nE-jAA"/>
                                                                 <constraint firstItem="GAu-dg-jJu" firstAttribute="leading" secondItem="vFn-Mk-DLd" secondAttribute="leading" constant="16" id="eH3-cY-yKx"/>
                                                                 <constraint firstItem="GAu-dg-jJu" firstAttribute="top" secondItem="vFn-Mk-DLd" secondAttribute="top" constant="16" id="qml-Kd-rjj"/>
@@ -607,9 +622,6 @@
                                                         <constraint firstItem="vFn-Mk-DLd" firstAttribute="top" secondItem="8vZ-Z4-0iY" secondAttribute="top" id="xVr-zD-lkb"/>
                                                         <constraint firstAttribute="bottom" secondItem="vFn-Mk-DLd" secondAttribute="bottom" id="yge-hy-AOi"/>
                                                     </constraints>
-                                                    <connections>
-                                                        <outletCollection property="gestureRecognizers" destination="DxA-Mi-Q1u" appends="YES" id="WA4-51-HyB"/>
-                                                    </connections>
                                                 </scrollView>
                                             </subviews>
                                             <color key="backgroundColor" red="1" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="deviceRGB"/>
@@ -623,6 +635,7 @@
                                         <gestureRecognizers/>
                                         <connections>
                                             <outlet property="buttonsScrollView" destination="8vZ-Z4-0iY" id="fBW-9F-m8T"/>
+                                            <outlet property="instructionLabel" destination="oCv-O4-AEw" id="IHI-JA-79Z"/>
                                             <outlet property="locateButton" destination="jcY-Ze-ZLA" id="FlM-fd-wfJ"/>
                                             <outlet property="userIconImageView" destination="GAu-dg-jJu" id="yOI-QB-4d1"/>
                                             <outlet property="userLastUpdatedDescriptionLabel" destination="qhh-hI-sKF" id="W3r-Nd-Vco"/>
@@ -677,14 +690,10 @@
                         <outlet property="currentUserPingLabel" destination="1YI-Rx-fdh" id="brI-aX-h58"/>
                         <outlet property="profileSettingsButton" destination="sl1-ik-I27" id="GZm-Pn-fYf"/>
                         <segue destination="bqd-eM-rdp" kind="presentation" identifier="RegisterUserSegue" modalPresentationStyle="fullScreen" animates="NO" id="MO3-5S-Go4"/>
+                        <segue destination="VRP-ka-veb" kind="show" identifier="OpenMapViewSegue" id="s3T-Wk-rDd"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <swipeGestureRecognizer direction="left" id="DxA-Mi-Q1u">
-                    <connections>
-                        <segue destination="VRP-ka-veb" kind="show" identifier="OpenMapViewSegue" id="FZ0-Tg-9Qr"/>
-                    </connections>
-                </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-1602" y="108"/>
         </scene>

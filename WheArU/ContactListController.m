@@ -96,9 +96,8 @@
 
 - (ContactController *)createContactWithContactInfo:(NSDictionary *)contactInfo
 {
-    ContactController *contactController = nil;
     NSString *userId = [contactInfo objectForKey:kWAUDictionaryKeyUserId];
-    contactController = [userIdContactListDictionary objectForKey:userId];
+    ContactController *contactController = [userIdContactListDictionary objectForKey:userId];
     if (contactController == nil) {
         NSString *username = [contactInfo objectForKey:kWAUDictionaryKeyUsername];
         NSString *userColorString = [contactInfo objectForKey:kWAUDictionaryKeyUserColor];
@@ -124,7 +123,8 @@
             [userIdContactListDictionary setObject:contactController forKey:userId];
             [[self recentContactList] insertObject:contactController atIndex:0];
             
-            for (id<ContactListControllerDelegate> delegate in delegateList) {
+            for (id retainedDelegate in delegateList) {
+                id<ContactListControllerDelegate> delegate = [retainedDelegate nonretainedObjectValue];
                 if ([delegate respondsToSelector:@selector(newItemAddedToList:)]) [delegate newItemAddedToList:self];
             }
         }
@@ -154,7 +154,8 @@
             [[self recentContactList] insertObject:contactController atIndex:0];
         }
         
-        for (id<ContactListControllerDelegate> delegate in delegateList) {
+        for (id retainedDelegate in delegateList) {
+            id<ContactListControllerDelegate> delegate = [retainedDelegate nonretainedObjectValue];
             if ([delegate respondsToSelector:@selector(itemMovedToRecentContactList:)]) [delegate itemMovedToRecentContactList:self];
         }
     }

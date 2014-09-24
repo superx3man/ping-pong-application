@@ -9,9 +9,10 @@
 #import <UIKit/UIKit.h>
 
 #import "ContactListController.h"
+#import "ContactListTableViewCell.h"
 #import "UserController.h"
 
 
-@interface ContactListViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UserControllerDelegate, ContactListControllerDelegate>
+@interface ContactListViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UserControllerDelegate, ContactListControllerDelegate, ContactListTableViewCellDelegate>
 
 @end
