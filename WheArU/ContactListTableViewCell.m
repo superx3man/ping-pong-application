@@ -11,6 +11,7 @@
 #import "NotificationController.h"
 
 #import "UIColor+Hex.h"
+#import "UIView+Shake.h"
 #import "WAUConstant.h"
 
 
@@ -52,20 +53,28 @@
 
 - (IBAction)showTextPlaceholder:(id)sender
 {
-    [UIView animateWithDuration:1.f animations:^
+    if ([self delegate] != nil) {
+        if ([[self delegate] respondsToSelector:@selector(tableViewCell:didTapOnButton:)]) [[self delegate] tableViewCell:self didTapOnButton:[self contactController]];
+    }
+    
+    [UIView animateWithDuration:1.f delay:0.f options:(UIViewAnimationOptionTransitionCrossDissolve | UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionBeginFromCurrentState) animations:^
      {
          [instructionLabel setAlpha:1.f];
          [usernameButton setAlpha:0.f];
-     }];
+     } completion:nil];
 }
 
 - (IBAction)restoreTextPlaceholder:(id)sender
 {
-    [UIView animateWithDuration:0.5f animations:^
+    [UIView animateWithDuration:1.f delay:0.f options:(UIViewAnimationOptionTransitionCrossDissolve | UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionBeginFromCurrentState) animations:^
      {
          [instructionLabel setAlpha:0.f];
          [usernameButton setAlpha:1.f];
-     }];
+     } completion:nil];
+    
+    if ([self delegate] != nil) {
+        if ([[self delegate] respondsToSelector:@selector(tableViewCell:didReleaseButton:)]) [[self delegate] tableViewCell:self didReleaseButton:[self contactController]];
+    }
 }
 
 - (void)swipeContactWithGesture:(UIGestureRecognizer *)gesture
@@ -73,7 +82,7 @@
     [self restoreTextPlaceholder:nil];
     
     if ([self delegate] != nil) {
-        if ([[self delegate] respondsToSelector:@selector(didSwipeWithContactController:)]) [[self delegate]didSwipeWithContactController:[self contactController]];
+        if ([[self delegate] respondsToSelector:@selector(tableViewCell:didSwipeWithContactController:)]) [[self delegate] tableViewCell:self didSwipeWithContactController:[self contactController]];
     }
 }
 
@@ -87,6 +96,7 @@
 
 - (IBAction)locateContact:(id)sender
 {
+    [instructionLabel shakeWithDuration:0.05f offset:3.f];
     [[NotificationController sharedInstance] requestForLocationFromContact:[self contactController]];
 }
 
@@ -127,12 +137,15 @@
     if (count > 1) unit = [NSString stringWithFormat:@"%@s", unit];
     NSString *lastUpdatedDescription = count > 0 ? [NSString stringWithFormat:@"%lld%@", count, unit] : [NSString stringWithFormat:@"%@", unit];
     
-    [UIView transitionWithView:userLastUpdatedLabel duration:kWAUContactUpdateAnimationDuration options:UIViewAnimationOptionTransitionCrossDissolve animations:^
+    [UIView transitionWithView:userLastUpdatedLabel duration:kWAUContactUpdateAnimationDuration options:(UIViewAnimationOptionTransitionCrossDissolve | UIViewAnimationOptionBeginFromCurrentState) animations:^
      {
          [userLastUpdatedLabel setText:lastUpdatedDescription];
      } completion:nil];
     
-    if (nextTimeInterval > 0) [self performSelector:@selector(updateLastUpdatedLabelWithCurrentTime) withObject:nil afterDelay:nextTimeInterval];
+    if (nextTimeInterval > 0) {
+        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(updateLastUpdatedLabelWithCurrentTime) object:nil];
+        [self performSelector:@selector(updateLastUpdatedLabelWithCurrentTime) withObject:nil afterDelay:nextTimeInterval];
+    }
 }
 
 #pragma mark - External
@@ -179,13 +192,12 @@
 
 - (void)contactDidUpdateLocation:(ContactController *)controller
 {
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(updateLastUpdatedLabelWithCurrentTime) object:nil];
     [self updateLastUpdatedLabelWithCurrentTime];
 }
 
 - (void)contactDidUpdateUsername:(ContactController *)controller
 {
-    [UIView transitionWithView:usernameButton duration:kWAUContactUpdateAnimationDuration options:UIViewAnimationOptionTransitionCrossDissolve animations:^
+    [UIView animateWithDuration:kWAUContactUpdateAnimationDuration delay:0.f options:UIViewAnimationOptionTransitionCrossDissolve animations:^
      {
          [usernameButton setTitle:[controller username] forState:UIControlStateNormal];
          [usernameButton setTitle:[controller username] forState:UIControlStateHighlighted];
@@ -195,7 +207,7 @@
 
 - (void)contactDidUpdateUserIcon:(ContactController *)controller
 {
-    [UIView transitionWithView:userIconImageView duration:kWAUContactUpdateAnimationDuration options:UIViewAnimationOptionTransitionCrossDissolve animations:^
+    [UIView animateWithDuration:kWAUContactUpdateAnimationDuration delay:0.f options:UIViewAnimationOptionTransitionCrossDissolve animations:^
      {
          [userIconImageView setImage:[controller userIcon]];
      } completion:nil];
@@ -203,7 +215,7 @@
 
 - (void)contactDidUpdateUserColor:(ContactController *)controller
 {
-    [UIView transitionWithView:[self contentView] duration:kWAUContactUpdateAnimationDuration options:UIViewAnimationOptionTransitionCrossDissolve animations:^
+    [UIView animateWithDuration:kWAUContactUpdateAnimationDuration delay:0.f options:UIViewAnimationOptionTransitionCrossDissolve animations:^
      {
          [[self contentView] setBackgroundColor:[controller userColor]];
          

@@ -25,6 +25,8 @@
 		4D4C613119B52D41003AB18B /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D4C613019B52D41003AB18B /* UIColor+Hex.m */; };
 		4D5BD6D719CF179000B7BC01 /* WAUConstant.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5BD6D619CF179000B7BC01 /* WAUConstant.m */; };
 		4D5BD6DB19CF256200B7BC01 /* NSString+Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5BD6DA19CF256200B7BC01 /* NSString+Hash.m */; };
+		4D79C3A019D3C08D00CEB1E4 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D79C39F19D3C08D00CEB1E4 /* QuartzCore.framework */; };
+		4D79C3A419D3C18600CEB1E4 /* UIView+Shake.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D79C3A319D3C18600CEB1E4 /* UIView+Shake.m */; };
 		4D8267C719B3BA6E00076974 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D8267C619B3BA6E00076974 /* main.m */; };
 		4D8267CA19B3BA6E00076974 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D8267C919B3BA6E00076974 /* AppDelegate.m */; };
 		4D8267CD19B3BA6E00076974 /* WheArU.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 4D8267CB19B3BA6E00076974 /* WheArU.xcdatamodeld */; };
@@ -112,6 +114,9 @@
 		4D5BD6D619CF179000B7BC01 /* WAUConstant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WAUConstant.m; sourceTree = "<group>"; };
 		4D5BD6D919CF256200B7BC01 /* NSString+Hash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Hash.h"; sourceTree = "<group>"; };
 		4D5BD6DA19CF256200B7BC01 /* NSString+Hash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Hash.m"; sourceTree = "<group>"; };
+		4D79C39F19D3C08D00CEB1E4 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		4D79C3A219D3C18600CEB1E4 /* UIView+Shake.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Shake.h"; sourceTree = "<group>"; };
+		4D79C3A319D3C18600CEB1E4 /* UIView+Shake.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Shake.m"; sourceTree = "<group>"; };
 		4D8267C119B3BA6E00076974 /* WheArU.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WheArU.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D8267C519B3BA6E00076974 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4D8267C619B3BA6E00076974 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -192,6 +197,7 @@
 				4DD3F54B19CB42F700A77C1C /* CoreData.framework in Frameworks */,
 				4DD3F54D19CB42FD00A77C1C /* CoreLocation.framework in Frameworks */,
 				4D49A8A019CFCF1400F8B382 /* MapKit.framework in Frameworks */,
+				4D79C3A019D3C08D00CEB1E4 /* QuartzCore.framework in Frameworks */,
 				4D44828019CB949E007E3220 /* Security.framework in Frameworks */,
 				4DD698AC19C4F29700D9D65D /* SystemConfiguration.framework in Frameworks */,
 			);
@@ -332,6 +338,15 @@
 			name = "NSString+Hash";
 			sourceTree = "<group>";
 		};
+		4D79C3A119D3C0B700CEB1E4 /* UIView+Shake */ = {
+			isa = PBXGroup;
+			children = (
+				4D79C3A219D3C18600CEB1E4 /* UIView+Shake.h */,
+				4D79C3A319D3C18600CEB1E4 /* UIView+Shake.m */,
+			);
+			name = "UIView+Shake";
+			sourceTree = "<group>";
+		};
 		4D8267B819B3BA6E00076974 = {
 			isa = PBXGroup;
 			children = (
@@ -413,6 +428,7 @@
 		4D8267F219B4036300076974 /* HelperClasses */ = {
 			isa = PBXGroup;
 			children = (
+				4D79C3A119D3C0B700CEB1E4 /* UIView+Shake */,
 				4D1A983A19D200650017CC7D /* MKMapView+SharedInstance */,
 				4D09BF8D19D125390009D0CF /* MKCircle+ContactController */,
 				4D44828719CBC119007E3220 /* NSData+HexConversion */,
@@ -459,6 +475,7 @@
 		4DD698AD19C4F29B00D9D65D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4D79C39F19D3C08D00CEB1E4 /* QuartzCore.framework */,
 				4D49A89F19CFCF1400F8B382 /* MapKit.framework */,
 				4D44827F19CB949E007E3220 /* Security.framework */,
 				4DEAF5A419C87C0200CC1EC8 /* AVFoundation.framework */,
@@ -672,6 +689,7 @@
 				4D48C66A19BB984100D09FDA /* User.m in Sources */,
 				4D48C67319BCC92800D09FDA /* UpdateUserColorViewController.m in Sources */,
 				4D09BF7F19D0CD840009D0CF /* ContactMapAnnotationView.m in Sources */,
+				4D79C3A419D3C18600CEB1E4 /* UIView+Shake.m in Sources */,
 				4D44828A19CBC133007E3220 /* NSData+Conversion.m in Sources */,
 				4D8C62DB19B6B00900F59CFF /* RegistrationViewController.m in Sources */,
 				4D4C611819B4D01B003AB18B /* ContactListController.m in Sources */,

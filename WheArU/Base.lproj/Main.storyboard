@@ -521,6 +521,8 @@
                                                                         <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                                     </state>
                                                                     <connections>
+                                                                        <action selector="restoreTextPlaceholder:" destination="dw7-qm-jC1" eventType="touchDragExit" id="Our-cc-u2E"/>
+                                                                        <action selector="restoreTextPlaceholder:" destination="dw7-qm-jC1" eventType="touchDragOutside" id="YzK-Jt-FjJ"/>
                                                                         <action selector="restoreTextPlaceholder:" destination="dw7-qm-jC1" eventType="touchUpOutside" id="bX3-Pb-EL9"/>
                                                                         <action selector="restoreTextPlaceholder:" destination="dw7-qm-jC1" eventType="touchUpInside" id="pqa-lp-53l"/>
                                                                         <action selector="showTextPlaceholder:" destination="dw7-qm-jC1" eventType="touchDown" id="Nh1-6X-3J6"/>

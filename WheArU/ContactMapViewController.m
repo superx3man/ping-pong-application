@@ -150,7 +150,7 @@
     if (count > 1) unit = [NSString stringWithFormat:@"%@s", unit];
     NSString *lastUpdatedDescription = count > 0 ? [NSString stringWithFormat:@"%lld%@", count, unit] : [NSString stringWithFormat:@"%@", unit];
     
-    [UIView transitionWithView:userLastUpdatedLabel duration:kWAUContactUpdateAnimationDuration options:UIViewAnimationOptionTransitionCrossDissolve animations:^
+    [UIView animateWithDuration:kWAUContactUpdateAnimationDuration delay:0.f options:UIViewAnimationOptionTransitionCrossDissolve animations:^
      {
          [userLastUpdatedLabel setText:lastUpdatedDescription];
      } completion:nil];
@@ -250,7 +250,7 @@
 
 - (void)contactDidUpdateUsername:(ContactController *)controller
 {
-    [UIView transitionWithView:userIconImageView duration:kWAUContactUpdateAnimationDuration options:UIViewAnimationOptionTransitionCrossDissolve animations:^
+    [UIView animateWithDuration:kWAUContactUpdateAnimationDuration delay:0.f options:UIViewAnimationOptionTransitionCrossDissolve animations:^
      {
          [usernameLabel setText:[controller username]];
      } completion:nil];
@@ -258,7 +258,7 @@
 
 - (void)contactDidUpdateUserIcon:(ContactController *)controller
 {
-    [UIView transitionWithView:userIconImageView duration:kWAUContactUpdateAnimationDuration options:UIViewAnimationOptionTransitionCrossDissolve animations:^
+    [UIView animateWithDuration:kWAUContactUpdateAnimationDuration delay:0.f options:UIViewAnimationOptionTransitionCrossDissolve animations:^
      {
          [userIconImageView setImage:[controller userIcon]];
      } completion:nil];
@@ -266,7 +266,7 @@
 
 - (void)contactDidUpdateUserColor:(ContactController *)controller
 {
-    [UIView transitionWithView:userIconImageView duration:kWAUContactUpdateAnimationDuration options:UIViewAnimationOptionTransitionCrossDissolve animations:^
+    [UIView animateWithDuration:kWAUContactUpdateAnimationDuration delay:0.f options:UIViewAnimationOptionTransitionCrossDissolve animations:^
      {
          [[self view] setBackgroundColor:[controller userColor]];
          

@@ -25,6 +25,9 @@
 @protocol ContactListTableViewCellDelegate <NSObject>
 
 @optional
-- (void)didSwipeWithContactController:(ContactController *)controller;
+- (void)tableViewCell:(ContactListTableViewCell *)cell didTapOnButton:(ContactController *)controller;
+- (void)tableViewCell:(ContactListTableViewCell *)cell didReleaseButton:(ContactController *)controller;
+
+- (void)tableViewCell:(ContactListTableViewCell *)cell didSwipeWithContactController:(ContactController *)controller;
 
 @end

@@ -191,7 +191,17 @@
 
 #pragma mark ContactListTableViewCellDelegate
 
-- (void)didSwipeWithContactController:(ContactController *)controller
+- (void)tableViewCell:(ContactListTableViewCell *)cell didTapOnButton:(ContactController *)controller
+{
+    [contactListTableView setScrollEnabled:NO];
+}
+
+- (void)tableViewCell:(ContactListTableViewCell *)cell didReleaseButton:(ContactController *)controller
+{
+    [contactListTableView setScrollEnabled:YES];
+}
+
+- (void)tableViewCell:(ContactListTableViewCell *)cell didSwipeWithContactController:(ContactController *)controller
 {
     [self performSegueWithIdentifier:@"OpenMapViewSegue" sender:controller];
 }
