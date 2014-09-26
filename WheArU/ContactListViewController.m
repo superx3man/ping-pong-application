@@ -52,9 +52,9 @@
     [[currentUserIcon layer] setMask:circle];
     
     [profileSettingsButton setImage:[[[profileSettingsButton imageView] image] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
+    [[profileSettingsButton imageView] setContentMode:UIViewContentModeScaleAspectFit];
     [addContactButton setImage:[[[addContactButton imageView] image] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
-    
-    [[[self navigationController] interactivePopGestureRecognizer] setEnabled:YES];
+    [[addContactButton imageView] setContentMode:UIViewContentModeScaleAspectFit];
 }
 
 - (void)viewWillAppear:(BOOL)animated

@@ -11,6 +11,6 @@
 
 @interface UIView (Shake)
 
-- (void)shakeWithDuration:(NSTimeInterval)duration offset:(float)offset;
+- (void)shakeWithDuration:(NSTimeInterval)duration offset:(float)offset count:(int)count;
 
 @end

@@ -58,9 +58,6 @@
         [userLabelBackgroundView addConstraint:[NSLayoutConstraint constraintWithItem:userLabel attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:userLabelBackgroundView attribute:NSLayoutAttributeCenterY multiplier:1.f constant:0.f]];
         
         [self setUserViewHiddenState:[contactMapAnnotation contactController]];
-        
-        [self setCanShowCallout:YES];
-        [self setEnabled:YES];
     }
     return self;
 }

@@ -38,6 +38,7 @@
         if ([currentContact userIcon] != nil) [super setUserIcon:[UIImage imageWithData:[currentContact userIcon]]];
         
         _version = [currentContact version];
+        _ping = [currentContact ping];
         _lastUpdated = [currentContact lastUpdated];
         
         _latitude = [currentContact latitude];
@@ -46,6 +47,7 @@
         _accuracy = [currentContact accuracy];
         
         if (_version == 0) [self syncContact];
+        _pingStatus = _ping == 0 ? WAUContactPingStatusNone : WAUContactPingStatusNotification;
     }
     return self;
 }
@@ -101,6 +103,22 @@
     if ([self version] != version) [self syncContact];
 }
 
+- (void)willSendNotification
+{
+    for (id retainedDelegate in delegateList) {
+        id<ContactControllerDelegate> delegate = [retainedDelegate nonretainedObjectValue];
+        if ([delegate respondsToSelector:@selector(controllerWillSendNotification:)]) [delegate controllerWillSendNotification:self];
+    }
+}
+
+- (void)didSendNotification:(BOOL)isSuccess
+{
+    for (id retainedDelegate in delegateList) {
+        id<ContactControllerDelegate> delegate = [retainedDelegate nonretainedObjectValue];
+        if ([delegate respondsToSelector:@selector(controller:didSendNotifcation:)]) [delegate controller:self didSendNotifcation:isSuccess];
+    }
+}
+
 #pragma mark - Properties
 
 - (void)setUsername:(NSString *)username
@@ -154,6 +172,24 @@
     [[self managedObjectContext] save:nil];
 }
 
+- (void)incrementPing
+{
+    [self setPing:[self ping] + 1];
+}
+
+- (void)setPing:(int16_t)ping
+{
+    if (_ping == ping) return;
+    _ping = ping;
+    
+    [currentContact setPing:ping];
+    [[self managedObjectContext] save:nil];
+    
+    if ([self pingStatus] != WAUContactPingStatusPinging) {
+        [self setPingStatus:ping == 0 ? WAUContactPingStatusNone : WAUContactPingStatusNotification];
+    }
+}
+
 - (void)setLastUpdated:(int64_t)lastUpdated
 {
     if (_lastUpdated == lastUpdated) return;
@@ -161,6 +197,8 @@
     
     [currentContact setLastUpdated:lastUpdated];
     [[self managedObjectContext] save:nil];
+    
+    [self incrementPing];
     
     for (id retainedDelegate in delegateList) {
         id<ContactControllerDelegate> delegate = [retainedDelegate nonretainedObjectValue];

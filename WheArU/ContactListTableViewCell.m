@@ -27,6 +27,12 @@
     
     IBOutlet UIScrollView *buttonsScrollView;
     IBOutlet UIButton *locateButton;
+    
+    IBOutlet UIView *pingStatusView;
+    IBOutlet UILabel *pingNumberLabel;
+    IBOutlet UIActivityIndicatorView *pingSpinner;
+    IBOutlet UIImageView *pingSuccessImageView;
+    IBOutlet UIImageView *pingFailedImageView;
 }
 
 - (void)awakeFromNib
@@ -35,6 +41,8 @@
     UIBezierPath *circularPath=[UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, [userIconImageView frame].size.width, [userIconImageView frame].size.height) cornerRadius:MAX([userIconImageView frame].size.width, [userIconImageView frame].size.height)];
     [circle setPath:[circularPath CGPath]];
     [[userIconImageView layer] setMask:circle];
+    
+    [[pingStatusView layer] setCornerRadius:2.f];
     
     [locateButton setImage:[[[locateButton imageView] image] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
     
@@ -45,6 +53,9 @@
     UISwipeGestureRecognizer *swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeContactWithGesture:)];
     [swipeGesture setDirection:UISwipeGestureRecognizerDirectionLeft];
     [buttonsScrollView addGestureRecognizer:swipeGesture];
+    
+    [pingSuccessImageView setImage:[[pingSuccessImageView image] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
+    [pingFailedImageView setImage:[[pingFailedImageView image] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
     
     [self scrollToOriginalPositionAnimated:NO];
 }
@@ -96,7 +107,7 @@
 
 - (IBAction)locateContact:(id)sender
 {
-    [instructionLabel shakeWithDuration:0.05f offset:3.f];
+    [instructionLabel shakeWithDuration:0.05f offset:3.f count:2];
     [[NotificationController sharedInstance] requestForLocationFromContact:[self contactController]];
 }
 
@@ -148,6 +159,38 @@
     }
 }
 
+- (void)layoutPingStatusView
+{
+    WAUContactPingStatus pingStatus = [[self contactController] pingStatus];
+    
+    float pingStatusViewAlpha = 0.f;
+    float pingSpinnerAlpha = 0.f;
+    float pingSuccessImageViewAlpha = 0.f;
+    float pingFailedImageViewAlpha = 0.f;
+    
+    if (pingStatus == WAUContactPingStatusNotification) pingStatusViewAlpha = 1.f;
+    else if (pingStatus == WAUContactPingStatusPinging) pingSpinnerAlpha = 1.f;
+    else if (pingStatus == WAUContactPingStatusSuccess) pingSuccessImageViewAlpha = 1.f;
+    else if (pingStatus == WAUContactPingStatusFailed) pingFailedImageViewAlpha = 1.f;
+    
+    if (pingStatusViewAlpha == 1.f && [pingStatusView alpha] == 1.f) {
+        [UIView transitionWithView:pingNumberLabel duration:kWAUContactUpdateAnimationDuration options:(UIViewAnimationOptionTransitionCrossDissolve | UIViewAnimationOptionBeginFromCurrentState) animations:^
+         {
+             [pingNumberLabel setText:[NSString stringWithFormat:@"%d", [[self contactController] ping]]];
+         } completion:nil];
+    }
+    else {
+        [pingNumberLabel setText:[NSString stringWithFormat:@"%d", [[self contactController] ping]]];
+        [UIView animateWithDuration:kWAUContactUpdateAnimationDuration delay:0.f options:UIViewAnimationOptionTransitionCrossDissolve animations:^
+         {
+             [pingStatusView setAlpha:pingStatusViewAlpha];
+             [pingSpinner setAlpha:pingSpinnerAlpha];
+             [pingSuccessImageView setAlpha:pingSuccessImageViewAlpha];
+             [pingFailedImageView setAlpha:pingFailedImageViewAlpha];
+         } completion:nil];
+    }
+}
+
 #pragma mark - External
 
 - (void)scrollToOriginalPositionAnimated:(BOOL)animated
@@ -183,6 +226,14 @@
     [instructionLabel setTextColor:[contactController wordColor]];
     
     [locateButton setTintColor:[contactController wordColor]];
+    
+    [pingStatusView setBackgroundColor:[[self contactController] wordColor]];
+    [pingNumberLabel setTextColor:[[self contactController] userColor]];
+    [pingSpinner setColor:[[self contactController] wordColor]];
+    [pingSuccessImageView setTintColor:[[self contactController] wordColor]];
+    [pingFailedImageView setTintColor:[[self contactController] wordColor]];
+    
+    [self layoutPingStatusView];
     
     if ([contactController userIcon] != nil) [userIconImageView setImage:[contactController userIcon]];
 }
@@ -228,6 +279,16 @@
          
          [locateButton setTintColor:[controller wordColor]];
      } completion:nil];
+}
+
+- (void)controllerWillSendNotification:(ContactController *)controller
+{
+    [self layoutPingStatusView];
+}
+
+- (void)controller:(ContactController *)controller didSendNotifcation:(BOOL)isSuccess
+{
+    [self layoutPingStatusView];
 }
 
 @end

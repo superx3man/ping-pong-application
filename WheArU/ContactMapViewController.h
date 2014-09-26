@@ -12,7 +12,7 @@
 #import "ContactController.h"
 
 
-@interface ContactMapViewController : UIViewController <ContactControllerDelegate, MKMapViewDelegate>
+@interface ContactMapViewController : UIViewController <ContactControllerDelegate, MKMapViewDelegate, UIGestureRecognizerDelegate>
 
 @property (nonatomic, strong) ContactController *contactController;
 

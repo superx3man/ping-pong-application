@@ -19,6 +19,7 @@ NSString *const kWAUCoreDataEntityContact = @"Contact";
 @dynamic userIcon;
 
 @dynamic version;
+@dynamic ping;
 @dynamic lastUpdated;
 
 @dynamic latitude;

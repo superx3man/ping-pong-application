@@ -11,11 +11,11 @@
 
 @implementation UIView (Shake)
 
-- (void)shakeWithDuration:(NSTimeInterval)duration offset:(float)offset
+- (void)shakeWithDuration:(NSTimeInterval)duration offset:(float)offset count:(int)count
 {
     CABasicAnimation *shake = [CABasicAnimation animationWithKeyPath:@"position"];
     [shake setDuration:duration];
-    [shake setRepeatCount:2];
+    [shake setRepeatCount:count];
     [shake setAutoreverses:YES];
     [shake setFromValue:[NSValue valueWithCGPoint:CGPointMake([self center].x - offset, [self center].y)]];
     [shake setToValue:[NSValue valueWithCGPoint:CGPointMake([self center].x + offset, [self center].y)]];

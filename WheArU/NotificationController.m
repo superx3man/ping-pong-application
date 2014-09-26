@@ -77,8 +77,15 @@ NSString *const kWAUNotificationActionIdentifierSend = @"kWAUNotificationActionI
     [delegateList addObject:[NSValue valueWithNonretainedObject:delegate]];
 }
 
+- (void)removeDelegate:(id<NotificationControllerDelegate>)delegate
+{
+    [delegateList removeObject:[NSValue valueWithNonretainedObject:delegate]];
+}
+
 - (void)requestForLocationFromContact:(ContactController *)contact
 {
+    [contact setPingStatus:WAUContactPingStatusPinging];
+    
     [[LocationController sharedInstance] retrieveLocationWithUpdateBlock:^(CLLocation *location)
     {
         if ([[UserController sharedInstance] userId] == nil) return;
@@ -101,13 +108,19 @@ NSString *const kWAUNotificationActionIdentifierSend = @"kWAUNotificationActionI
         [request setFailureHandler:^(WAUServerConnectorRequest *connectorRequest)
          {
              [WAULog log:[NSString stringWithFormat:@"failed to ping contact: %@", [contact userId]] from:self];
+             [contact setPingStatus:WAUContactPingStatusFailed];
+             [contact didSendNotification:NO];
          }];
         [request setSuccessHandler:^(WAUServerConnectorRequest *connectorRequest, NSObject *requestResult)
          {
              [WAULog log:[NSString stringWithFormat:@"ping contact: %@", [contact userId]] from:self];
+             [contact setPing:0];
+             [contact setPingStatus:WAUContactPingStatusSuccess];
+             [contact didSendNotification:YES];
          }];
         [[WAUServerConnector sharedInstance] sendRequest:request withTag:@"SyncUser"];
     }];
+    [contact willSendNotification];
 }
 
 #pragma mark - Delegates

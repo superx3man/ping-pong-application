@@ -24,14 +24,12 @@ extern NSString *const kWAUNotificationActionIdentifierSend;
 + (NotificationController *)sharedInstance;
 
 - (void)addDelegate:(id<NotificationControllerDelegate>)delegate;
+- (void)removeDelegate:(id<NotificationControllerDelegate>)delegate;
 
 - (void)requestForLocationFromContact:(ContactController *)contact;
 
 @end
 
 @protocol NotificationControllerDelegate <NSObject>
-
-@optional
-- (void)controllerDidValidateNotificationKey:(NotificationController *)controller;
 
 @end

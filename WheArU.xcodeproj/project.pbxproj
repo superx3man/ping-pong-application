@@ -23,6 +23,10 @@
 		4D4C611819B4D01B003AB18B /* ContactListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D4C611719B4D01B003AB18B /* ContactListController.m */; };
 		4D4C612A19B517C7003AB18B /* Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D4C612919B517C7003AB18B /* Contact.m */; };
 		4D4C613119B52D41003AB18B /* UIColor+Hex.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D4C613019B52D41003AB18B /* UIColor+Hex.m */; };
+		4D4D173C19D503940081798D /* ping_ok@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D4D173A19D503940081798D /* ping_ok@2x.png */; };
+		4D4D173D19D503940081798D /* ping_ok.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D4D173B19D503940081798D /* ping_ok.png */; };
+		4D4D174019D505200081798D /* ping_failed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D4D173E19D505200081798D /* ping_failed@2x.png */; };
+		4D4D174119D505200081798D /* ping_failed.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D4D173F19D505200081798D /* ping_failed.png */; };
 		4D5BD6D719CF179000B7BC01 /* WAUConstant.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5BD6D619CF179000B7BC01 /* WAUConstant.m */; };
 		4D5BD6DB19CF256200B7BC01 /* NSString+Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5BD6DA19CF256200B7BC01 /* NSString+Hash.m */; };
 		4D79C3A019D3C08D00CEB1E4 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D79C39F19D3C08D00CEB1E4 /* QuartzCore.framework */; };
@@ -110,6 +114,11 @@
 		4D4C612919B517C7003AB18B /* Contact.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Contact.m; sourceTree = "<group>"; };
 		4D4C612F19B52D41003AB18B /* UIColor+Hex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Hex.h"; sourceTree = "<group>"; };
 		4D4C613019B52D41003AB18B /* UIColor+Hex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Hex.m"; sourceTree = "<group>"; };
+		4D4D173919D4F9AC0081798D /* WheArU 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "WheArU 2.xcdatamodel"; sourceTree = "<group>"; };
+		4D4D173A19D503940081798D /* ping_ok@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ping_ok@2x.png"; sourceTree = "<group>"; };
+		4D4D173B19D503940081798D /* ping_ok.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ping_ok.png; sourceTree = "<group>"; };
+		4D4D173E19D505200081798D /* ping_failed@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ping_failed@2x.png"; sourceTree = "<group>"; };
+		4D4D173F19D505200081798D /* ping_failed.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ping_failed.png; sourceTree = "<group>"; };
 		4D5BD6D519CF179000B7BC01 /* WAUConstant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WAUConstant.h; sourceTree = "<group>"; };
 		4D5BD6D619CF179000B7BC01 /* WAUConstant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WAUConstant.m; sourceTree = "<group>"; };
 		4D5BD6D919CF256200B7BC01 /* NSString+Hash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Hash.h"; sourceTree = "<group>"; };
@@ -504,10 +513,14 @@
 				4D8C11CC19C6321800698F6D /* id_card@2x.png */,
 				4DD3F55119CB5C8500A77C1C /* locate.png */,
 				4DD3F55219CB5C8500A77C1C /* locate@2x.png */,
+				4D4D173E19D505200081798D /* ping_failed@2x.png */,
+				4D4D173F19D505200081798D /* ping_failed.png */,
+				4D4D173B19D503940081798D /* ping_ok.png */,
+				4D4D173A19D503940081798D /* ping_ok@2x.png */,
 				4D8C11CF19C6328A00698F6D /* profile_settings.png */,
 				4D8C11D019C6328A00698F6D /* profile_settings@2x.png */,
-				4DD698B719C5510C00D9D65D /* settings@2x.png */,
 				4DD698B819C5510C00D9D65D /* settings.png */,
+				4DD698B719C5510C00D9D65D /* settings@2x.png */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -627,7 +640,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				4DD3F55319CB5C8500A77C1C /* locate.png in Resources */,
+				4D4D174019D505200081798D /* ping_failed@2x.png in Resources */,
 				4DD698BA19C5510C00D9D65D /* settings.png in Resources */,
+				4D4D173D19D503940081798D /* ping_ok.png in Resources */,
+				4D4D174119D505200081798D /* ping_failed.png in Resources */,
 				4D8C11D119C6328A00698F6D /* profile_settings.png in Resources */,
 				4D8C11D519C6347400698F6D /* add_user.png in Resources */,
 				4D8C11CE19C6321800698F6D /* id_card@2x.png in Resources */,
@@ -638,6 +654,7 @@
 				4D49A8A419CFDCD900F8B382 /* LaunchScreen.xib in Resources */,
 				4DD698B919C5510C00D9D65D /* settings@2x.png in Resources */,
 				4D8267D519B3BA6E00076974 /* Images.xcassets in Resources */,
+				4D4D173C19D503940081798D /* ping_ok@2x.png in Resources */,
 				4D8C11D619C6347400698F6D /* add_user@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -920,9 +937,10 @@
 		4D8267CB19B3BA6E00076974 /* WheArU.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				4D4D173919D4F9AC0081798D /* WheArU 2.xcdatamodel */,
 				4D8267CC19B3BA6E00076974 /* WheArU.xcdatamodel */,
 			);
-			currentVersion = 4D8267CC19B3BA6E00076974 /* WheArU.xcdatamodel */;
+			currentVersion = 4D4D173919D4F9AC0081798D /* WheArU 2.xcdatamodel */;
 			path = WheArU.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

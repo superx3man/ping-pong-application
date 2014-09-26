@@ -11,8 +11,11 @@
 #import "ContactMapAnnotation.h"
 #import "ContactMapAnnotationView.h"
 
+#import "NotificationController.h"
+
 #import "MKCircle+ContactController.h"
 #import "MKMapView+SharedInstance.h"
+#import "UIView+Shake.h"
 #import "WAUConstant.h"
 
 
@@ -31,6 +34,15 @@
     IBOutlet UIView *mapContainerView;
     MKMapView *contactMapView;
     
+    IBOutlet UIScrollView *buttonsScrollView;
+    IBOutlet UIButton *locateButton;
+    
+    IBOutlet UIView *pingStatusView;
+    IBOutlet UILabel *pingNumberLabel;
+    IBOutlet UIActivityIndicatorView *pingSpinner;
+    IBOutlet UIImageView *pingSuccessImageView;
+    IBOutlet UIImageView *pingFailedImageView;
+    
     NSMutableDictionary *annotationDictionary;
     BOOL isMapViewFirstAppeared;
 }
@@ -40,9 +52,11 @@
     [super viewDidLoad];
     
     CAShapeLayer *circle = [CAShapeLayer layer];
-    UIBezierPath *circularPath=[UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, [userIconImageView frame].size.width, [userIconImageView frame].size.height) cornerRadius:MAX([userIconImageView frame].size.width, [userIconImageView frame].size.height)];
+    UIBezierPath *circularPath = [UIBezierPath bezierPathWithRoundedRect:CGRectMake(0, 0, [userIconImageView frame].size.width, [userIconImageView frame].size.height) cornerRadius:MAX([userIconImageView frame].size.width, [userIconImageView frame].size.height)];
     [circle setPath:[circularPath CGPath]];
     [[userIconImageView layer] setMask:circle];
+    
+    [[pingStatusView layer] setCornerRadius:2.f];
     
     annotationDictionary = [[NSMutableDictionary alloc] init];
     isMapViewFirstAppeared = YES;
@@ -52,6 +66,12 @@
     [mapContainerView addSubview:contactMapView];
     [mapContainerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[contactMapView]|" options:kNilOptions metrics:nil views:NSDictionaryOfVariableBindings(contactMapView)]];
     [mapContainerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[contactMapView]|" options:kNilOptions metrics:nil views:NSDictionaryOfVariableBindings(contactMapView)]];
+    
+    [locateButton setImage:[[[locateButton imageView] image] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
+    [[locateButton imageView] setContentMode:UIViewContentModeScaleAspectFit];
+    
+    [pingSuccessImageView setImage:[[pingSuccessImageView image] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
+    [pingFailedImageView setImage:[[pingFailedImageView image] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -68,12 +88,24 @@
     [userLastUpdatedLabel setTextColor:[[self contactController] wordColor]];
     [userLastUpdatedDescriptionLabel setTextColor:[[self contactController] wordColor]];
     
+    [locateButton setTintColor:[[self contactController] wordColor]];
+    
+    [pingStatusView setBackgroundColor:[[self contactController] wordColor]];
+    [pingNumberLabel setTextColor:[[self contactController] userColor]];
+    [pingSpinner setColor:[[self contactController] wordColor]];
+    [pingSuccessImageView setTintColor:[[self contactController] wordColor]];
+    [pingFailedImageView setTintColor:[[self contactController] wordColor]];
+    
+    [self layoutPingStatusView];
+    
     if ([[self contactController] userIcon] != nil) [userIconImageView setImage:[[self contactController] userIcon]];
     
     [self createAnnotationForContactController:[self contactController]];
     [self zoomToFitMapAnnotations:contactMapView withCurrentLocation:NO];
     
     [contactMapView setShowsUserLocation:YES];
+    
+    [self scrollToOriginalPositionAnimated:NO];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -91,7 +123,22 @@
     [annotationDictionary removeAllObjects];
 }
 
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+{
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    
+    [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context)
+     {
+         [self scrollToOriginalPositionAnimated:YES];
+     } completion:nil];
+}
+
 #pragma mark - Controls
+
+- (IBAction)tapOnLocate:(id)sender
+{
+    [[NotificationController sharedInstance] requestForLocationFromContact:[self contactController]];
+}
 
 - (IBAction)tapOnSideSpace:(id)sender
 {
@@ -100,6 +147,11 @@
 
 #pragma mark - Functions
 #pragma mark Support
+
+- (void)scrollToOriginalPositionAnimated:(BOOL)animated
+{
+    [buttonsScrollView scrollRectToVisible:CGRectMake(0.f, 0.f, 1.f, 1.f) animated:animated];
+}
 
 - (void)createAnnotationForContactController:(ContactController *)contactController
 {
@@ -150,7 +202,7 @@
     if (count > 1) unit = [NSString stringWithFormat:@"%@s", unit];
     NSString *lastUpdatedDescription = count > 0 ? [NSString stringWithFormat:@"%lld%@", count, unit] : [NSString stringWithFormat:@"%@", unit];
     
-    [UIView animateWithDuration:kWAUContactUpdateAnimationDuration delay:0.f options:UIViewAnimationOptionTransitionCrossDissolve animations:^
+    [UIView transitionWithView:userLastUpdatedLabel duration:kWAUContactUpdateAnimationDuration options:(UIViewAnimationOptionTransitionCrossDissolve | UIViewAnimationOptionBeginFromCurrentState) animations:^
      {
          [userLastUpdatedLabel setText:lastUpdatedDescription];
      } completion:nil];
@@ -189,6 +241,38 @@
     
     region = [mapView regionThatFits:region];
     [mapView setRegion:region animated:YES];
+}
+
+- (void)layoutPingStatusView
+{
+    WAUContactPingStatus pingStatus = [[self contactController] pingStatus];
+    
+    float pingStatusViewAlpha = 0.f;
+    float pingSpinnerAlpha = 0.f;
+    float pingSuccessImageViewAlpha = 0.f;
+    float pingFailedImageViewAlpha = 0.f;
+    
+    if (pingStatus == WAUContactPingStatusNotification) pingStatusViewAlpha = 1.f;
+    else if (pingStatus == WAUContactPingStatusPinging) pingSpinnerAlpha = 1.f;
+    else if (pingStatus == WAUContactPingStatusSuccess) pingSuccessImageViewAlpha = 1.f;
+    else if (pingStatus == WAUContactPingStatusFailed) pingFailedImageViewAlpha = 1.f;
+    
+    if (pingStatusViewAlpha == 1.f && [pingStatusView alpha] == 1.f) {
+        [UIView transitionWithView:pingNumberLabel duration:kWAUContactUpdateAnimationDuration options:(UIViewAnimationOptionTransitionCrossDissolve | UIViewAnimationOptionBeginFromCurrentState) animations:^
+         {
+             [pingNumberLabel setText:[NSString stringWithFormat:@"%d", [[self contactController] ping]]];
+         } completion:nil];
+    }
+    else {
+        [pingNumberLabel setText:[NSString stringWithFormat:@"%d", [[self contactController] ping]]];
+        [UIView animateWithDuration:kWAUContactUpdateAnimationDuration delay:0.f options:UIViewAnimationOptionTransitionCrossDissolve animations:^
+         {
+             [pingStatusView setAlpha:pingStatusViewAlpha];
+             [pingSpinner setAlpha:pingSpinnerAlpha];
+             [pingSuccessImageView setAlpha:pingSuccessImageViewAlpha];
+             [pingFailedImageView setAlpha:pingFailedImageViewAlpha];
+         } completion:nil];
+    }
 }
 
 #pragma mark - Delegates
@@ -241,6 +325,8 @@
 
 - (void)contactDidUpdateLocation:(ContactController *)controller
 {
+    [self layoutPingStatusView];
+    
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(updateLastUpdatedLabelWithCurrentTime) object:nil];
     [self updateLastUpdatedLabelWithCurrentTime];
     [self createAnnotationForContactController:controller];
@@ -273,7 +359,34 @@
          [usernameLabel setTextColor:[controller wordColor]];
          [userLastUpdatedLabel setTextColor:[controller wordColor]];
          [userLastUpdatedDescriptionLabel setTextColor:[controller wordColor]];
-     } completion:nil];
+         
+         [locateButton setTintColor:[[self contactController] wordColor]];
+         
+         [pingStatusView setBackgroundColor:[[self contactController] wordColor]];
+         [pingNumberLabel setTextColor:[[self contactController] userColor]];
+         [pingSpinner setColor:[[self contactController] wordColor]];
+         [pingSuccessImageView setTintColor:[[self contactController] wordColor]];
+     } completion:^(BOOL finished)
+     {
+         [self createAnnotationForContactController:controller];
+     }];
+}
+
+- (void)controllerWillSendNotification:(ContactController *)controller
+{
+    [self layoutPingStatusView];
+}
+
+- (void)controller:(ContactController *)controller didSendNotifcation:(BOOL)isSuccess
+{
+    [self layoutPingStatusView];
+}
+
+#pragma mark UIGestureRecognizerDelegate
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+    return YES;
 }
 
 @end

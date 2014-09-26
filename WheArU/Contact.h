@@ -20,6 +20,7 @@ extern NSString *const kWAUCoreDataEntityContact;
 @property (nonatomic, retain) NSData *userIcon;
 
 @property (nonatomic) int32_t version;
+@property (nonatomic) int16_t ping;
 @property (nonatomic) int64_t lastUpdated;
 
 @property (nonatomic) double latitude;
