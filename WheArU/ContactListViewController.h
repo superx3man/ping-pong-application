@@ -11,8 +11,9 @@
 #import "ContactListController.h"
 #import "ContactListTableViewCell.h"
 #import "UserController.h"
+#import "AppDelegate.h"
 
 
-@interface ContactListViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UserControllerDelegate, ContactListControllerDelegate, ContactListTableViewCellDelegate>
+@interface ContactListViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, UserControllerDelegate, ContactListControllerDelegate, ContactListTableViewCellDelegate, ApplicationStateChangeDelegate>
 
 @end

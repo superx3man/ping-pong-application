@@ -11,12 +11,14 @@
 
 
 @protocol NotificationRegistrationDelegate;
+@protocol ApplicationStateChangeDelegate;
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (nonatomic, strong) UIWindow *window;
 
-@property (nonatomic, strong) id<NotificationRegistrationDelegate> notificationRegistrationDelegate;
+@property (nonatomic, weak) id<NotificationRegistrationDelegate> notificationRegistrationDelegate;
+@property (nonatomic, weak) id<ApplicationStateChangeDelegate> applicationStateChangeDelegate;
 
 @property (nonatomic, readonly, strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, readonly, strong) NSManagedObjectModel *managedObjectModel;
@@ -34,5 +36,12 @@
 
 - (void)didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken;
 - (void)didFailToRegisterForRemoteNotificationsWithError:(NSError *)error;
+
+@end
+
+@protocol ApplicationStateChangeDelegate <NSObject>
+
+@optional
+- (void)willEnterForeground;
 
 @end

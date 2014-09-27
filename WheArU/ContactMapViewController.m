@@ -36,6 +36,7 @@
     
     IBOutlet UIScrollView *buttonsScrollView;
     IBOutlet UIButton *locateButton;
+    IBOutlet UIButton *deleteButton;
     
     IBOutlet UIView *pingStatusView;
     IBOutlet UILabel *pingNumberLabel;
@@ -69,6 +70,8 @@
     
     [locateButton setImage:[[[locateButton imageView] image] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
     [[locateButton imageView] setContentMode:UIViewContentModeScaleAspectFit];
+    [deleteButton setImage:[[[deleteButton imageView] image] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
+    [[deleteButton imageView] setContentMode:UIViewContentModeScaleAspectFit];
     
     [pingSuccessImageView setImage:[[pingSuccessImageView image] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
     [pingFailedImageView setImage:[[pingFailedImageView image] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate]];
@@ -89,6 +92,7 @@
     [userLastUpdatedDescriptionLabel setTextColor:[[self contactController] wordColor]];
     
     [locateButton setTintColor:[[self contactController] wordColor]];
+    [deleteButton setTintColor:[[self contactController] wordColor]];
     
     [pingStatusView setBackgroundColor:[[self contactController] wordColor]];
     [pingNumberLabel setTextColor:[[self contactController] userColor]];
@@ -202,10 +206,12 @@
     if (count > 1) unit = [NSString stringWithFormat:@"%@s", unit];
     NSString *lastUpdatedDescription = count > 0 ? [NSString stringWithFormat:@"%lld%@", count, unit] : [NSString stringWithFormat:@"%@", unit];
     
-    [UIView transitionWithView:userLastUpdatedLabel duration:kWAUContactUpdateAnimationDuration options:(UIViewAnimationOptionTransitionCrossDissolve | UIViewAnimationOptionBeginFromCurrentState) animations:^
-     {
-         [userLastUpdatedLabel setText:lastUpdatedDescription];
-     } completion:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [UIView transitionWithView:userLastUpdatedLabel duration:kWAUContactUpdateAnimationDuration options:(UIViewAnimationOptionTransitionCrossDissolve | UIViewAnimationOptionBeginFromCurrentState) animations:^
+         {
+             [userLastUpdatedLabel setText:lastUpdatedDescription];
+         } completion:nil];
+    });
     
     if (nextTimeInterval > 0) [self performSelector:@selector(updateLastUpdatedLabelWithCurrentTime) withObject:nil afterDelay:nextTimeInterval];
 }
@@ -258,20 +264,28 @@
     else if (pingStatus == WAUContactPingStatusFailed) pingFailedImageViewAlpha = 1.f;
     
     if (pingStatusViewAlpha == 1.f && [pingStatusView alpha] == 1.f) {
-        [UIView transitionWithView:pingNumberLabel duration:kWAUContactUpdateAnimationDuration options:(UIViewAnimationOptionTransitionCrossDissolve | UIViewAnimationOptionBeginFromCurrentState) animations:^
-         {
-             [pingNumberLabel setText:[NSString stringWithFormat:@"%d", [[self contactController] ping]]];
-         } completion:nil];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [UIView transitionWithView:pingNumberLabel duration:kWAUContactUpdateAnimationDuration options:(UIViewAnimationOptionTransitionCrossDissolve | UIViewAnimationOptionBeginFromCurrentState) animations:^
+             {
+                 [pingNumberLabel setText:[NSString stringWithFormat:@"%d", MIN([[self contactController] ping], 99)]];
+             } completion:nil];
+        });
     }
     else {
-        [pingNumberLabel setText:[NSString stringWithFormat:@"%d", [[self contactController] ping]]];
-        [UIView animateWithDuration:kWAUContactUpdateAnimationDuration delay:0.f options:UIViewAnimationOptionTransitionCrossDissolve animations:^
-         {
-             [pingStatusView setAlpha:pingStatusViewAlpha];
-             [pingSpinner setAlpha:pingSpinnerAlpha];
-             [pingSuccessImageView setAlpha:pingSuccessImageViewAlpha];
-             [pingFailedImageView setAlpha:pingFailedImageViewAlpha];
-         } completion:nil];
+        [pingNumberLabel setText:[NSString stringWithFormat:@"%d", MIN([[self contactController] ping], 99)]];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [UIView animateWithDuration:kWAUContactUpdateAnimationDuration delay:0.f options:UIViewAnimationOptionTransitionCrossDissolve animations:^
+             {
+                 [pingStatusView setAlpha:pingStatusViewAlpha];
+                 [pingSpinner setAlpha:pingSpinnerAlpha];
+                 [pingSuccessImageView setAlpha:pingSuccessImageViewAlpha];
+                 [pingFailedImageView setAlpha:pingFailedImageViewAlpha];
+             } completion:^(BOOL finished)
+             {
+                 if (pingSpinnerAlpha == 1.f) [pingSpinner startAnimating];
+                 else [pingSpinner stopAnimating];
+             }];
+        });
     }
 }
 
@@ -336,40 +350,47 @@
 
 - (void)contactDidUpdateUsername:(ContactController *)controller
 {
-    [UIView animateWithDuration:kWAUContactUpdateAnimationDuration delay:0.f options:UIViewAnimationOptionTransitionCrossDissolve animations:^
-     {
-         [usernameLabel setText:[controller username]];
-     } completion:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [UIView transitionWithView:usernameLabel duration:kWAUContactUpdateAnimationDuration options:UIViewAnimationOptionTransitionCrossDissolve animations:^
+         {
+             [usernameLabel setText:[controller username]];
+         } completion:nil];
+    });
 }
 
 - (void)contactDidUpdateUserIcon:(ContactController *)controller
 {
-    [UIView animateWithDuration:kWAUContactUpdateAnimationDuration delay:0.f options:UIViewAnimationOptionTransitionCrossDissolve animations:^
-     {
-         [userIconImageView setImage:[controller userIcon]];
-     } completion:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [UIView animateWithDuration:kWAUContactUpdateAnimationDuration delay:0.f options:UIViewAnimationOptionTransitionCrossDissolve animations:^
+         {
+             [userIconImageView setImage:[controller userIcon]];
+         } completion:nil];
+    });
 }
 
 - (void)contactDidUpdateUserColor:(ContactController *)controller
 {
-    [UIView animateWithDuration:kWAUContactUpdateAnimationDuration delay:0.f options:UIViewAnimationOptionTransitionCrossDissolve animations:^
-     {
-         [[self view] setBackgroundColor:[controller userColor]];
-         
-         [usernameLabel setTextColor:[controller wordColor]];
-         [userLastUpdatedLabel setTextColor:[controller wordColor]];
-         [userLastUpdatedDescriptionLabel setTextColor:[controller wordColor]];
-         
-         [locateButton setTintColor:[[self contactController] wordColor]];
-         
-         [pingStatusView setBackgroundColor:[[self contactController] wordColor]];
-         [pingNumberLabel setTextColor:[[self contactController] userColor]];
-         [pingSpinner setColor:[[self contactController] wordColor]];
-         [pingSuccessImageView setTintColor:[[self contactController] wordColor]];
-     } completion:^(BOOL finished)
-     {
-         [self createAnnotationForContactController:controller];
-     }];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [UIView animateWithDuration:kWAUContactUpdateAnimationDuration delay:0.f options:UIViewAnimationOptionTransitionCrossDissolve animations:^
+         {
+             [[self view] setBackgroundColor:[controller userColor]];
+             
+             [usernameLabel setTextColor:[controller wordColor]];
+             [userLastUpdatedLabel setTextColor:[controller wordColor]];
+             [userLastUpdatedDescriptionLabel setTextColor:[controller wordColor]];
+             
+             [locateButton setTintColor:[[self contactController] wordColor]];
+             [deleteButton setTintColor:[[self contactController] wordColor]];
+             
+             [pingStatusView setBackgroundColor:[[self contactController] wordColor]];
+             [pingNumberLabel setTextColor:[[self contactController] userColor]];
+             [pingSpinner setColor:[[self contactController] wordColor]];
+             [pingSuccessImageView setTintColor:[[self contactController] wordColor]];
+         } completion:^(BOOL finished)
+         {
+             [self createAnnotationForContactController:controller];
+         }];
+    });
 }
 
 - (void)controllerWillSendNotification:(ContactController *)controller

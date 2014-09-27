@@ -68,6 +68,8 @@
 		4DEAF5B719C886BB00CC1EC8 /* RNDecryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DEAF5B219C886BB00CC1EC8 /* RNDecryptor.m */; };
 		4DEAF5B819C886BB00CC1EC8 /* RNEncryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DEAF5B419C886BB00CC1EC8 /* RNEncryptor.m */; };
 		4DEAF5BE19C933DC00CC1EC8 /* NotificationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DEAF5BD19C933DC00CC1EC8 /* NotificationController.m */; };
+		4DEDDD4919D63AFF00CA94C7 /* remove_user@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DEDDD4719D63AFF00CA94C7 /* remove_user@2x.png */; };
+		4DEDDD4A19D63AFF00CA94C7 /* remove_user.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DEDDD4819D63AFF00CA94C7 /* remove_user.png */; };
 		4DF6EAB819C9FD32001BC176 /* Reachability+SharedInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DF6EAB719C9FD32001BC176 /* Reachability+SharedInstance.m */; };
 		4DF6EABC19CA00DD001BC176 /* WAUServerConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DF6EABB19CA00DD001BC176 /* WAUServerConnector.m */; };
 		4DF6EAC219CA0A21001BC176 /* WAUServerConnectorRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DF6EAC119CA0A21001BC176 /* WAUServerConnectorRequest.m */; };
@@ -187,6 +189,8 @@
 		4DEAF5B419C886BB00CC1EC8 /* RNEncryptor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNEncryptor.m; sourceTree = "<group>"; };
 		4DEAF5BC19C933DC00CC1EC8 /* NotificationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationController.h; sourceTree = "<group>"; };
 		4DEAF5BD19C933DC00CC1EC8 /* NotificationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationController.m; sourceTree = "<group>"; };
+		4DEDDD4719D63AFF00CA94C7 /* remove_user@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "remove_user@2x.png"; sourceTree = "<group>"; };
+		4DEDDD4819D63AFF00CA94C7 /* remove_user.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = remove_user.png; sourceTree = "<group>"; };
 		4DF6EAB619C9FD32001BC176 /* Reachability+SharedInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Reachability+SharedInstance.h"; sourceTree = "<group>"; };
 		4DF6EAB719C9FD32001BC176 /* Reachability+SharedInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Reachability+SharedInstance.m"; sourceTree = "<group>"; };
 		4DF6EABA19CA00DD001BC176 /* WAUServerConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WAUServerConnector.h; sourceTree = "<group>"; };
@@ -507,20 +511,8 @@
 		4DD698B219C54EC200D9D65D /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				4D8C11D319C6347400698F6D /* add_user.png */,
-				4D8C11D419C6347400698F6D /* add_user@2x.png */,
-				4D8C11CB19C6321800698F6D /* id_card.png */,
-				4D8C11CC19C6321800698F6D /* id_card@2x.png */,
-				4DD3F55119CB5C8500A77C1C /* locate.png */,
-				4DD3F55219CB5C8500A77C1C /* locate@2x.png */,
-				4D4D173E19D505200081798D /* ping_failed@2x.png */,
-				4D4D173F19D505200081798D /* ping_failed.png */,
-				4D4D173B19D503940081798D /* ping_ok.png */,
-				4D4D173A19D503940081798D /* ping_ok@2x.png */,
-				4D8C11CF19C6328A00698F6D /* profile_settings.png */,
-				4D8C11D019C6328A00698F6D /* profile_settings@2x.png */,
-				4DD698B819C5510C00D9D65D /* settings.png */,
-				4DD698B719C5510C00D9D65D /* settings@2x.png */,
+				4DEDDD4B19D63B0500CA94C7 /* ButtonIcons */,
+				4DEDDD4C19D63B1D00CA94C7 /* PingIcons */,
 			);
 			name = Images;
 			sourceTree = "<group>";
@@ -540,6 +532,36 @@
 				4DEAF5B419C886BB00CC1EC8 /* RNEncryptor.m */,
 			);
 			name = RNCryptor;
+			sourceTree = "<group>";
+		};
+		4DEDDD4B19D63B0500CA94C7 /* ButtonIcons */ = {
+			isa = PBXGroup;
+			children = (
+				4D8C11D319C6347400698F6D /* add_user.png */,
+				4D8C11D419C6347400698F6D /* add_user@2x.png */,
+				4D8C11CB19C6321800698F6D /* id_card.png */,
+				4D8C11CC19C6321800698F6D /* id_card@2x.png */,
+				4DD3F55119CB5C8500A77C1C /* locate.png */,
+				4DD3F55219CB5C8500A77C1C /* locate@2x.png */,
+				4D8C11CF19C6328A00698F6D /* profile_settings.png */,
+				4D8C11D019C6328A00698F6D /* profile_settings@2x.png */,
+				4DEDDD4819D63AFF00CA94C7 /* remove_user.png */,
+				4DEDDD4719D63AFF00CA94C7 /* remove_user@2x.png */,
+				4DD698B819C5510C00D9D65D /* settings.png */,
+				4DD698B719C5510C00D9D65D /* settings@2x.png */,
+			);
+			name = ButtonIcons;
+			sourceTree = "<group>";
+		};
+		4DEDDD4C19D63B1D00CA94C7 /* PingIcons */ = {
+			isa = PBXGroup;
+			children = (
+				4D4D173F19D505200081798D /* ping_failed.png */,
+				4D4D173E19D505200081798D /* ping_failed@2x.png */,
+				4D4D173B19D503940081798D /* ping_ok.png */,
+				4D4D173A19D503940081798D /* ping_ok@2x.png */,
+			);
+			name = PingIcons;
 			sourceTree = "<group>";
 		};
 		4DF6EAB919CA007C001BC176 /* WAUServerConnector */ = {
@@ -652,8 +674,10 @@
 				4D8267D319B3BA6E00076974 /* Main.storyboard in Resources */,
 				4D8C11D219C6328A00698F6D /* profile_settings@2x.png in Resources */,
 				4D49A8A419CFDCD900F8B382 /* LaunchScreen.xib in Resources */,
+				4DEDDD4A19D63AFF00CA94C7 /* remove_user.png in Resources */,
 				4DD698B919C5510C00D9D65D /* settings@2x.png in Resources */,
 				4D8267D519B3BA6E00076974 /* Images.xcassets in Resources */,
+				4DEDDD4919D63AFF00CA94C7 /* remove_user@2x.png in Resources */,
 				4D4D173C19D503940081798D /* ping_ok@2x.png in Resources */,
 				4D8C11D619C6347400698F6D /* add_user@2x.png in Resources */,
 			);

@@ -14,6 +14,6 @@
 
 + (LocationController *)sharedInstance;
 
-- (void)retrieveLocationWithUpdateBlock:(void (^)(CLLocation *))updateHandler;
+- (void)retrieveLocationWithUpdateBlock:(void (^)(CLLocation *))updateHandler synchrounous:(BOOL)isSynchrounous;
 
 @end

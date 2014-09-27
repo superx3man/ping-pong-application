@@ -26,8 +26,11 @@
 - (ContactController *)createContactWithJSONDescription:(NSString *)encryptedJsonString;
 - (ContactController *)createContactWithContactInfo:(NSDictionary *)contactInfo;
 
-- (ContactController *)updateContactWithUserId:(NSString *)userId withLocationInfo:(NSString *)locationInfo;
+- (ContactController *)updateContactWithUserId:(NSString *)userId locationInfo:(NSString *)locationInfo;
+- (ContactController *)updateContactWithUserId:(NSString *)userId locationInfo:(NSString *)locationInfo pingCount:(int)pingCount;
 - (ContactController *)validateContactWithUserId:(NSString *)userId withVersion:(int)version;
+
+- (ContactController *)getContactControllerWithUserId:(NSString *)userId;
 
 @end
 

@@ -12,7 +12,6 @@
 #import "RegistrationViewController.h"
 #import "UpdateUserColorViewController.h"
 #import "AddContactWithQRCodeViewController.h"
-#import "AppDelegate.h"
 
 
 @interface ContactListViewController ()
@@ -40,6 +39,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [((AppDelegate *) [[UIApplication sharedApplication] delegate]) setApplicationStateChangeDelegate:self];
     
     contactListController = [ContactListController sharedInstance];
     [contactListController addDelegate:self];
@@ -204,6 +204,13 @@
 - (void)tableViewCell:(ContactListTableViewCell *)cell didSwipeWithContactController:(ContactController *)controller
 {
     [self performSegueWithIdentifier:@"OpenMapViewSegue" sender:controller];
+}
+
+#pragma mark ApplicationStateChangeDelegate
+
+- (void)willEnterForeground
+{
+    [contactListTableView reloadData];
 }
 
 @end

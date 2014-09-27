@@ -192,13 +192,18 @@
 
 - (void)setLastUpdated:(int64_t)lastUpdated
 {
-    if (_lastUpdated == lastUpdated) return;
+    [self setLastUpdated:lastUpdated withPingCount:0];
+}
+
+- (void)setLastUpdated:(int64_t)lastUpdated withPingCount:(int16_t)pingCount
+{
     _lastUpdated = lastUpdated;
     
     [currentContact setLastUpdated:lastUpdated];
     [[self managedObjectContext] save:nil];
     
-    [self incrementPing];
+    if (pingCount == 0) [self incrementPing];
+    else [self setPing:pingCount];
     
     for (id retainedDelegate in delegateList) {
         id<ContactControllerDelegate> delegate = [retainedDelegate nonretainedObjectValue];

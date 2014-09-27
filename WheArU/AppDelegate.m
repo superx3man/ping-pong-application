@@ -25,25 +25,20 @@
 
 @implementation AppDelegate
 {
-    ContactListController *contactListController;
-    UserController *userController;
-    
-    EncryptionController *encryptionController;
-    NotificationController *notificationController;
-    LocationController *locationController;
+    BOOL isAppLaunching;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    //locationController = [LocationController sharedInstance];
+    [LocationController sharedInstance];
     
-    contactListController = [ContactListController sharedInstance];
-    userController = [UserController sharedInstance];
+    [ContactListController sharedInstance];
+    [UserController sharedInstance];
     
-    encryptionController = [EncryptionController sharedInstance];
-    notificationController = [NotificationController sharedInstance];
+    [EncryptionController sharedInstance];
+    [NotificationController sharedInstance];
     
-    [encryptionController addDelegate:notificationController];
+    [[EncryptionController sharedInstance] addDelegate:[NotificationController sharedInstance]];
     
     return YES;
 }
@@ -58,10 +53,17 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
+    if ([self applicationStateChangeDelegate] != nil) {
+        if ([[self applicationStateChangeDelegate] respondsToSelector:@selector(willEnterForeground)]) [[self applicationStateChangeDelegate] willEnterForeground];
+    }
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
+    [[NotificationController sharedInstance] syncLocationRequestFromServer];
+    
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -95,6 +97,24 @@
     }
 }
 
+- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void (^)())completionHandler
+{
+    if ([identifier isEqualToString:kWAUNotificationActionIdentifierSend]) {
+        NSString *userId = [userInfo objectForKey:kWAUDictionaryKeyUserId];
+        NSString *locationInfo = [userInfo objectForKey:kWAUDictionaryKeyLocationInfo];
+        if (locationInfo != nil) [[ContactListController sharedInstance] updateContactWithUserId:userId locationInfo:locationInfo];
+        
+        NSString *version = [userInfo objectForKey:kWAUDictionaryKeyVersion];
+        if (version != nil) [[ContactListController sharedInstance] validateContactWithUserId:userId withVersion:[version intValue]];
+        
+        ContactController *contactController = [[ContactListController sharedInstance] getContactControllerWithUserId:userId];
+        [[NotificationController sharedInstance] requestForLocationFromContact:contactController];
+        
+        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:[[UIApplication sharedApplication] applicationIconBadgeNumber] - 1];
+    }
+    completionHandler();
+}
+
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
     NSString *messageType = [userInfo objectForKey:kWAUDictionaryKeyContentType];
@@ -103,17 +123,18 @@
     [WAULog log:[NSString stringWithFormat:@"Received notification type: %@", messageType] from:self];
     
     if ([messageType isEqualToString:@"contact"]) {
-        [contactListController createContactWithContactInfo:userInfo];
+        [[ContactListController sharedInstance] createContactWithContactInfo:userInfo];
         fetchResult = UIBackgroundFetchResultNewData;
     }
     else if ([messageType isEqualToString:@"ping"]) {
-        NSString *userId = [userInfo objectForKey:kWAUDictionaryKeyUserId];
-        NSString *locationInfo = [userInfo objectForKey:kWAUDictionaryKeyLocationInfo];
-        if (locationInfo != nil) [contactListController updateContactWithUserId:userId withLocationInfo:locationInfo];
-        
-        NSString *version = [userInfo objectForKey:kWAUDictionaryKeyVersion];
-        if (version != nil) [contactListController validateContactWithUserId:userId withVersion:[version intValue]];
-        
+        if ([[UIApplication sharedApplication] applicationState] != UIApplicationStateInactive) {
+            NSString *userId = [userInfo objectForKey:kWAUDictionaryKeyUserId];
+            NSString *locationInfo = [userInfo objectForKey:kWAUDictionaryKeyLocationInfo];
+            if (locationInfo != nil) [[ContactListController sharedInstance] updateContactWithUserId:userId locationInfo:locationInfo];
+            
+            NSString *version = [userInfo objectForKey:kWAUDictionaryKeyVersion];
+            if (version != nil) [[ContactListController sharedInstance] validateContactWithUserId:userId withVersion:[version intValue]];
+        }
         fetchResult = UIBackgroundFetchResultNewData;
     }
     completionHandler(fetchResult);

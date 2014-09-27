@@ -54,11 +54,9 @@
             }
         }
         
-        NSSortDescriptor *usernameDescriptor = [[NSSortDescriptor alloc] initWithKey:@"username" ascending:YES];
-        NSSortDescriptor *lastUpdatedDescriptor = [[NSSortDescriptor alloc] initWithKey:@"lastUpdated" ascending:NO];
-        
-        [self setRecentContactList:[[recentContactList sortedArrayUsingDescriptors:[NSArray arrayWithObjects:lastUpdatedDescriptor, usernameDescriptor, nil]] mutableCopy]];
-        [self setContactList:[[contactList sortedArrayUsingDescriptors:[NSArray arrayWithObjects:usernameDescriptor, lastUpdatedDescriptor, nil]] mutableCopy]];
+        [self setRecentContactList:[recentContactList mutableCopy]];
+        [self setContactList:[contactList mutableCopy]];
+        [self sortContactList];
     }
     return self;
 }
@@ -76,6 +74,18 @@
 }
 
 #pragma mark - Functions
+
+#pragma mark Support
+
+- (void)sortContactList
+{
+    NSSortDescriptor *usernameDescriptor = [[NSSortDescriptor alloc] initWithKey:@"username" ascending:YES selector:@selector(caseInsensitiveCompare:)];
+    NSSortDescriptor *lastUpdatedDescriptor = [[NSSortDescriptor alloc] initWithKey:@"lastUpdated" ascending:NO];
+    
+    [self setRecentContactList:[[[self recentContactList] sortedArrayUsingDescriptors:[NSArray arrayWithObjects:lastUpdatedDescriptor, usernameDescriptor, nil]] mutableCopy]];
+    [self setContactList:[[[self contactList] sortedArrayUsingDescriptors:[NSArray arrayWithObjects:usernameDescriptor, lastUpdatedDescriptor, nil]] mutableCopy]];
+}
+
 #pragma mark External
 
 - (void)addDelegate:(id<ContactListControllerDelegate>)delegate
@@ -132,7 +142,12 @@
     return contactController;
 }
 
-- (ContactController *)updateContactWithUserId:(NSString *)userId withLocationInfo:(NSString *)locationInfo
+- (ContactController *)updateContactWithUserId:(NSString *)userId locationInfo:(NSString *)locationInfo
+{
+    return [self updateContactWithUserId:userId locationInfo:locationInfo pingCount:0];
+}
+
+- (ContactController *)updateContactWithUserId:(NSString *)userId locationInfo:(NSString *)locationInfo pingCount:(int)pingCount
 {
     ContactController *contactController = nil;
     contactController = [userIdContactListDictionary objectForKey:userId];
@@ -143,16 +158,21 @@
         [contactController setAltitude:[[locationInfoList objectAtIndex:2] doubleValue]];
         [contactController setAccuracy:[[locationInfoList objectAtIndex:3] doubleValue]];
         
-        [contactController setLastUpdated:[[locationInfoList objectAtIndex:4] longLongValue]];
+        int64_t lastUpdated = [[locationInfoList objectAtIndex:4] longLongValue];
+        if (pingCount > 0) [contactController setLastUpdated:lastUpdated withPingCount:pingCount];
+        else [contactController setLastUpdated:lastUpdated];
         
-        if ([[self recentContactList] containsObject:contactController]) {
+        int64_t currentTimestamp = [[NSDate date] timeIntervalSince1970];
+        if ([[self recentContactList] containsObject:contactController] && currentTimestamp - lastUpdated > 432000) {
             [[self recentContactList] removeObject:contactController];
-            [[self recentContactList] insertObject:contactController atIndex:0];
+            [[self contactList] insertObject:contactController atIndex:0];
         }
-        else if ([[self contactList] containsObject:contactController]) {
+        else if ([[self contactList] containsObject:contactController] && currentTimestamp - lastUpdated <= 432000) {
             [[self contactList] removeObject:contactController];
             [[self recentContactList] insertObject:contactController atIndex:0];
         }
+        
+        [self sortContactList];
         
         for (id retainedDelegate in delegateList) {
             id<ContactListControllerDelegate> delegate = [retainedDelegate nonretainedObjectValue];
@@ -170,6 +190,11 @@
         [contactController validateContactVersion:version];
     }
     return contactController;
+}
+
+- (ContactController *)getContactControllerWithUserId:(NSString *)userId
+{
+    return [userIdContactListDictionary objectForKey:userId];
 }
 
 @end

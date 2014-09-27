@@ -68,20 +68,24 @@
         if ([[self delegate] respondsToSelector:@selector(tableViewCell:didTapOnButton:)]) [[self delegate] tableViewCell:self didTapOnButton:[self contactController]];
     }
     
-    [UIView animateWithDuration:1.f delay:0.f options:(UIViewAnimationOptionTransitionCrossDissolve | UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionBeginFromCurrentState) animations:^
-     {
-         [instructionLabel setAlpha:1.f];
-         [usernameButton setAlpha:0.f];
-     } completion:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [UIView animateWithDuration:1.f delay:0.f options:(UIViewAnimationOptionTransitionCrossDissolve | UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionBeginFromCurrentState) animations:^
+         {
+             [instructionLabel setAlpha:1.f];
+             [usernameButton setAlpha:0.f];
+         } completion:nil];
+    });
 }
 
 - (IBAction)restoreTextPlaceholder:(id)sender
 {
-    [UIView animateWithDuration:1.f delay:0.f options:(UIViewAnimationOptionTransitionCrossDissolve | UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionBeginFromCurrentState) animations:^
-     {
-         [instructionLabel setAlpha:0.f];
-         [usernameButton setAlpha:1.f];
-     } completion:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [UIView animateWithDuration:1.f delay:0.f options:(UIViewAnimationOptionTransitionCrossDissolve | UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionBeginFromCurrentState) animations:^
+         {
+             [instructionLabel setAlpha:0.f];
+             [usernameButton setAlpha:1.f];
+         } completion:nil];
+    });
     
     if ([self delegate] != nil) {
         if ([[self delegate] respondsToSelector:@selector(tableViewCell:didReleaseButton:)]) [[self delegate] tableViewCell:self didReleaseButton:[self contactController]];
@@ -148,10 +152,12 @@
     if (count > 1) unit = [NSString stringWithFormat:@"%@s", unit];
     NSString *lastUpdatedDescription = count > 0 ? [NSString stringWithFormat:@"%lld%@", count, unit] : [NSString stringWithFormat:@"%@", unit];
     
-    [UIView transitionWithView:userLastUpdatedLabel duration:kWAUContactUpdateAnimationDuration options:(UIViewAnimationOptionTransitionCrossDissolve | UIViewAnimationOptionBeginFromCurrentState) animations:^
-     {
-         [userLastUpdatedLabel setText:lastUpdatedDescription];
-     } completion:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [UIView transitionWithView:userLastUpdatedLabel duration:kWAUContactUpdateAnimationDuration options:(UIViewAnimationOptionTransitionCrossDissolve | UIViewAnimationOptionBeginFromCurrentState) animations:^
+         {
+             [userLastUpdatedLabel setText:lastUpdatedDescription];
+         } completion:nil];
+    });
     
     if (nextTimeInterval > 0) {
         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(updateLastUpdatedLabelWithCurrentTime) object:nil];
@@ -174,20 +180,28 @@
     else if (pingStatus == WAUContactPingStatusFailed) pingFailedImageViewAlpha = 1.f;
     
     if (pingStatusViewAlpha == 1.f && [pingStatusView alpha] == 1.f) {
-        [UIView transitionWithView:pingNumberLabel duration:kWAUContactUpdateAnimationDuration options:(UIViewAnimationOptionTransitionCrossDissolve | UIViewAnimationOptionBeginFromCurrentState) animations:^
-         {
-             [pingNumberLabel setText:[NSString stringWithFormat:@"%d", [[self contactController] ping]]];
-         } completion:nil];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [UIView transitionWithView:pingNumberLabel duration:kWAUContactUpdateAnimationDuration options:(UIViewAnimationOptionTransitionCrossDissolve | UIViewAnimationOptionBeginFromCurrentState) animations:^
+             {
+                 [pingNumberLabel setText:[NSString stringWithFormat:@"%d", MIN([[self contactController] ping], 99)]];
+             } completion:nil];
+        });
     }
     else {
-        [pingNumberLabel setText:[NSString stringWithFormat:@"%d", [[self contactController] ping]]];
-        [UIView animateWithDuration:kWAUContactUpdateAnimationDuration delay:0.f options:UIViewAnimationOptionTransitionCrossDissolve animations:^
-         {
-             [pingStatusView setAlpha:pingStatusViewAlpha];
-             [pingSpinner setAlpha:pingSpinnerAlpha];
-             [pingSuccessImageView setAlpha:pingSuccessImageViewAlpha];
-             [pingFailedImageView setAlpha:pingFailedImageViewAlpha];
-         } completion:nil];
+        [pingNumberLabel setText:[NSString stringWithFormat:@"%d", MIN([[self contactController] ping], 99)]];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [UIView animateWithDuration:kWAUContactUpdateAnimationDuration delay:0.f options:UIViewAnimationOptionTransitionCrossDissolve animations:^
+             {
+                 [pingStatusView setAlpha:pingStatusViewAlpha];
+                 [pingSpinner setAlpha:pingSpinnerAlpha];
+                 [pingSuccessImageView setAlpha:pingSuccessImageViewAlpha];
+                 [pingFailedImageView setAlpha:pingFailedImageViewAlpha];
+             } completion:^(BOOL finished)
+             {
+                 if (pingSpinnerAlpha == 1.f) [pingSpinner startAnimating];
+                 else [pingSpinner stopAnimating];
+             }];
+        });
     }
 }
 
@@ -235,7 +249,7 @@
     
     [self layoutPingStatusView];
     
-    if ([contactController userIcon] != nil) [userIconImageView setImage:[contactController userIcon]];
+    [userIconImageView setImage:[contactController userIcon]];
 }
 
 #pragma mark - Delegates
@@ -248,37 +262,43 @@
 
 - (void)contactDidUpdateUsername:(ContactController *)controller
 {
-    [UIView animateWithDuration:kWAUContactUpdateAnimationDuration delay:0.f options:UIViewAnimationOptionTransitionCrossDissolve animations:^
-     {
-         [usernameButton setTitle:[controller username] forState:UIControlStateNormal];
-         [usernameButton setTitle:[controller username] forState:UIControlStateHighlighted];
-         [usernameButton setTitle:[controller username] forState:UIControlStateSelected];
-     } completion:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [UIView transitionWithView:usernameButton duration:kWAUContactUpdateAnimationDuration options:UIViewAnimationOptionTransitionCrossDissolve animations:^
+         {
+             [usernameButton setTitle:[controller username] forState:UIControlStateNormal];
+             [usernameButton setTitle:[controller username] forState:UIControlStateHighlighted];
+             [usernameButton setTitle:[controller username] forState:UIControlStateSelected];
+         } completion:nil];
+    });
 }
 
 - (void)contactDidUpdateUserIcon:(ContactController *)controller
 {
-    [UIView animateWithDuration:kWAUContactUpdateAnimationDuration delay:0.f options:UIViewAnimationOptionTransitionCrossDissolve animations:^
-     {
-         [userIconImageView setImage:[controller userIcon]];
-     } completion:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [UIView animateWithDuration:kWAUContactUpdateAnimationDuration delay:0.f options:UIViewAnimationOptionTransitionCrossDissolve animations:^
+         {
+             [userIconImageView setImage:[controller userIcon]];
+         } completion:nil];
+    });
 }
 
 - (void)contactDidUpdateUserColor:(ContactController *)controller
 {
-    [UIView animateWithDuration:kWAUContactUpdateAnimationDuration delay:0.f options:UIViewAnimationOptionTransitionCrossDissolve animations:^
-     {
-         [[self contentView] setBackgroundColor:[controller userColor]];
-         
-         [usernameButton setTitleColor:[controller wordColor] forState:UIControlStateNormal];
-         [usernameButton setTitleColor:[controller wordColor] forState:UIControlStateHighlighted];
-         [usernameButton setTitleColor:[controller wordColor] forState:UIControlStateSelected];
-         
-         [userLastUpdatedLabel setTextColor:[controller wordColor]];
-         [userLastUpdatedDescriptionLabel setTextColor:[controller wordColor]];
-         
-         [locateButton setTintColor:[controller wordColor]];
-     } completion:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [UIView animateWithDuration:kWAUContactUpdateAnimationDuration delay:0.f options:UIViewAnimationOptionTransitionCrossDissolve animations:^
+         {
+             [[self contentView] setBackgroundColor:[controller userColor]];
+             
+             [usernameButton setTitleColor:[controller wordColor] forState:UIControlStateNormal];
+             [usernameButton setTitleColor:[controller wordColor] forState:UIControlStateHighlighted];
+             [usernameButton setTitleColor:[controller wordColor] forState:UIControlStateSelected];
+             
+             [userLastUpdatedLabel setTextColor:[controller wordColor]];
+             [userLastUpdatedDescriptionLabel setTextColor:[controller wordColor]];
+             
+             [locateButton setTintColor:[controller wordColor]];
+         } completion:nil];
+    });
 }
 
 - (void)controllerWillSendNotification:(ContactController *)controller

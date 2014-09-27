@@ -8,12 +8,15 @@
 
 #import "LocationController.h"
 
+#import "AppDelegate.h"
+
 
 @implementation LocationController
 {
     CLLocationManager *locationManager;
     
     NSMutableArray *updateBlockList;
+    dispatch_semaphore_t semaphore;
 }
 
 - (id)init
@@ -53,10 +56,17 @@
 
 #pragma mark External
 
-- (void)retrieveLocationWithUpdateBlock:(void (^)(CLLocation *))updateHandler
+- (void)retrieveLocationWithUpdateBlock:(void (^)(CLLocation *))updateHandler synchrounous:(BOOL)isSynchrounous
 {
     [locationManager startUpdatingLocation];
-    [updateBlockList addObject:updateHandler];
+    if (isSynchrounous) {
+        updateHandler([locationManager location]);
+        [locationManager stopUpdatingLocation];
+        if ([updateBlockList count] != 0) [locationManager startUpdatingLocation];
+    }
+    else {
+        [updateBlockList addObject:updateHandler];
+    }
 }
 
 #pragma mark - Delegates

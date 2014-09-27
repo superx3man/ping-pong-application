@@ -45,6 +45,9 @@ typedef NS_ENUM(int, WAUContactPingStatus)
 
 - (void)validateContactVersion:(int)version;
 
+- (void)incrementPing;
+- (void)setLastUpdated:(int64_t)lastUpdated withPingCount:(int16_t)pingCount;
+
 @end
 
 @protocol ContactControllerDelegate <NSObject>

@@ -9,6 +9,7 @@
 #import "NotificationController.h"
 
 #import "UserController.h"
+#import "ContactListController.h"
 #import "LocationController.h"
 
 #import "NSData+Conversion.h"
@@ -86,6 +87,13 @@ NSString *const kWAUNotificationActionIdentifierSend = @"kWAUNotificationActionI
 {
     [contact setPingStatus:WAUContactPingStatusPinging];
     
+    BOOL isApplicationRunninngInBackground = [[UIApplication sharedApplication] applicationState] != UIApplicationStateActive;
+    
+    dispatch_semaphore_t semaphore = NULL;
+    if (isApplicationRunninngInBackground) {
+        semaphore = dispatch_semaphore_create(0);
+    }
+    
     [[LocationController sharedInstance] retrieveLocationWithUpdateBlock:^(CLLocation *location)
     {
         if ([[UserController sharedInstance] userId] == nil) return;
@@ -110,6 +118,10 @@ NSString *const kWAUNotificationActionIdentifierSend = @"kWAUNotificationActionI
              [WAULog log:[NSString stringWithFormat:@"failed to ping contact: %@", [contact userId]] from:self];
              [contact setPingStatus:WAUContactPingStatusFailed];
              [contact didSendNotification:NO];
+             
+             if (isApplicationRunninngInBackground) {
+                 dispatch_semaphore_signal(semaphore);
+             }
          }];
         [request setSuccessHandler:^(WAUServerConnectorRequest *connectorRequest, NSObject *requestResult)
          {
@@ -117,10 +129,58 @@ NSString *const kWAUNotificationActionIdentifierSend = @"kWAUNotificationActionI
              [contact setPing:0];
              [contact setPingStatus:WAUContactPingStatusSuccess];
              [contact didSendNotification:YES];
+             
+             if (isApplicationRunninngInBackground) {
+                 dispatch_semaphore_signal(semaphore);
+             }
          }];
         [[WAUServerConnector sharedInstance] sendRequest:request withTag:@"SyncUser"];
-    }];
+    } synchrounous:isApplicationRunninngInBackground];
+    
     [contact willSendNotification];
+    
+    if (isApplicationRunninngInBackground) {
+        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+    }
+    
+}
+
+- (void)syncLocationRequestFromServer
+{
+    static BOOL isSyncing = NO;
+    if ([[UserController sharedInstance] userId] == nil || isSyncing) return;
+    isSyncing = YES;
+    
+    NSMutableDictionary *userDictionary = [[NSMutableDictionary alloc] init];
+    [userDictionary setObject:[[UserController sharedInstance] userId] forKey:kWAUDictionaryKeyUserId];
+    
+    WAUServerConnectorRequest *request = [[WAUServerConnectorRequest alloc] initWithEndPoint:kWAUServerEndpointPingSync method:@"POST" parameters:userDictionary];
+    [request setFailureHandler:^(WAUServerConnectorRequest *connectorRequest)
+     {
+         [WAULog log:@"failed to sync ping requests" from:self];
+         
+         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(syncLocationRequestFromServer) object:nil];
+         [self performSelector:@selector(syncLocationRequestFromServer) withObject:nil afterDelay:300];
+         
+         isSyncing = NO;
+     }];
+    [request setSuccessHandler:^(WAUServerConnectorRequest *connectorRequest, NSObject *requestResult)
+     {
+         [WAULog log:@"synced ping requests" from:self];
+         
+         for (NSDictionary *pingInfo in (NSArray *) requestResult) {
+             NSString *userId = [pingInfo objectForKey:kWAUDictionaryKeyUserId];
+             NSString *locationInfo = [pingInfo objectForKey:kWAUDictionaryKeyLocationInfo];
+             int pingCount = [[pingInfo objectForKey:kWAUDictionaryKeyPingCount] intValue];
+             if (locationInfo != nil) [[ContactListController sharedInstance] updateContactWithUserId:userId locationInfo:locationInfo pingCount:pingCount];
+             
+             NSString *version = [pingInfo objectForKey:kWAUDictionaryKeyVersion];
+             if (version != nil) [[ContactListController sharedInstance] validateContactWithUserId:userId withVersion:[version intValue]];
+         }
+         
+         isSyncing = NO;
+     }];
+     [[WAUServerConnector sharedInstance] sendRequest:request withTag:@"SyncRequest"];
 }
 
 #pragma mark - Delegates
