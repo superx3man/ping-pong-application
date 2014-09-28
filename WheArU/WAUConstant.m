@@ -18,6 +18,8 @@ NSString *const kWAUServerEndpointPing = @"ping";
 NSString *const kWAUServerEndpointPingSync = @"ping_sync";
 NSString *const kWAUServerEndpointUserRelation = @"relate_user";
 
+NSString *const kWAUDictionaryKeyDevelopment = @"dev";
+
 NSString *const kWAUDictionaryKeyUserId = @"id";
 
 NSString *const kWAUDictionaryKeyUsername = @"name";

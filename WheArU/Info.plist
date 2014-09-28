@@ -23,7 +23,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Location service is required for Ping Pong</string>
+	<string>Location service is required</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>

@@ -18,6 +18,8 @@ extern NSString *const kWAUServerEndpointPing;
 extern NSString *const kWAUServerEndpointPingSync;
 extern NSString *const kWAUServerEndpointUserRelation;
 
+extern NSString *const kWAUDictionaryKeyDevelopment;
+
 extern NSString *const kWAUDictionaryKeyUserId;
 
 extern NSString *const kWAUDictionaryKeyUsername;

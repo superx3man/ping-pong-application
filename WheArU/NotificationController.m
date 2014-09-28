@@ -112,6 +112,10 @@ NSString *const kWAUNotificationActionIdentifierSend = @"kWAUNotificationActionI
         NSString *locationString = [locationInfo componentsJoinedByString:@":"];
         [userDictionary setObject:locationString forKey:kWAUDictionaryKeyLocationInfo];
         
+#ifdef DEBUG
+        [userDictionary setObject:[NSNumber numberWithInt:1] forKey:kWAUDictionaryKeyDevelopment];
+#endif
+        
         WAUServerConnectorRequest *request = [[WAUServerConnectorRequest alloc] initWithEndPoint:kWAUServerEndpointPing method:@"POST" parameters:userDictionary];
         [request setFailureHandler:^(WAUServerConnectorRequest *connectorRequest)
          {

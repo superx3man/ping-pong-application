@@ -1,0 +1,99 @@
+
+/* Class = "IBUILabel"; text = "Say cheese~"; ObjectID = "0zB-UR-cVp"; */
+"0zB-UR-cVp.text" = "Say cheese~";
+
+/* Class = "IBUIViewController"; title = "Update User Color"; ObjectID = "1Bo-kg-YSS"; */
+"1Bo-kg-YSS.title" = "Update User Color";
+
+/* Class = "IBUIButton"; normalTitle = "It was better..."; ObjectID = "1Gl-UT-bGh"; */
+"1Gl-UT-bGh.normalTitle" = "It was better...";
+
+/* Class = "IBUILabel"; text = "Ping"; ObjectID = "1YI-Rx-fdh"; */
+"1YI-Rx-fdh.text" = "Ping";
+
+/* Class = "IBUIButton"; normalTitle = "Awesome now!"; ObjectID = "7D5-nZ-1Mu"; */
+"7D5-nZ-1Mu.normalTitle" = "Awesome now!";
+
+/* Class = "IBUIViewController"; title = "Contact List"; ObjectID = "BYZ-38-t0r"; */
+"BYZ-38-t0r.title" = "Contact List";
+
+/* Class = "IBUILabel"; text = "9999"; ObjectID = "BcL-GF-8NM"; */
+"BcL-GF-8NM.text" = "9999";
+
+/* Class = "IBUILabel"; text = "Last Updated"; ObjectID = "DUh-ty-u8I"; */
+"DUh-ty-u8I.text" = "Last Updated";
+
+/* Class = "IBUIButton"; normalTitle = "Abi Juang"; ObjectID = "EkP-np-ECe"; */
+"EkP-np-ECe.normalTitle" = "Abi Juang";
+
+/* Class = "IBUILabel"; text = "Hello"; ObjectID = "IAG-Si-vE3"; */
+"IAG-Si-vE3.text" = "Hello";
+
+/* Class = "IBUIViewController"; title = "Registration Scene"; ObjectID = "If4-cx-Sdz"; */
+"If4-cx-Sdz.title" = "Registration Scene";
+
+/* Class = "IBUIViewController"; title = "ID Card"; ObjectID = "LLw-4b-AEI"; */
+"LLw-4b-AEI.title" = "ID Card";
+
+/* Class = "IBUILabel"; text = "99"; ObjectID = "RGq-YA-RLd"; */
+"RGq-YA-RLd.text" = "99";
+
+/* Class = "IBUILabel"; text = "99"; ObjectID = "Vdf-sF-XfK"; */
+"Vdf-sF-XfK.text" = "99";
+
+/* Class = "IBUILabel"; text = "Calvin Ng"; ObjectID = "X8E-Dn-xwc"; */
+"X8E-Dn-xwc.text" = "Calvin Ng";
+
+/* Class = "IBUIButton"; normalTitle = "Show my code!"; ObjectID = "XYq-RA-meZ"; */
+"XYq-RA-meZ.normalTitle" = "Show my code!";
+
+/* Class = "IBUILabel"; text = "Do you have a new name?"; ObjectID = "YwF-MN-Dij"; */
+"YwF-MN-Dij.text" = "Do you have a new name?";
+
+/* Class = "IBUILabel"; text = "999dys"; ObjectID = "a1E-pB-OEn"; */
+"a1E-pB-OEn.text" = "999dys";
+
+/* Class = "IBUILabel"; text = "Pick a color!"; ObjectID = "dgu-BE-jSz"; */
+"dgu-BE-jSz.text" = "Pick a color!";
+
+/* Class = "IBUIViewController"; title = "Add User With QR Code"; ObjectID = "e3T-RH-BhC"; */
+"e3T-RH-BhC.title" = "Add User With QR Code";
+
+/* Class = "IBUIButton"; normalTitle = "Keep my color!"; ObjectID = "hZR-6A-WdV"; */
+"hZR-6A-WdV.normalTitle" = "Keep my color!";
+
+/* Class = "IBUILabel"; text = "Scan to add me!"; ObjectID = "iSh-nP-5QS"; */
+"iSh-nP-5QS.text" = "Scan to add me!";
+
+/* Class = "IBUILabel"; text = "What is your name?"; ObjectID = "jVj-xd-TdC"; */
+"jVj-xd-TdC.text" = "What is your name?";
+
+/* Class = "IBUIButton"; normalTitle = "I look perfect already!"; ObjectID = "m0B-2M-JJE"; */
+"m0B-2M-JJE.normalTitle" = "I look perfect already!";
+
+/* Class = "IBUIViewController"; title = "Update User Icon"; ObjectID = "mm5-LT-ZLr"; */
+"mm5-LT-ZLr.title" = "Update User Icon";
+
+/* Class = "IBUIButton"; normalTitle = "I got no code :("; ObjectID = "o7E-VW-Abq"; */
+"o7E-VW-Abq.normalTitle" = "I got no code :(";
+
+/* Class = "IBUILabel"; text = "Hold To Ping!"; ObjectID = "oCv-O4-AEw"; */
+"oCv-O4-AEw.text" = "Hold To Ping!";
+
+/* Class = "IBUILabel"; text = "Last Updated"; ObjectID = "qhh-hI-sKF"; */
+"qhh-hI-sKF.text" = "Last Updated";
+
+/* Class = "IBUILabel"; text = "Align the QR code within the frame"; ObjectID = "uEG-6x-Xxr"; */
+"uEG-6x-Xxr.text" = "Align the QR code within the frame";
+
+/* Class = "IBUILabel"; text = "999dys"; ObjectID = "viw-Z7-Gdf"; */
+"viw-Z7-Gdf.text" = "999dys";
+
+/* Class = "IBUILabel"; text = "Select a new color"; ObjectID = "wVg-1d-e3M"; */
+"wVg-1d-e3M.text" = "Select a new color";
+
+/* Class = "IBUILabel"; text = "Calvin Ng"; ObjectID = "x7l-pU-4Zy"; */
+"x7l-pU-4Zy.text" = "Calvin Ng";
+
+/* Class = "IBUIViewController"; title = "Update Username"; ObjectID = "xqA-z2-QRR"; */
+"xqA-z2-QRR.title" = "Update Username";
