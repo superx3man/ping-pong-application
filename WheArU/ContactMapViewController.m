@@ -172,11 +172,13 @@
         [contactMapView removeOverlay:[annotationInfo objectAtIndex:1]];
     }
     
-    ContactMapAnnotation *contactAnnotation = [[ContactMapAnnotation alloc] initWithContactController:contactController];
-    [contactMapView addAnnotation:contactAnnotation];
-    MKCircle *accuracyOverlay = [contactAnnotation accuracyOverlay];
-    [contactMapView addOverlay:accuracyOverlay];
-    [annotationDictionary setObject:[NSArray arrayWithObjects:contactAnnotation, accuracyOverlay, nil] forKey:[contactController userId]];
+    if (!([contactController latitude] == 0.f && [contactController longitude] == 0.f && [contactController altitude] == 0.f && [contactController accuracy] == 0.f)) {
+        ContactMapAnnotation *contactAnnotation = [[ContactMapAnnotation alloc] initWithContactController:contactController];
+        [contactMapView addAnnotation:contactAnnotation];
+        MKCircle *accuracyOverlay = [contactAnnotation accuracyOverlay];
+        [contactMapView addOverlay:accuracyOverlay];
+        [annotationDictionary setObject:[NSArray arrayWithObjects:contactAnnotation, accuracyOverlay, nil] forKey:[contactController userId]];
+    }
 }
 
 - (void)updateLastUpdatedLabelWithCurrentTime

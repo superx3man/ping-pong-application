@@ -29,6 +29,7 @@
 		4D4D174119D505200081798D /* ping_failed.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D4D173F19D505200081798D /* ping_failed.png */; };
 		4D5BD6D719CF179000B7BC01 /* WAUConstant.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5BD6D619CF179000B7BC01 /* WAUConstant.m */; };
 		4D5BD6DB19CF256200B7BC01 /* NSString+Hash.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5BD6DA19CF256200B7BC01 /* NSString+Hash.m */; };
+		4D62F4AC19D8B1D0008219AC /* icon_1024_1024.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D62F4AB19D8B1D0008219AC /* icon_1024_1024.png */; };
 		4D79C3A019D3C08D00CEB1E4 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D79C39F19D3C08D00CEB1E4 /* QuartzCore.framework */; };
 		4D79C3A419D3C18600CEB1E4 /* UIView+Shake.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D79C3A319D3C18600CEB1E4 /* UIView+Shake.m */; };
 		4D8267C719B3BA6E00076974 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D8267C619B3BA6E00076974 /* main.m */; };
@@ -125,10 +126,11 @@
 		4D5BD6D619CF179000B7BC01 /* WAUConstant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WAUConstant.m; sourceTree = "<group>"; };
 		4D5BD6D919CF256200B7BC01 /* NSString+Hash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Hash.h"; sourceTree = "<group>"; };
 		4D5BD6DA19CF256200B7BC01 /* NSString+Hash.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Hash.m"; sourceTree = "<group>"; };
+		4D62F4AB19D8B1D0008219AC /* icon_1024_1024.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_1024_1024.png; sourceTree = "<group>"; };
 		4D79C39F19D3C08D00CEB1E4 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		4D79C3A219D3C18600CEB1E4 /* UIView+Shake.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Shake.h"; sourceTree = "<group>"; };
 		4D79C3A319D3C18600CEB1E4 /* UIView+Shake.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Shake.m"; sourceTree = "<group>"; };
-		4D8267C119B3BA6E00076974 /* WheArU.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WheArU.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D8267C119B3BA6E00076974 /* PingPong.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PingPong.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D8267C519B3BA6E00076974 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4D8267C619B3BA6E00076974 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4D8267C819B3BA6E00076974 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -351,6 +353,14 @@
 			name = "NSString+Hash";
 			sourceTree = "<group>";
 		};
+		4D62F4AA19D8B108008219AC /* AppIcons */ = {
+			isa = PBXGroup;
+			children = (
+				4D62F4AB19D8B1D0008219AC /* icon_1024_1024.png */,
+			);
+			name = AppIcons;
+			sourceTree = "<group>";
+		};
 		4D79C3A119D3C0B700CEB1E4 /* UIView+Shake */ = {
 			isa = PBXGroup;
 			children = (
@@ -374,7 +384,7 @@
 		4D8267C219B3BA6E00076974 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4D8267C119B3BA6E00076974 /* WheArU.app */,
+				4D8267C119B3BA6E00076974 /* PingPong.app */,
 				4D8267DA19B3BA6E00076974 /* WheArUTests.xctest */,
 			);
 			name = Products;
@@ -511,6 +521,7 @@
 		4DD698B219C54EC200D9D65D /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				4D62F4AA19D8B108008219AC /* AppIcons */,
 				4DEDDD4B19D63B0500CA94C7 /* ButtonIcons */,
 				4DEDDD4C19D63B1D00CA94C7 /* PingIcons */,
 			);
@@ -592,7 +603,7 @@
 			);
 			name = WheArU;
 			productName = WheArU;
-			productReference = 4D8267C119B3BA6E00076974 /* WheArU.app */;
+			productReference = 4D8267C119B3BA6E00076974 /* PingPong.app */;
 			productType = "com.apple.product-type.application";
 		};
 		4D8267D919B3BA6E00076974 /* WheArUTests */ = {
@@ -679,6 +690,7 @@
 				4D8267D519B3BA6E00076974 /* Images.xcassets in Resources */,
 				4DEDDD4919D63AFF00CA94C7 /* remove_user@2x.png in Resources */,
 				4D4D173C19D503940081798D /* ping_ok@2x.png in Resources */,
+				4D62F4AC19D8B1D0008219AC /* icon_1024_1024.png in Resources */,
 				4D8C11D619C6347400698F6D /* add_user@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -852,7 +864,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -863,7 +874,7 @@
 					"$(inherited)",
 					"$(SDKROOT)/usr/lib/system",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = PingPong;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "WheArU/WheArU-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -874,7 +885,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -885,7 +895,7 @@
 					"$(inherited)",
 					"$(SDKROOT)/usr/lib/system",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = PingPong;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "WheArU/WheArU-Bridging-Header.h";
 			};

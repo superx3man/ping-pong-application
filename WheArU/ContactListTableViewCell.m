@@ -48,7 +48,7 @@
     
     UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(locateContactWithGesture:)];
     [longPressGesture setMinimumPressDuration:1.5f];
-    [longPressGesture setAllowableMovement:100.f];
+    [longPressGesture setAllowableMovement:50.f];
     [usernameButton addGestureRecognizer:longPressGesture];
     
     UISwipeGestureRecognizer *swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeContactWithGesture:)];
@@ -104,7 +104,6 @@
 
 - (void)locateContactWithGesture:(UIGestureRecognizer *)gesture
 {
-    NSLog(@"%@", gesture);
     if ([gesture state] != UIGestureRecognizerStateBegan) return;
     
     [self restoreTextPlaceholder:nil];

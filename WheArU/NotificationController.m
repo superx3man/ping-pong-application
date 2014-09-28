@@ -178,6 +178,9 @@ NSString *const kWAUNotificationActionIdentifierSend = @"kWAUNotificationActionI
              if (version != nil) [[ContactListController sharedInstance] validateContactWithUserId:userId withVersion:[version intValue]];
          }
          
+         [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+         [[UIApplication sharedApplication] cancelAllLocalNotifications];
+         
          isSyncing = NO;
      }];
      [[WAUServerConnector sharedInstance] sendRequest:request withTag:@"SyncRequest"];

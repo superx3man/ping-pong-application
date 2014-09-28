@@ -61,9 +61,6 @@
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     [[NotificationController sharedInstance] syncLocationRequestFromServer];
-    
-    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
-    [[UIApplication sharedApplication] cancelAllLocalNotifications];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
