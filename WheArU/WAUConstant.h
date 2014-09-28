@@ -16,6 +16,7 @@ extern NSString *const kWAUServerEndpointUserSync;
 extern NSString *const kWAUServerEndpointContactSync;
 extern NSString *const kWAUServerEndpointPing;
 extern NSString *const kWAUServerEndpointPingSync;
+extern NSString *const kWAUServerEndpointUserRelation;
 
 extern NSString *const kWAUDictionaryKeyUserId;
 
@@ -39,6 +40,8 @@ extern NSString *const kWAUDictionaryKeyUserJSON;
 extern NSString *const kWAUDictionaryKeyPingType;
 extern NSString *const kWAUDictionaryKeyLocationInfo;
 extern NSString *const kWAUDictionaryKeyPingCount;
+
+extern NSString *const kWAUDictionaryKeyRelationType;
 
 extern float const kWAUContactUpdateAnimationDuration;
 

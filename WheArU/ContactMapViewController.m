@@ -12,6 +12,7 @@
 #import "ContactMapAnnotationView.h"
 
 #import "NotificationController.h"
+#import "ContactListController.h"
 
 #import "MKCircle+ContactController.h"
 #import "MKMapView+SharedInstance.h"
@@ -138,6 +139,12 @@
 }
 
 #pragma mark - Controls
+
+- (IBAction)tapOnDelete:(id)sender
+{
+    [[ContactListController sharedInstance] blockContactController:[self contactController]];
+    [[self navigationController] popViewControllerAnimated:YES];
+}
 
 - (IBAction)tapOnLocate:(id)sender
 {

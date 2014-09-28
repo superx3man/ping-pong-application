@@ -12,6 +12,11 @@
 #import "ContactController.h"
 
 
+typedef NS_ENUM(int, WAUUserRelation)
+{
+    WAUUserRelationBlock = 1
+};
+
 @protocol ContactListControllerDelegate;
 
 @interface ContactListController : NSObject
@@ -32,6 +37,8 @@
 
 - (ContactController *)getContactControllerWithUserId:(NSString *)userId;
 
+- (void)blockContactController:(ContactController *)contactController;
+
 @end
 
 @protocol ContactListControllerDelegate <NSObject>
@@ -40,5 +47,8 @@
 - (void)newItemAddedToList:(ContactListController *)controller;
 
 - (void)itemMovedToRecentContactList:(ContactListController *)controller;
+
+- (void)itemRemovedFromContactList:(ContactListController *)controller;
+- (void)itemRemovedFromRecentContactList:(ContactListController *)controller;
 
 @end

@@ -881,6 +881,9 @@
                                                         <state key="normal" image="remove_user.png">
                                                             <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         </state>
+                                                        <connections>
+                                                            <action selector="tapOnDelete:" destination="VRP-ka-veb" eventType="touchUpInside" id="648-Nm-TSr"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

@@ -47,7 +47,8 @@
     [locateButton setImage:[[[locateButton imageView] image] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
     
     UILongPressGestureRecognizer *longPressGesture = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(locateContactWithGesture:)];
-    [longPressGesture setMinimumPressDuration:2.f];
+    [longPressGesture setMinimumPressDuration:1.5f];
+    [longPressGesture setAllowableMovement:100.f];
     [usernameButton addGestureRecognizer:longPressGesture];
     
     UISwipeGestureRecognizer *swipeGesture = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeContactWithGesture:)];
@@ -103,6 +104,7 @@
 
 - (void)locateContactWithGesture:(UIGestureRecognizer *)gesture
 {
+    NSLog(@"%@", gesture);
     if ([gesture state] != UIGestureRecognizerStateBegan) return;
     
     [self restoreTextPlaceholder:nil];

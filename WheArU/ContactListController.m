@@ -15,6 +15,8 @@
 #import "UIColor+Hex.h"
 #import "WAUConstant.h"
 #import "WAULog.h"
+#import "WAUServerConnector.h"
+#import "WAUServerConnectorRequest.h"
 
 @implementation ContactListController
 {
@@ -84,6 +86,27 @@
     
     [self setRecentContactList:[[[self recentContactList] sortedArrayUsingDescriptors:[NSArray arrayWithObjects:lastUpdatedDescriptor, usernameDescriptor, nil]] mutableCopy]];
     [self setContactList:[[[self contactList] sortedArrayUsingDescriptors:[NSArray arrayWithObjects:usernameDescriptor, lastUpdatedDescriptor, nil]] mutableCopy]];
+}
+
+- (void)sendRelation:(int)relationType withContactController:(ContactController *)contactController failureHandler:(void (^)())failureHandler successHandler:(void (^)(NSObject *))successHandler
+{
+    NSMutableDictionary *userDictionary = [[NSMutableDictionary alloc] init];
+    [userDictionary setObject:[[UserController sharedInstance] userId] forKey:kWAUDictionaryKeyUserId];
+    [userDictionary setObject:[contactController userId] forKey:kWAUDictionaryKeyContactId];
+    [userDictionary setObject:[NSNumber numberWithInt:relationType] forKey:kWAUDictionaryKeyRelationType];
+    
+    WAUServerConnectorRequest *request = [[WAUServerConnectorRequest alloc] initWithEndPoint:kWAUServerEndpointUserRelation method:@"POST" parameters:userDictionary];
+    [request setFailureHandler:^(WAUServerConnectorRequest *connectorRequest)
+     {
+         [WAULog log:[NSString stringWithFormat:@"failed to set relation: %d with user: %@", relationType, [contactController userId]] from:self];
+         if (failureHandler != nil) failureHandler();
+     }];
+    [request setSuccessHandler:^(WAUServerConnectorRequest *connectorRequest, NSObject *requestResult)
+     {
+         [WAULog log:[NSString stringWithFormat:@"relation: %d set with user: %@", relationType, [contactController userId]] from:self];
+         if (successHandler != nil) successHandler(requestResult);
+     }];
+    [[WAUServerConnector sharedInstance] sendRequest:request withTag:[NSString stringWithFormat:@"RelateUser-%d-%@", relationType, [contactController userId]]];
 }
 
 #pragma mark External
@@ -195,6 +218,32 @@
 - (ContactController *)getContactControllerWithUserId:(NSString *)userId
 {
     return [userIdContactListDictionary objectForKey:userId];
+}
+
+- (void)blockContactController:(ContactController *)contactController
+{
+    [self sendRelation:WAUUserRelationBlock withContactController:contactController failureHandler:nil successHandler:^(NSObject *requestResult)
+     {
+         [contactController removeFromList];
+     }];
+    
+    [userIdContactListDictionary removeObjectForKey:[contactController userId]];
+    if ([[self recentContactList] containsObject:contactController]) {
+        [[self recentContactList] removeObject:contactController];
+        
+        for (id retainedDelegate in delegateList) {
+            id<ContactListControllerDelegate> delegate = [retainedDelegate nonretainedObjectValue];
+            if ([delegate respondsToSelector:@selector(itemRemovedFromRecentContactList:)]) [delegate itemRemovedFromRecentContactList:self];
+        }
+    }
+    if ([[self contactList] containsObject:contactController]) {
+        [[self contactList] removeObject:contactController];
+        
+        for (id retainedDelegate in delegateList) {
+            id<ContactListControllerDelegate> delegate = [retainedDelegate nonretainedObjectValue];
+            if ([delegate respondsToSelector:@selector(itemRemovedFromContactList:)]) [delegate itemRemovedFromContactList:self];
+        }
+    }
 }
 
 @end

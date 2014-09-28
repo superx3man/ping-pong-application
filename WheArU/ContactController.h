@@ -40,10 +40,12 @@ typedef NS_ENUM(int, WAUContactPingStatus)
 - (void)addDelegate:(id<ContactControllerDelegate>)delegate;
 - (void)removeDelegate:(id<ContactControllerDelegate>)delegate;
 
+- (void)validateContactVersion:(int)version;
+
 - (void)willSendNotification;
 - (void)didSendNotification:(BOOL)isSuccess;
 
-- (void)validateContactVersion:(int)version;
+- (void)removeFromList;
 
 - (void)incrementPing;
 - (void)setLastUpdated:(int64_t)lastUpdated withPingCount:(int16_t)pingCount;

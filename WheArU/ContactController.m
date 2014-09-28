@@ -119,6 +119,12 @@
     }
 }
 
+- (void)removeFromList
+{
+    [[self managedObjectContext] deleteObject:currentContact];
+    [[self managedObjectContext] save:nil];
+}
+
 #pragma mark - Properties
 
 - (void)setUsername:(NSString *)username

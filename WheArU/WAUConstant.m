@@ -16,6 +16,7 @@ NSString *const kWAUServerEndpointUserSync = @"user_sync";
 NSString *const kWAUServerEndpointContactSync = @"contact_sync";
 NSString *const kWAUServerEndpointPing = @"ping";
 NSString *const kWAUServerEndpointPingSync = @"ping_sync";
+NSString *const kWAUServerEndpointUserRelation = @"relate_user";
 
 NSString *const kWAUDictionaryKeyUserId = @"id";
 
@@ -39,6 +40,8 @@ NSString *const kWAUDictionaryKeyUserJSON = @"user";
 NSString *const kWAUDictionaryKeyPingType = @"ping";
 NSString *const kWAUDictionaryKeyLocationInfo = @"loc";
 NSString *const kWAUDictionaryKeyPingCount = @"count";
+
+NSString *const kWAUDictionaryKeyRelationType = @"rtype";
 
 float const kWAUContactUpdateAnimationDuration = 0.3f;
 
