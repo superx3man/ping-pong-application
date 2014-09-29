@@ -16,8 +16,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "4D8267C019B3BA6E00076974"
                BuildableName = "PingPong.app"
-               BlueprintName = "PingPong"
-               ReferencedContainer = "container:PingPong.xcodeproj">
+               BlueprintName = "WheArU"
+               ReferencedContainer = "container:WheArU.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -31,7 +31,7 @@
                BlueprintIdentifier = "4D8267D919B3BA6E00076974"
                BuildableName = "PingPongTests.xctest"
                BlueprintName = "PingPongTests"
-               ReferencedContainer = "container:PingPong.xcodeproj">
+               ReferencedContainer = "container:WheArU.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -49,7 +49,7 @@
                BlueprintIdentifier = "4D8267D919B3BA6E00076974"
                BuildableName = "PingPongTests.xctest"
                BlueprintName = "PingPongTests"
-               ReferencedContainer = "container:PingPong.xcodeproj">
+               ReferencedContainer = "container:WheArU.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -58,8 +58,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4D8267C019B3BA6E00076974"
             BuildableName = "PingPong.app"
-            BlueprintName = "PingPong"
-            ReferencedContainer = "container:PingPong.xcodeproj">
+            BlueprintName = "WheArU"
+            ReferencedContainer = "container:WheArU.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -77,8 +77,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4D8267C019B3BA6E00076974"
             BuildableName = "PingPong.app"
-            BlueprintName = "PingPong"
-            ReferencedContainer = "container:PingPong.xcodeproj">
+            BlueprintName = "WheArU"
+            ReferencedContainer = "container:WheArU.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -95,8 +95,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "4D8267C019B3BA6E00076974"
             BuildableName = "PingPong.app"
-            BlueprintName = "PingPong"
-            ReferencedContainer = "container:PingPong.xcodeproj">
+            BlueprintName = "WheArU"
+            ReferencedContainer = "container:WheArU.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

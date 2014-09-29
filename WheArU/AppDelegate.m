@@ -120,14 +120,20 @@
     [WAULog log:[NSString stringWithFormat:@"Received notification type: %@", messageType] from:self];
     
     if ([messageType isEqualToString:@"contact"]) {
-        [[ContactListController sharedInstance] createContactWithContactInfo:userInfo];
-        fetchResult = UIBackgroundFetchResultNewData;
+        ContactController *contactController = [[ContactListController sharedInstance] createContactWithContactInfo:userInfo];
+        if (contactController != nil) {
+            [[ContactListController sharedInstance] refreshContactList];
+            fetchResult = UIBackgroundFetchResultNewData;
+        }
     }
     else if ([messageType isEqualToString:@"ping"]) {
         if ([[UIApplication sharedApplication] applicationState] != UIApplicationStateInactive) {
             NSString *userId = [userInfo objectForKey:kWAUDictionaryKeyUserId];
             NSString *locationInfo = [userInfo objectForKey:kWAUDictionaryKeyLocationInfo];
-            if (locationInfo != nil) [[ContactListController sharedInstance] updateContactWithUserId:userId locationInfo:locationInfo];
+            if (locationInfo != nil) {
+                [[ContactListController sharedInstance] updateContactWithUserId:userId locationInfo:locationInfo];
+                [[ContactListController sharedInstance] refreshContactList];
+            }
             
             NSString *version = [userInfo objectForKey:kWAUDictionaryKeyVersion];
             if (version != nil) [[ContactListController sharedInstance] validateContactWithUserId:userId withVersion:[version intValue]];

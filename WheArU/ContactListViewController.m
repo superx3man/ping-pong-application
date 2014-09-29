@@ -143,15 +143,10 @@
 
 #pragma mark ContactListControllerDelegate
 
-- (void)newItemAddedToList:(ContactListController *)controller
+- (void)listUpdated:(ContactListController *)controller
 {
-    NSIndexSet *sections = [NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, 1)];
-    [contactListTableView reloadSections:sections withRowAnimation:UITableViewRowAnimationFade];
-}
-
-- (void)itemMovedToRecentContactList:(ContactListController *)controller
-{
-    [contactListTableView reloadData];
+    BOOL isApplicationRunninngInBackground = [[UIApplication sharedApplication] applicationState] != UIApplicationStateActive;
+    if (!isApplicationRunninngInBackground) [contactListTableView reloadData];
 }
 
 #pragma mark UITableViewDataSource

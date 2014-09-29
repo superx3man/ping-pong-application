@@ -28,6 +28,8 @@ typedef NS_ENUM(int, WAUUserRelation)
 
 - (void)addDelegate:(id<ContactListControllerDelegate>)delegate;
 
+- (void)refreshContactList;
+
 - (ContactController *)createContactWithJSONDescription:(NSString *)encryptedJsonString;
 - (ContactController *)createContactWithContactInfo:(NSDictionary *)contactInfo;
 
@@ -44,11 +46,6 @@ typedef NS_ENUM(int, WAUUserRelation)
 @protocol ContactListControllerDelegate <NSObject>
 
 @optional
-- (void)newItemAddedToList:(ContactListController *)controller;
-
-- (void)itemMovedToRecentContactList:(ContactListController *)controller;
-
-- (void)itemRemovedFromContactList:(ContactListController *)controller;
-- (void)itemRemovedFromRecentContactList:(ContactListController *)controller;
+- (void)listUpdated:(ContactListController *)controller;
 
 @end

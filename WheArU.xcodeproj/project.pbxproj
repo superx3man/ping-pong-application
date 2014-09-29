@@ -126,7 +126,7 @@
 		4D79C39F19D3C08D00CEB1E4 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		4D79C3A219D3C18600CEB1E4 /* UIView+Shake.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Shake.h"; sourceTree = "<group>"; };
 		4D79C3A319D3C18600CEB1E4 /* UIView+Shake.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Shake.m"; sourceTree = "<group>"; };
-		4D8267C119B3BA6E00076974 /* PingPong.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PingPong.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D8267C119B3BA6E00076974 /* WheArU.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WheArU.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D8267C519B3BA6E00076974 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4D8267C619B3BA6E00076974 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4D8267C819B3BA6E00076974 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -378,7 +378,7 @@
 		4D8267C219B3BA6E00076974 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4D8267C119B3BA6E00076974 /* PingPong.app */,
+				4D8267C119B3BA6E00076974 /* WheArU.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -586,9 +586,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		4D8267C019B3BA6E00076974 /* PingPong */ = {
+		4D8267C019B3BA6E00076974 /* WheArU */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 4D8267E419B3BA6E00076974 /* Build configuration list for PBXNativeTarget "PingPong" */;
+			buildConfigurationList = 4D8267E419B3BA6E00076974 /* Build configuration list for PBXNativeTarget "WheArU" */;
 			buildPhases = (
 				4D8267BD19B3BA6E00076974 /* Sources */,
 				4D8267BE19B3BA6E00076974 /* Frameworks */,
@@ -598,9 +598,9 @@
 			);
 			dependencies = (
 			);
-			name = PingPong;
+			name = WheArU;
 			productName = WheArU;
-			productReference = 4D8267C119B3BA6E00076974 /* PingPong.app */;
+			productReference = 4D8267C119B3BA6E00076974 /* WheArU.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -623,7 +623,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 4D8267BC19B3BA6E00076974 /* Build configuration list for PBXProject "PingPong" */;
+			buildConfigurationList = 4D8267BC19B3BA6E00076974 /* Build configuration list for PBXProject "WheArU" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -636,7 +636,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				4D8267C019B3BA6E00076974 /* PingPong */,
+				4D8267C019B3BA6E00076974 /* WheArU */,
 			);
 		};
 /* End PBXProject section */
@@ -828,7 +828,7 @@
 					"$(SDKROOT)/usr/lib/system",
 				);
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_NAME = PingPong;
+				PRODUCT_NAME = WheArU;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "WheArU/WheArU-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -850,7 +850,7 @@
 					"$(inherited)",
 					"$(SDKROOT)/usr/lib/system",
 				);
-				PRODUCT_NAME = PingPong;
+				PRODUCT_NAME = WheArU;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "WheArU/WheArU-Bridging-Header.h";
 			};
@@ -859,7 +859,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		4D8267BC19B3BA6E00076974 /* Build configuration list for PBXProject "PingPong" */ = {
+		4D8267BC19B3BA6E00076974 /* Build configuration list for PBXProject "WheArU" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4D8267E219B3BA6E00076974 /* Debug */,
@@ -868,7 +868,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		4D8267E419B3BA6E00076974 /* Build configuration list for PBXNativeTarget "PingPong" */ = {
+		4D8267E419B3BA6E00076974 /* Build configuration list for PBXNativeTarget "WheArU" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				4D8267E519B3BA6E00076974 /* Debug */,

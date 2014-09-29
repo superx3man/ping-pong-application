@@ -116,6 +116,16 @@
     [delegateList addObject:[NSValue valueWithNonretainedObject:delegate]];
 }
 
+- (void)refreshContactList
+{
+    [self sortContactList];
+    
+    for (id retainedDelegate in delegateList) {
+        id<ContactListControllerDelegate> delegate = [retainedDelegate nonretainedObjectValue];
+        if ([delegate respondsToSelector:@selector(listUpdated:)]) [delegate listUpdated:self];
+    }
+}
+
 - (ContactController *)createContactWithJSONDescription:(NSString *)encryptedJsonString
 {
     NSString *jsonString = [[EncryptionController sharedInstance] decryptStringWithSystemKey:encryptedJsonString];
@@ -155,11 +165,6 @@
             contactController = [[ContactController alloc] initWithContact:newContact];
             [userIdContactListDictionary setObject:contactController forKey:userId];
             [[self recentContactList] insertObject:contactController atIndex:0];
-            
-            for (id retainedDelegate in delegateList) {
-                id<ContactListControllerDelegate> delegate = [retainedDelegate nonretainedObjectValue];
-                if ([delegate respondsToSelector:@selector(newItemAddedToList:)]) [delegate newItemAddedToList:self];
-            }
         }
     }
     return contactController;
@@ -194,13 +199,6 @@
             [[self contactList] removeObject:contactController];
             [[self recentContactList] insertObject:contactController atIndex:0];
         }
-        
-        [self sortContactList];
-        
-        for (id retainedDelegate in delegateList) {
-            id<ContactListControllerDelegate> delegate = [retainedDelegate nonretainedObjectValue];
-            if ([delegate respondsToSelector:@selector(itemMovedToRecentContactList:)]) [delegate itemMovedToRecentContactList:self];
-        }
     }
     return contactController;
 }
@@ -228,22 +226,8 @@
      }];
     
     [userIdContactListDictionary removeObjectForKey:[contactController userId]];
-    if ([[self recentContactList] containsObject:contactController]) {
-        [[self recentContactList] removeObject:contactController];
-        
-        for (id retainedDelegate in delegateList) {
-            id<ContactListControllerDelegate> delegate = [retainedDelegate nonretainedObjectValue];
-            if ([delegate respondsToSelector:@selector(itemRemovedFromRecentContactList:)]) [delegate itemRemovedFromRecentContactList:self];
-        }
-    }
-    if ([[self contactList] containsObject:contactController]) {
-        [[self contactList] removeObject:contactController];
-        
-        for (id retainedDelegate in delegateList) {
-            id<ContactListControllerDelegate> delegate = [retainedDelegate nonretainedObjectValue];
-            if ([delegate respondsToSelector:@selector(itemRemovedFromContactList:)]) [delegate itemRemovedFromContactList:self];
-        }
-    }
+    if ([[self recentContactList] containsObject:contactController]) [[self recentContactList] removeObject:contactController];
+    if ([[self contactList] containsObject:contactController]) [[self contactList] removeObject:contactController];
 }
 
 @end

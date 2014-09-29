@@ -70,7 +70,7 @@
     }
     
     dispatch_async(dispatch_get_main_queue(), ^{
-        [UIView animateWithDuration:1.f delay:0.f options:(UIViewAnimationOptionTransitionCrossDissolve | UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionBeginFromCurrentState) animations:^
+        [UIView animateWithDuration:0.5f delay:0.f options:(UIViewAnimationOptionTransitionCrossDissolve | UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionBeginFromCurrentState) animations:^
          {
              [instructionLabel setAlpha:1.f];
              [usernameButton setAlpha:0.f];
@@ -81,7 +81,7 @@
 - (IBAction)restoreTextPlaceholder:(id)sender
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [UIView animateWithDuration:1.f delay:0.f options:(UIViewAnimationOptionTransitionCrossDissolve | UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionBeginFromCurrentState) animations:^
+        [UIView animateWithDuration:0.5f delay:0.f options:(UIViewAnimationOptionTransitionCrossDissolve | UIViewAnimationOptionAllowUserInteraction | UIViewAnimationOptionBeginFromCurrentState) animations:^
          {
              [instructionLabel setAlpha:0.f];
              [usernameButton setAlpha:1.f];

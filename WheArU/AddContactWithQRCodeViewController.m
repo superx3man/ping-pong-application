@@ -143,10 +143,13 @@
     [captureSession stopRunning];
     
     AVMetadataMachineReadableCodeObject *metadata = (AVMetadataMachineReadableCodeObject *) [metadataObjects firstObject];
-    id newContactController = [contactListController createContactWithJSONDescription:[metadata stringValue]];
+    ContactController *newContactController = [contactListController createContactWithJSONDescription:[metadata stringValue]];
     
     if (newContactController == nil) [captureSession startRunning];
-    else [self dismissViewControllerAnimated:YES completion:nil];
+    else {
+        [contactListController refreshContactList];
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 @end
