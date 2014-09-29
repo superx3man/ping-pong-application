@@ -122,6 +122,7 @@
 - (void)updateLastUpdatedLabelWithCurrentTime
 {
     if ([self contactController] == nil) return;
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(updateLastUpdatedLabelWithCurrentTime) object:nil];
     
     int64_t lastUpdated = [[self contactController] lastUpdated];
     int64_t timeElpased = [[NSDate date] timeIntervalSince1970] - lastUpdated;
@@ -154,16 +155,15 @@
     NSString *lastUpdatedDescription = count > 0 ? [NSString stringWithFormat:@"%lld%@", count, unit] : [NSString stringWithFormat:@"%@", unit];
     
     dispatch_async(dispatch_get_main_queue(), ^{
+        if (userLastUpdatedLabel == nil) return;
+        
         [UIView transitionWithView:userLastUpdatedLabel duration:kWAUContactUpdateAnimationDuration options:(UIViewAnimationOptionTransitionCrossDissolve | UIViewAnimationOptionBeginFromCurrentState) animations:^
          {
              [userLastUpdatedLabel setText:lastUpdatedDescription];
          } completion:nil];
     });
     
-    if (nextTimeInterval > 0) {
-        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(updateLastUpdatedLabelWithCurrentTime) object:nil];
-        [self performSelector:@selector(updateLastUpdatedLabelWithCurrentTime) withObject:nil afterDelay:nextTimeInterval];
-    }
+    if (nextTimeInterval > 0) [self performSelector:@selector(updateLastUpdatedLabelWithCurrentTime) withObject:nil afterDelay:nextTimeInterval];
 }
 
 - (void)layoutPingStatusView
@@ -182,6 +182,8 @@
     
     if (pingStatusViewAlpha == 1.f && [pingStatusView alpha] == 1.f) {
         dispatch_async(dispatch_get_main_queue(), ^{
+            if (pingNumberLabel == nil) return;
+            
             [UIView transitionWithView:pingNumberLabel duration:kWAUContactUpdateAnimationDuration options:(UIViewAnimationOptionTransitionCrossDissolve | UIViewAnimationOptionBeginFromCurrentState) animations:^
              {
                  [pingNumberLabel setText:[NSString stringWithFormat:@"%d", MIN([[self contactController] ping], 99)]];
@@ -191,7 +193,7 @@
     else {
         [pingNumberLabel setText:[NSString stringWithFormat:@"%d", MIN([[self contactController] ping], 99)]];
         dispatch_async(dispatch_get_main_queue(), ^{
-            [UIView animateWithDuration:kWAUContactUpdateAnimationDuration delay:0.f options:UIViewAnimationOptionTransitionCrossDissolve animations:^
+            [UIView animateWithDuration:kWAUContactUpdateAnimationDuration delay:0.f options:(UIViewAnimationOptionTransitionCrossDissolve | UIViewAnimationOptionBeginFromCurrentState) animations:^
              {
                  [pingStatusView setAlpha:pingStatusViewAlpha];
                  [pingSpinner setAlpha:pingSpinnerAlpha];
@@ -264,7 +266,9 @@
 - (void)contactDidUpdateUsername:(ContactController *)controller
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [UIView transitionWithView:usernameButton duration:kWAUContactUpdateAnimationDuration options:UIViewAnimationOptionTransitionCrossDissolve animations:^
+        if (usernameButton == nil) return;
+        
+        [UIView transitionWithView:usernameButton duration:kWAUContactUpdateAnimationDuration options:(UIViewAnimationOptionTransitionCrossDissolve | UIViewAnimationOptionBeginFromCurrentState) animations:^
          {
              [usernameButton setTitle:[controller username] forState:UIControlStateNormal];
              [usernameButton setTitle:[controller username] forState:UIControlStateHighlighted];
@@ -276,7 +280,7 @@
 - (void)contactDidUpdateUserIcon:(ContactController *)controller
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [UIView animateWithDuration:kWAUContactUpdateAnimationDuration delay:0.f options:UIViewAnimationOptionTransitionCrossDissolve animations:^
+        [UIView animateWithDuration:kWAUContactUpdateAnimationDuration delay:0.f options:(UIViewAnimationOptionTransitionCrossDissolve | UIViewAnimationOptionBeginFromCurrentState) animations:^
          {
              [userIconImageView setImage:[controller userIcon]];
          } completion:nil];
@@ -286,7 +290,7 @@
 - (void)contactDidUpdateUserColor:(ContactController *)controller
 {
     dispatch_async(dispatch_get_main_queue(), ^{
-        [UIView animateWithDuration:kWAUContactUpdateAnimationDuration delay:0.f options:UIViewAnimationOptionTransitionCrossDissolve animations:^
+        [UIView animateWithDuration:kWAUContactUpdateAnimationDuration delay:0.f options:(UIViewAnimationOptionTransitionCrossDissolve | UIViewAnimationOptionBeginFromCurrentState) animations:^
          {
              [[self contentView] setBackgroundColor:[controller userColor]];
              

@@ -57,6 +57,8 @@
 		4DD3F55019CB433000A77C1C /* LocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD3F54F19CB433000A77C1C /* LocationController.m */; };
 		4DD3F55319CB5C8500A77C1C /* locate.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DD3F55119CB5C8500A77C1C /* locate.png */; };
 		4DD3F55419CB5C8500A77C1C /* locate@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DD3F55219CB5C8500A77C1C /* locate@2x.png */; };
+		4DD564C119D9D29800A108D3 /* APAsyncDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD564C019D9D29800A108D3 /* APAsyncDictionary.m */; };
+		4DD564C419D9D2BD00A108D3 /* NSThread+Block.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD564C319D9D2BD00A108D3 /* NSThread+Block.m */; };
 		4DD698AA19C4F27F00D9D65D /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD698A919C4F27F00D9D65D /* Reachability.m */; };
 		4DD698AC19C4F29700D9D65D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DD698AB19C4F29700D9D65D /* SystemConfiguration.framework */; };
 		4DD698B019C4FC6A00D9D65D /* WAULog.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD698AF19C4FC6A00D9D65D /* WAULog.m */; };
@@ -161,6 +163,10 @@
 		4DD3F54F19CB433000A77C1C /* LocationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationController.m; sourceTree = "<group>"; };
 		4DD3F55119CB5C8500A77C1C /* locate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = locate.png; sourceTree = "<group>"; };
 		4DD3F55219CB5C8500A77C1C /* locate@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "locate@2x.png"; sourceTree = "<group>"; };
+		4DD564BF19D9D29800A108D3 /* APAsyncDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APAsyncDictionary.h; sourceTree = "<group>"; };
+		4DD564C019D9D29800A108D3 /* APAsyncDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APAsyncDictionary.m; sourceTree = "<group>"; };
+		4DD564C219D9D2BD00A108D3 /* NSThread+Block.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSThread+Block.h"; sourceTree = "<group>"; };
+		4DD564C319D9D2BD00A108D3 /* NSThread+Block.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSThread+Block.m"; sourceTree = "<group>"; };
 		4DD698A819C4F27F00D9D65D /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		4DD698A919C4F27F00D9D65D /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		4DD698AB19C4F29700D9D65D /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -449,6 +455,7 @@
 		4D8267F219B4036300076974 /* HelperClasses */ = {
 			isa = PBXGroup;
 			children = (
+				4DD564BE19D9D28100A108D3 /* APAsyncDictionary */,
 				4D79C3A119D3C0B700CEB1E4 /* UIView+Shake */,
 				4D1A983A19D200650017CC7D /* MKMapView+SharedInstance */,
 				4D09BF8D19D125390009D0CF /* MKCircle+ContactController */,
@@ -480,6 +487,17 @@
 				4D8C11DE19C66A7700698F6D /* AddContactWithQRCodeViewController.m */,
 			);
 			name = AddContacts;
+			sourceTree = "<group>";
+		};
+		4DD564BE19D9D28100A108D3 /* APAsyncDictionary */ = {
+			isa = PBXGroup;
+			children = (
+				4DD564BF19D9D29800A108D3 /* APAsyncDictionary.h */,
+				4DD564C019D9D29800A108D3 /* APAsyncDictionary.m */,
+				4DD564C219D9D2BD00A108D3 /* NSThread+Block.h */,
+				4DD564C319D9D2BD00A108D3 /* NSThread+Block.m */,
+			);
+			name = APAsyncDictionary;
 			sourceTree = "<group>";
 		};
 		4DD698A719C4F26800D9D65D /* Reachability */ = {
@@ -708,6 +726,7 @@
 				4D8267C719B3BA6E00076974 /* main.m in Sources */,
 				4DF6EABC19CA00DD001BC176 /* WAUServerConnector.m in Sources */,
 				4DD8863919C785B1003C7CE2 /* EntityController.m in Sources */,
+				4DD564C119D9D29800A108D3 /* APAsyncDictionary.m in Sources */,
 				4DF6EAC219CA0A21001BC176 /* WAUServerConnectorRequest.m in Sources */,
 				4D5BD6DB19CF256200B7BC01 /* NSString+Hash.m in Sources */,
 				4D8C62DE19B6B7E900F59CFF /* UsernameViewController.m in Sources */,
@@ -720,6 +739,7 @@
 				4D8C62DB19B6B00900F59CFF /* RegistrationViewController.m in Sources */,
 				4D4C611819B4D01B003AB18B /* ContactListController.m in Sources */,
 				4DEAF5B619C886BB00CC1EC8 /* RNCryptorEngine.m in Sources */,
+				4DD564C419D9D2BD00A108D3 /* NSThread+Block.m in Sources */,
 				4D8267CD19B3BA6E00076974 /* WheArU.xcdatamodeld in Sources */,
 				4DD698AA19C4F27F00D9D65D /* Reachability.m in Sources */,
 			);

@@ -120,7 +120,7 @@ NSString *const kWAUNotificationActionIdentifierSend = @"kWAUNotificationActionI
              [contact setPingStatus:WAUContactPingStatusFailed];
              [contact didSendNotification:NO];
              
-             if ([WAUUtilities isApplicationRunningInBackground]) dispatch_semaphore_signal(semaphore);
+             if (semaphore != NULL) dispatch_semaphore_signal(semaphore);
          }];
         [request setSuccessHandler:^(WAUServerConnectorRequest *connectorRequest, NSObject *requestResult)
          {
@@ -129,20 +129,21 @@ NSString *const kWAUNotificationActionIdentifierSend = @"kWAUNotificationActionI
              [contact setPingStatus:WAUContactPingStatusSuccess];
              [contact didSendNotification:YES];
              
-             if ([WAUUtilities isApplicationRunningInBackground]) dispatch_semaphore_signal(semaphore);
+             if (semaphore != NULL) dispatch_semaphore_signal(semaphore);
          }];
-        [[WAUServerConnector sharedInstance] sendRequest:request withTag:@"SyncUser"];
+        [[WAUServerConnector sharedInstance] sendRequest:request withTag:[NSString stringWithFormat:@"PingContact-%@", [contact userId]]];
     } synchrounous:[WAUUtilities isApplicationRunningInBackground]];
     
     [contact willSendNotification];
     
-    if ([WAUUtilities isApplicationRunningInBackground]) dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+    if (semaphore != NULL) dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
 }
 
 - (void)syncLocationRequestFromServer
 {
     static BOOL isSyncing = NO;
     if ([[UserController sharedInstance] userId] == nil || isSyncing) return;
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(syncLocationRequestFromServer) object:nil];
     isSyncing = YES;
     
     NSMutableDictionary *userDictionary = [[NSMutableDictionary alloc] init];
@@ -153,7 +154,6 @@ NSString *const kWAUNotificationActionIdentifierSend = @"kWAUNotificationActionI
      {
          [WAULog log:@"failed to sync ping requests" from:self];
          
-         [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(syncLocationRequestFromServer) object:nil];
          [self performSelector:@selector(syncLocationRequestFromServer) withObject:nil afterDelay:300];
          
          isSyncing = NO;

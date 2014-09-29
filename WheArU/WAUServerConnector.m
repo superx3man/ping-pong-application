@@ -11,6 +11,7 @@
 #import "AppDelegate.h"
 #import "EncryptionController.h"
 
+#import "APAsyncDictionary.h"
 #import "NSString+Hash.h"
 #import "Reachability.h"
 #import "Reachability+SharedInstance.h"
@@ -25,7 +26,7 @@ float const kWAUServerConnectorRequestTimeout = 5.f;
 {
     Reachability *reachibility;
     
-    NSMutableDictionary *pendingRequestList;
+    APAsyncDictionary *pendingRequestList;
     WAUServerConnectorPendingRequestState pendingRequestState;
 }
 
@@ -35,7 +36,7 @@ float const kWAUServerConnectorRequestTimeout = 5.f;
         reachibility = [Reachability sharedInstance];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
         
-        pendingRequestList = [[NSMutableDictionary alloc] init];
+        pendingRequestList = [[APAsyncDictionary alloc] init];
         pendingRequestState = WAUServerConnectorPendingRequestStateIdle;
     }
     return self;
@@ -63,15 +64,20 @@ float const kWAUServerConnectorRequestTimeout = 5.f;
     if (![reachibility isReachable] || pendingRequestState == WAUServerConnectorPendingRequestStateClearing) return;
     pendingRequestState = WAUServerConnectorPendingRequestStateClearing;
     
-    for (NSString *tag in pendingRequestList) {
-        WAUServerConnectorRequest *request = [pendingRequestList objectForKey:tag];
-        [pendingRequestList removeObjectForKey:tag];
-        [self sendRequest:request];
-    }
-    pendingRequestState = WAUServerConnectorPendingRequestStateIdle;
+    [pendingRequestList allKeysCallback:^(NSArray *tagList)
+     {
+         for (NSString *tag in tagList) {
+             WAUServerConnectorRequest *request = [pendingRequestList objectForKeySynchronously:tag];
+             [pendingRequestList removeObjectForKey:tag];
+             [self sendRequest:request synchrounous:YES];
+         }
+         pendingRequestState = WAUServerConnectorPendingRequestStateIdle;
+         
+         if ([pendingRequestList objectsCountSynchronously] != 0) [self reachabilityChanged:notification];
+     }];
 }
 
-- (void)sendRequest:(WAUServerConnectorRequest *)connectorRequest
+- (void)sendRequest:(WAUServerConnectorRequest *)connectorRequest synchrounous:(BOOL)isSynchrounous
 {
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:nil];
     
@@ -94,7 +100,7 @@ float const kWAUServerConnectorRequestTimeout = 5.f;
     }
     
     dispatch_semaphore_t semaphore = NULL;
-    if ([WAUUtilities isApplicationRunningInBackground]) semaphore = dispatch_semaphore_create(0);
+    if ([WAUUtilities isApplicationRunningInBackground] || isSynchrounous) semaphore = dispatch_semaphore_create(0);
     
     NSURLSessionDataTask *postDataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error)
                                           {
@@ -119,18 +125,18 @@ float const kWAUServerConnectorRequestTimeout = 5.f;
                                                   }
                                               }
                                               
-                                              if ([WAUUtilities isApplicationRunningInBackground]) dispatch_semaphore_signal(semaphore);
+                                              if (semaphore != NULL) dispatch_semaphore_signal(semaphore);
                                           }];
     [postDataTask resume];
     
-    if ([WAUUtilities isApplicationRunningInBackground]) dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+    if (semaphore != NULL) dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
 }
 
 #pragma mark External
 
 - (void)sendRequest:(WAUServerConnectorRequest *)connectorRequest withTag:(NSString *)tag
 {
-    if ([reachibility isReachable]) [self sendRequest:connectorRequest];
+    if ([reachibility isReachable]) [self sendRequest:connectorRequest synchrounous:NO];
     else [pendingRequestList setObject:connectorRequest forKey:tag];
 }
 

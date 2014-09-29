@@ -16,7 +16,6 @@
     CLLocationManager *locationManager;
     
     NSMutableArray *updateBlockList;
-    dispatch_semaphore_t semaphore;
 }
 
 - (id)init
