@@ -16,6 +16,7 @@
 #import "Reachability+SharedInstance.h"
 #import "WAUConstant.h"
 #import "WAULog.h"
+#import "WAUUtilities.h"
 
 
 float const kWAUServerConnectorRequestTimeout = 5.f;
@@ -92,12 +93,8 @@ float const kWAUServerConnectorRequestTimeout = 5.f;
         [request setValue:[NSString stringWithFormat:@"WAUSign %@|%@", nonce, encryptedHash] forHTTPHeaderField:@"Authorization"];
     }
     
-    BOOL isApplicationRunninngInBackground = [[UIApplication sharedApplication] applicationState] != UIApplicationStateActive;
-    
     dispatch_semaphore_t semaphore = NULL;
-    if (isApplicationRunninngInBackground) {
-        semaphore = dispatch_semaphore_create(0);
-    }
+    if ([WAUUtilities isApplicationRunningInBackground]) semaphore = dispatch_semaphore_create(0);
     
     NSURLSessionDataTask *postDataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error)
                                           {
@@ -122,15 +119,11 @@ float const kWAUServerConnectorRequestTimeout = 5.f;
                                                   }
                                               }
                                               
-                                              if (isApplicationRunninngInBackground) {
-                                                  dispatch_semaphore_signal(semaphore);
-                                              }
+                                              if ([WAUUtilities isApplicationRunningInBackground]) dispatch_semaphore_signal(semaphore);
                                           }];
     [postDataTask resume];
     
-    if (isApplicationRunninngInBackground) {
-        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-    }
+    if ([WAUUtilities isApplicationRunningInBackground]) dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
 }
 
 #pragma mark External

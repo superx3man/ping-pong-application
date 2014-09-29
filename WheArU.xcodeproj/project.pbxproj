@@ -65,6 +65,7 @@
 		4DD8863919C785B1003C7CE2 /* EntityController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD8863819C785B1003C7CE2 /* EntityController.m */; };
 		4DD8863C19C78EA7003C7CE2 /* UserController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD8863B19C78EA7003C7CE2 /* UserController.m */; };
 		4DD8863F19C79981003C7CE2 /* ContactController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD8863E19C79981003C7CE2 /* ContactController.m */; };
+		4DD8A3FA19D909D8009FFB41 /* WAUUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD8A3F919D909D8009FFB41 /* WAUUtilities.m */; };
 		4DEAF5A119C8767300CC1EC8 /* EncryptionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DEAF5A019C8767300CC1EC8 /* EncryptionController.m */; };
 		4DEAF5A519C87C0200CC1EC8 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DEAF5A419C87C0200CC1EC8 /* AVFoundation.framework */; };
 		4DEAF5B519C886BB00CC1EC8 /* RNCryptor.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DEAF5AD19C886BB00CC1EC8 /* RNCryptor.m */; };
@@ -173,6 +174,8 @@
 		4DD8863B19C78EA7003C7CE2 /* UserController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserController.m; sourceTree = "<group>"; };
 		4DD8863D19C79981003C7CE2 /* ContactController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactController.h; sourceTree = "<group>"; };
 		4DD8863E19C79981003C7CE2 /* ContactController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactController.m; sourceTree = "<group>"; };
+		4DD8A3F819D909D8009FFB41 /* WAUUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WAUUtilities.h; sourceTree = "<group>"; };
+		4DD8A3F919D909D8009FFB41 /* WAUUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WAUUtilities.m; sourceTree = "<group>"; };
 		4DEAF59F19C8767300CC1EC8 /* EncryptionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EncryptionController.h; sourceTree = "<group>"; };
 		4DEAF5A019C8767300CC1EC8 /* EncryptionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EncryptionController.m; sourceTree = "<group>"; };
 		4DEAF5A419C87C0200CC1EC8 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -398,6 +401,8 @@
 				4D8267EE19B3D26D00076974 /* ViewControllers */,
 				4D5BD6D519CF179000B7BC01 /* WAUConstant.h */,
 				4D5BD6D619CF179000B7BC01 /* WAUConstant.m */,
+				4DD8A3F819D909D8009FFB41 /* WAUUtilities.h */,
+				4DD8A3F919D909D8009FFB41 /* WAUUtilities.m */,
 				4D8267CB19B3BA6E00076974 /* WheArU.xcdatamodeld */,
 			);
 			path = WheArU;
@@ -677,6 +682,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D09BF9019D1254D0009D0CF /* MKCircle+ContactController.m in Sources */,
+				4DD8A3FA19D909D8009FFB41 /* WAUUtilities.m in Sources */,
 				4DEAF5A119C8767300CC1EC8 /* EncryptionController.m in Sources */,
 				4D4C612A19B517C7003AB18B /* Contact.m in Sources */,
 				4DEAF5BE19C933DC00CC1EC8 /* NotificationController.m in Sources */,

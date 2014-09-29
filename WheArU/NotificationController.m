@@ -18,6 +18,7 @@
 #import "WAULog.h"
 #import "WAUServerConnector.h"
 #import "WAUServerConnectorRequest.h"
+#import "WAUUtilities.h"
 
 
 NSString *const kWAUNotificationCategoryIdentifierRequestLocation = @"kWAUNotificationCategoryIdentifierRequestLocation";
@@ -87,12 +88,8 @@ NSString *const kWAUNotificationActionIdentifierSend = @"kWAUNotificationActionI
 {
     [contact setPingStatus:WAUContactPingStatusPinging];
     
-    BOOL isApplicationRunninngInBackground = [[UIApplication sharedApplication] applicationState] != UIApplicationStateActive;
-    
     dispatch_semaphore_t semaphore = NULL;
-    if (isApplicationRunninngInBackground) {
-        semaphore = dispatch_semaphore_create(0);
-    }
+    if ([WAUUtilities isApplicationRunningInBackground]) semaphore = dispatch_semaphore_create(0);
     
     [[LocationController sharedInstance] retrieveLocationWithUpdateBlock:^(CLLocation *location)
     {
@@ -123,9 +120,7 @@ NSString *const kWAUNotificationActionIdentifierSend = @"kWAUNotificationActionI
              [contact setPingStatus:WAUContactPingStatusFailed];
              [contact didSendNotification:NO];
              
-             if (isApplicationRunninngInBackground) {
-                 dispatch_semaphore_signal(semaphore);
-             }
+             if ([WAUUtilities isApplicationRunningInBackground]) dispatch_semaphore_signal(semaphore);
          }];
         [request setSuccessHandler:^(WAUServerConnectorRequest *connectorRequest, NSObject *requestResult)
          {
@@ -134,19 +129,14 @@ NSString *const kWAUNotificationActionIdentifierSend = @"kWAUNotificationActionI
              [contact setPingStatus:WAUContactPingStatusSuccess];
              [contact didSendNotification:YES];
              
-             if (isApplicationRunninngInBackground) {
-                 dispatch_semaphore_signal(semaphore);
-             }
+             if ([WAUUtilities isApplicationRunningInBackground]) dispatch_semaphore_signal(semaphore);
          }];
         [[WAUServerConnector sharedInstance] sendRequest:request withTag:@"SyncUser"];
-    } synchrounous:isApplicationRunninngInBackground];
+    } synchrounous:[WAUUtilities isApplicationRunningInBackground]];
     
     [contact willSendNotification];
     
-    if (isApplicationRunninngInBackground) {
-        dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-    }
-    
+    if ([WAUUtilities isApplicationRunningInBackground]) dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
 }
 
 - (void)syncLocationRequestFromServer
@@ -183,7 +173,7 @@ NSString *const kWAUNotificationActionIdentifierSend = @"kWAUNotificationActionI
          }
          
          [[ContactListController sharedInstance] refreshContactList];
-         [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+         if ([WAUUtilities isUserNotificationBadgeEnabled]) [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
          isSyncing = NO;
      }];
      [[WAUServerConnector sharedInstance] sendRequest:request withTag:@"SyncRequest"];

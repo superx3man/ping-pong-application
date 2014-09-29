@@ -13,6 +13,8 @@
 #import "UpdateUserColorViewController.h"
 #import "AddContactWithQRCodeViewController.h"
 
+#import "WAUUtilities.h"
+
 
 @interface ContactListViewController ()
 
@@ -145,8 +147,10 @@
 
 - (void)listUpdated:(ContactListController *)controller
 {
-    BOOL isApplicationRunninngInBackground = [[UIApplication sharedApplication] applicationState] != UIApplicationStateActive;
-    if (!isApplicationRunninngInBackground) [contactListTableView reloadData];
+    if (![WAUUtilities isApplicationRunningInBackground]) {
+        [contactListTableView reloadData];
+        [contactListTableView layoutIfNeeded];
+    }
 }
 
 #pragma mark UITableViewDataSource

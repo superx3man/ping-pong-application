@@ -17,6 +17,7 @@
 #import "NSData+Conversion.h"
 #import "WAUConstant.h"
 #import "WAULog.h"
+#import "WAUUtilities.h"
 
 
 @interface AppDelegate ()
@@ -107,7 +108,7 @@
         ContactController *contactController = [[ContactListController sharedInstance] getContactControllerWithUserId:userId];
         [[NotificationController sharedInstance] requestForLocationFromContact:contactController];
         
-        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:[[UIApplication sharedApplication] applicationIconBadgeNumber] - 1];
+        if ([WAUUtilities isUserNotificationBadgeEnabled]) [[UIApplication sharedApplication] setApplicationIconBadgeNumber:[[UIApplication sharedApplication] applicationIconBadgeNumber] - 1];
     }
     completionHandler();
 }
