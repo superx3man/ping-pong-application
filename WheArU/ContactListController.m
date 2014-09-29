@@ -233,15 +233,16 @@
         contactController = [self createContactWithPlaceholderContactInfo:userInfo];
     }
     else {
-        NSString *locationInfo = [userInfo objectForKey:kWAUDictionaryKeyLocationInfo];
-        if (locationInfo != nil) {
-            int pingCount = [userInfo objectForKey:kWAUDictionaryKeyPingCount] == nil ? 0 : [[userInfo objectForKey:kWAUDictionaryKeyPingCount] intValue];
-            [[ContactListController sharedInstance] updateContactWithUserId:userId locationInfo:locationInfo pingCount:pingCount];
-        }
-        
         NSString *version = [userInfo objectForKey:kWAUDictionaryKeyVersion];
         if (version != nil) [[ContactListController sharedInstance] validateContactWithUserId:userId withVersion:[version intValue]];
     }
+    
+    NSString *locationInfo = [userInfo objectForKey:kWAUDictionaryKeyLocationInfo];
+    if (locationInfo != nil) {
+        int pingCount = [userInfo objectForKey:kWAUDictionaryKeyPingCount] == nil ? 0 : [[userInfo objectForKey:kWAUDictionaryKeyPingCount] intValue];
+        [[ContactListController sharedInstance] updateContactWithUserId:userId locationInfo:locationInfo pingCount:pingCount];
+    }
+
     return contactController;
 }
 

@@ -302,6 +302,12 @@
              [userLastUpdatedDescriptionLabel setTextColor:[controller wordColor]];
              
              [locateButton setTintColor:[controller wordColor]];
+             
+             [pingStatusView setBackgroundColor:[[self contactController] wordColor]];
+             [pingNumberLabel setTextColor:[[self contactController] userColor]];
+             [pingSpinner setColor:[[self contactController] wordColor]];
+             [pingSuccessImageView setTintColor:[[self contactController] wordColor]];
+             [pingFailedImageView setTintColor:[[self contactController] wordColor]];
          } completion:nil];
     });
 }

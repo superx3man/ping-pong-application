@@ -402,6 +402,7 @@
              [pingNumberLabel setTextColor:[[self contactController] userColor]];
              [pingSpinner setColor:[[self contactController] wordColor]];
              [pingSuccessImageView setTintColor:[[self contactController] wordColor]];
+             [pingFailedImageView setTintColor:[[self contactController] wordColor]];
          } completion:^(BOOL finished)
          {
              [self createAnnotationForContactController:controller];
