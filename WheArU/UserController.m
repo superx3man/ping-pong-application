@@ -80,6 +80,7 @@
 - (void)registerUser
 {
     if ([self userId] != nil) return;
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(registerUser) object:nil];
     
     NSMutableDictionary *userDictionary = [[NSMutableDictionary alloc] init];
     [userDictionary setObject:[NSNumber numberWithInt:[self platform]] forKey:kWAUDictionaryKeyPlatform];
@@ -190,7 +191,7 @@
 
 - (void)setModified:(BOOL)isModified
 {
-    [self setModified:isModified withSyncDelay:120];
+    [self setModified:isModified withSyncDelay:20];
 }
 
 - (void)setModified:(BOOL)isModified withSyncDelay:(NSTimeInterval)delay
