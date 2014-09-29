@@ -137,6 +137,18 @@
     return error == nil ? [self createContactWithContactInfo:contactInfo] : contactController;
 }
 
+- (ContactController *)createContactWithPlaceholderContactInfo:(NSDictionary *)contactInfo
+{
+    NSMutableDictionary *placeholderInfo = [contactInfo mutableCopy];
+    [placeholderInfo setObject:@"New Friend" forKey:kWAUDictionaryKeyUsername];
+    
+    NSArray *availableColor = [EntityController availableUserColor];
+    NSString *colorString = [UIColor hexStringFromColor:[availableColor objectAtIndex:(arc4random() % [availableColor count])]];
+    [placeholderInfo setObject:colorString forKey:kWAUDictionaryKeyUserColor];
+    
+    return [self createContactWithContactInfo:placeholderInfo];
+}
+
 - (ContactController *)createContactWithContactInfo:(NSDictionary *)contactInfo
 {
     NSString *userId = [contactInfo objectForKey:kWAUDictionaryKeyUserId];
@@ -209,6 +221,26 @@
     contactController = [userIdContactListDictionary objectForKey:userId];
     if (contactController != nil) {
         [contactController validateContactVersion:version];
+    }
+    return contactController;
+}
+
+- (ContactController *)updateOrCreateContactWithUserInfo:(NSDictionary *)userInfo
+{
+    NSString *userId = [userInfo objectForKey:kWAUDictionaryKeyUserId];
+    ContactController *contactController = [self getContactControllerWithUserId:userId];
+    if (contactController == nil) {
+        contactController = [self createContactWithPlaceholderContactInfo:userInfo];
+    }
+    else {
+        NSString *locationInfo = [userInfo objectForKey:kWAUDictionaryKeyLocationInfo];
+        if (locationInfo != nil) {
+            int pingCount = [userInfo objectForKey:kWAUDictionaryKeyPingCount] == nil ? 0 : [[userInfo objectForKey:kWAUDictionaryKeyPingCount] intValue];
+            [[ContactListController sharedInstance] updateContactWithUserId:userId locationInfo:locationInfo pingCount:pingCount];
+        }
+        
+        NSString *version = [userInfo objectForKey:kWAUDictionaryKeyVersion];
+        if (version != nil) [[ContactListController sharedInstance] validateContactWithUserId:userId withVersion:[version intValue]];
     }
     return contactController;
 }

@@ -31,11 +31,14 @@ typedef NS_ENUM(int, WAUUserRelation)
 - (void)refreshContactList;
 
 - (ContactController *)createContactWithJSONDescription:(NSString *)encryptedJsonString;
+- (ContactController *)createContactWithPlaceholderContactInfo:(NSDictionary *)contactInfo;
 - (ContactController *)createContactWithContactInfo:(NSDictionary *)contactInfo;
 
 - (ContactController *)updateContactWithUserId:(NSString *)userId locationInfo:(NSString *)locationInfo;
 - (ContactController *)updateContactWithUserId:(NSString *)userId locationInfo:(NSString *)locationInfo pingCount:(int)pingCount;
 - (ContactController *)validateContactWithUserId:(NSString *)userId withVersion:(int)version;
+
+- (ContactController *)updateOrCreateContactWithUserInfo:(NSDictionary *)userInfo;
 
 - (ContactController *)getContactControllerWithUserId:(NSString *)userId;
 

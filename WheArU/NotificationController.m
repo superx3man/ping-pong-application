@@ -163,16 +163,10 @@ NSString *const kWAUNotificationActionIdentifierSend = @"kWAUNotificationActionI
          [WAULog log:@"synced ping requests" from:self];
          
          for (NSDictionary *pingInfo in (NSArray *) requestResult) {
-             NSString *userId = [pingInfo objectForKey:kWAUDictionaryKeyUserId];
-             NSString *locationInfo = [pingInfo objectForKey:kWAUDictionaryKeyLocationInfo];
-             int pingCount = [[pingInfo objectForKey:kWAUDictionaryKeyPingCount] intValue];
-             if (locationInfo != nil) [[ContactListController sharedInstance] updateContactWithUserId:userId locationInfo:locationInfo pingCount:pingCount];
-             
-             NSString *version = [pingInfo objectForKey:kWAUDictionaryKeyVersion];
-             if (version != nil) [[ContactListController sharedInstance] validateContactWithUserId:userId withVersion:[version intValue]];
+             [[ContactListController sharedInstance] updateOrCreateContactWithUserInfo:pingInfo];
          }
-         
          [[ContactListController sharedInstance] refreshContactList];
+         
          if ([WAUUtilities isUserNotificationBadgeEnabled]) [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
          isSyncing = NO;
      }];

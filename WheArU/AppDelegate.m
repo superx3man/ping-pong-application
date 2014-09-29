@@ -98,14 +98,7 @@
 - (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void (^)())completionHandler
 {
     if ([identifier isEqualToString:kWAUNotificationActionIdentifierSend]) {
-        NSString *userId = [userInfo objectForKey:kWAUDictionaryKeyUserId];
-        NSString *locationInfo = [userInfo objectForKey:kWAUDictionaryKeyLocationInfo];
-        if (locationInfo != nil) [[ContactListController sharedInstance] updateContactWithUserId:userId locationInfo:locationInfo];
-        
-        NSString *version = [userInfo objectForKey:kWAUDictionaryKeyVersion];
-        if (version != nil) [[ContactListController sharedInstance] validateContactWithUserId:userId withVersion:[version intValue]];
-        
-        ContactController *contactController = [[ContactListController sharedInstance] getContactControllerWithUserId:userId];
+        ContactController *contactController = [[ContactListController sharedInstance] updateOrCreateContactWithUserInfo:userInfo];
         [[NotificationController sharedInstance] requestForLocationFromContact:contactController];
         
         if ([WAUUtilities isUserNotificationBadgeEnabled]) [[UIApplication sharedApplication] setApplicationIconBadgeNumber:[[UIApplication sharedApplication] applicationIconBadgeNumber] - 1];
@@ -129,15 +122,8 @@
     }
     else if ([messageType isEqualToString:@"ping"]) {
         if ([[UIApplication sharedApplication] applicationState] != UIApplicationStateInactive) {
-            NSString *userId = [userInfo objectForKey:kWAUDictionaryKeyUserId];
-            NSString *locationInfo = [userInfo objectForKey:kWAUDictionaryKeyLocationInfo];
-            if (locationInfo != nil) {
-                [[ContactListController sharedInstance] updateContactWithUserId:userId locationInfo:locationInfo];
-                [[ContactListController sharedInstance] refreshContactList];
-            }
-            
-            NSString *version = [userInfo objectForKey:kWAUDictionaryKeyVersion];
-            if (version != nil) [[ContactListController sharedInstance] validateContactWithUserId:userId withVersion:[version intValue]];
+            [[ContactListController sharedInstance] updateOrCreateContactWithUserInfo:userInfo];
+            [[ContactListController sharedInstance] refreshContactList];
         }
         fetchResult = UIBackgroundFetchResultNewData;
     }

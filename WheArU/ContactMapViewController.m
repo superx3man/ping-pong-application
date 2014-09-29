@@ -143,6 +143,7 @@
 - (IBAction)tapOnDelete:(id)sender
 {
     [[ContactListController sharedInstance] blockContactController:[self contactController]];
+    [[ContactListController sharedInstance] refreshContactList];
     [[self navigationController] popViewControllerAnimated:YES];
 }
 
