@@ -126,7 +126,7 @@
 		4D79C39F19D3C08D00CEB1E4 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		4D79C3A219D3C18600CEB1E4 /* UIView+Shake.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Shake.h"; sourceTree = "<group>"; };
 		4D79C3A319D3C18600CEB1E4 /* UIView+Shake.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Shake.m"; sourceTree = "<group>"; };
-		4D8267C119B3BA6E00076974 /* WheArU.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WheArU.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D8267C119B3BA6E00076974 /* PingPong.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PingPong.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D8267C519B3BA6E00076974 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4D8267C619B3BA6E00076974 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		4D8267C819B3BA6E00076974 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -378,7 +378,7 @@
 		4D8267C219B3BA6E00076974 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4D8267C119B3BA6E00076974 /* WheArU.app */,
+				4D8267C119B3BA6E00076974 /* PingPong.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -600,7 +600,7 @@
 			);
 			name = WheArU;
 			productName = WheArU;
-			productReference = 4D8267C119B3BA6E00076974 /* WheArU.app */;
+			productReference = 4D8267C119B3BA6E00076974 /* PingPong.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -828,7 +828,7 @@
 					"$(SDKROOT)/usr/lib/system",
 				);
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_NAME = WheArU;
+				PRODUCT_NAME = PingPong;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "WheArU/WheArU-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -850,7 +850,7 @@
 					"$(inherited)",
 					"$(SDKROOT)/usr/lib/system",
 				);
-				PRODUCT_NAME = WheArU;
+				PRODUCT_NAME = PingPong;
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "WheArU/WheArU-Bridging-Header.h";
 			};
