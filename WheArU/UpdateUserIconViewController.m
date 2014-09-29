@@ -37,6 +37,8 @@ typedef NS_ENUM(NSInteger, WAUUpdateUserIconState)
     IBOutlet UIImageView *currentPictureImageView;
     IBOutlet UIView *cameraView;
     
+    IBOutlet UILabel *cameraInstructionLabel;
+    
     BOOL imageModified;
     WAUUpdateUserIconState currentState;
     
@@ -59,6 +61,7 @@ typedef NS_ENUM(NSInteger, WAUUpdateUserIconState)
     
     [[self view] setBackgroundColor:[[UserController sharedInstance] userColor]];
     [questionLabel setTextColor:[[UserController sharedInstance] wordColor]];
+    [cameraInstructionLabel setTextColor:[[UserController sharedInstance] wordColor]];
     [submitButton setTitleColor:[[UserController sharedInstance] wordColor] forState:UIControlStateNormal];
     [submitButton setTitleColor:[[UserController sharedInstance] wordColor] forState:UIControlStateHighlighted];
     [submitButton setTitleColor:[[UserController sharedInstance] wordColor] forState:UIControlStateSelected];

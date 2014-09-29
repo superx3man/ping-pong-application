@@ -244,6 +244,11 @@
                                         <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="17"/>
                                         <color key="highlightedColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to use camera" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lYh-g9-uy5">
+                                        <rect key="frame" x="80" y="121" width="140" height="24"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="17"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <imageView clipsSubviews="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zfu-Vf-kHb">
                                         <rect key="frame" x="65" y="48" width="170" height="170"/>
                                         <gestureRecognizers/>
@@ -302,11 +307,13 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="7D5-nZ-1Mu" firstAttribute="leading" secondItem="mE8-ZU-nw3" secondAttribute="leading" constant="25" id="0x8-h4-BLn"/>
+                                    <constraint firstItem="lYh-g9-uy5" firstAttribute="centerX" secondItem="zfu-Vf-kHb" secondAttribute="centerX" id="AJq-bi-sxA"/>
                                     <constraint firstItem="zfu-Vf-kHb" firstAttribute="width" secondItem="vsI-ih-77f" secondAttribute="width" id="CMW-nV-zIw"/>
                                     <constraint firstAttribute="trailing" secondItem="1Gl-UT-bGh" secondAttribute="trailing" constant="25" id="JVc-0T-SEJ"/>
                                     <constraint firstItem="zfu-Vf-kHb" firstAttribute="centerX" secondItem="vsI-ih-77f" secondAttribute="centerX" id="LMi-Qw-Shd"/>
                                     <constraint firstItem="zfu-Vf-kHb" firstAttribute="top" secondItem="0zB-UR-cVp" secondAttribute="bottom" constant="8" id="PkM-wD-MzV"/>
                                     <constraint firstItem="zfu-Vf-kHb" firstAttribute="height" secondItem="vsI-ih-77f" secondAttribute="height" id="UvK-Zh-0Py"/>
+                                    <constraint firstItem="lYh-g9-uy5" firstAttribute="centerY" secondItem="zfu-Vf-kHb" secondAttribute="centerY" id="VHz-E6-sBX"/>
                                     <constraint firstAttribute="centerX" secondItem="m0B-2M-JJE" secondAttribute="centerX" id="gZO-di-T2R"/>
                                     <constraint firstItem="0zB-UR-cVp" firstAttribute="top" secondItem="mE8-ZU-nw3" secondAttribute="top" constant="8" id="lUq-Wo-s1r"/>
                                     <constraint firstAttribute="height" constant="300" id="r8k-cm-q7c"/>
@@ -327,6 +334,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="cameraInstructionLabel" destination="lYh-g9-uy5" id="OTm-CR-SFt"/>
                         <outlet property="cameraView" destination="vsI-ih-77f" id="CxB-7v-qZZ"/>
                         <outlet property="currentPictureImageView" destination="zfu-Vf-kHb" id="sdi-Cw-Hr4"/>
                         <outlet property="modifiedCancelButton" destination="1Gl-UT-bGh" id="sP5-Xo-lNS"/>
