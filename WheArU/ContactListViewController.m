@@ -41,7 +41,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [((AppDelegate *) [[UIApplication sharedApplication] delegate]) setApplicationStateChangeDelegate:self];
+    [[WAUUtilities applicationDelegate] addApplicationStateChangeDelegate:self];
     
     contactListController = [ContactListController sharedInstance];
     [contactListController addDelegate:self];
@@ -110,6 +110,34 @@
     }
 }
 
+#pragma mark - Controls
+#pragma mark Buttons
+
+- (IBAction)didTapOnAddUser:(id)sender
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Connect with a Friend" message:@"Select one of the below options to add a new contact for Ping + Pong" preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    UIAlertAction *qrCodeAction = [UIAlertAction actionWithTitle:@"QR Code" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action)
+                                   {
+                                       [self performSegueWithIdentifier:@"AddUserWithQRCodeSegue" sender:sender];
+                                   }];
+    [alertController addAction:qrCodeAction];
+    UIAlertAction *facebookAction = [UIAlertAction actionWithTitle:@"Facebook" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action)
+                                     {
+                                         [self performSegueWithIdentifier:@"AddUserWithFacebookSegue" sender:sender];
+                                   }];
+    [alertController addAction:facebookAction];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+    [alertController addAction:cancelAction];
+    
+    [alertController setModalPresentationStyle:UIModalPresentationPopover];
+    [[alertController popoverPresentationController] setSourceView:[self view]];
+    [[alertController popoverPresentationController] setSourceRect:[[self view] bounds]];
+    [[alertController popoverPresentationController] setPermittedArrowDirections:0];
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
 #pragma mark - Functions
 #pragma mark Support
 
@@ -148,8 +176,10 @@
 - (void)listUpdated:(ContactListController *)controller
 {
     if (![WAUUtilities isApplicationRunningInBackground]) {
-        [contactListTableView reloadData];
-        [contactListTableView layoutIfNeeded];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [contactListTableView reloadData];
+            [contactListTableView layoutIfNeeded];
+        });
     }
 }
 
@@ -209,7 +239,9 @@
 
 - (void)willEnterForeground
 {
-    [contactListTableView reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [contactListTableView reloadData];
+    });
 }
 
 @end

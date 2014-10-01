@@ -17,6 +17,7 @@
 #import "WAULog.h"
 #import "WAUServerConnector.h"
 #import "WAUServerConnectorRequest.h"
+#import "WAUUtilities.h"
 
 @implementation ContactListController
 {
@@ -29,7 +30,7 @@
 - (id)init
 {
     if (self = [super init]) {
-        managedObjectContext = [(AppDelegate *) [[UIApplication sharedApplication] delegate] managedObjectContext];
+        managedObjectContext = [[WAUUtilities applicationDelegate] managedObjectContext];
         delegateList = [[NSMutableArray alloc] init];
         userIdContactListDictionary = [[NSMutableDictionary alloc] init];
         

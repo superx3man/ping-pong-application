@@ -9,8 +9,12 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
+#import "AppDelegate.h"
+
 
 @interface WAUUtilities : NSObject
+
++ (AppDelegate *)applicationDelegate;
 
 + (BOOL)isUserNotificationBadgeEnabled;
 + (BOOL)isApplicationRunningInBackground;

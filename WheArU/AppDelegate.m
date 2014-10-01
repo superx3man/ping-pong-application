@@ -26,11 +26,17 @@
 
 @implementation AppDelegate
 {
-    BOOL isAppLaunching;
+    NSMutableArray *applicationStateChangeDelegateList;
+    NSMutableDictionary *externalURLSchemeDelegateList;
 }
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [FBFriendPickerViewController class];
+    
+    applicationStateChangeDelegateList = [[NSMutableArray alloc] init];
+    externalURLSchemeDelegateList = [[NSMutableDictionary alloc] init];
+    
     [LocationController sharedInstance];
     
     [ContactListController sharedInstance];
@@ -54,19 +60,54 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
-    if ([self applicationStateChangeDelegate] != nil) {
-        if ([[self applicationStateChangeDelegate] respondsToSelector:@selector(willEnterForeground)]) [[self applicationStateChangeDelegate] willEnterForeground];
+    for (id retainedDelegate in applicationStateChangeDelegateList) {
+        id<ApplicationStateChangeDelegate> delegate = [retainedDelegate nonretainedObjectValue];
+        if ([delegate respondsToSelector:@selector(willEnterForeground)]) [delegate willEnterForeground];
     }
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
     [[NotificationController sharedInstance] syncLocationRequestFromServer];
+    
+    for (id retainedDelegate in applicationStateChangeDelegateList) {
+        id<ApplicationStateChangeDelegate> delegate = [retainedDelegate nonretainedObjectValue];
+        if ([delegate respondsToSelector:@selector(didBecomeActive)]) [delegate didBecomeActive];
+    }
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     [self saveContext];
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    for (NSString *applicationKeyWord in externalURLSchemeDelegateList) {
+        if ([sourceApplication rangeOfString:applicationKeyWord].location != NSNotFound) {
+            id<ExternalURLSchemeDelegate> delegate = [[externalURLSchemeDelegateList objectForKey:applicationKeyWord] nonretainedObjectValue];
+            return [delegate handleOpenURL:url sourceApplication:sourceApplication];
+        }
+    }
+    return false;
+}
+
+#pragma mark - Functions
+#pragma mark External
+
+- (void)addApplicationStateChangeDelegate:(id<ApplicationStateChangeDelegate>)delegate
+{
+    [applicationStateChangeDelegateList addObject:[NSValue valueWithNonretainedObject:delegate]];
+}
+
+- (void)addExternalURLSchemeDelegate:(id<ExternalURLSchemeDelegate>)delegate forApplicationKeyWord:(NSString *)applicationKeyWord
+{
+    [externalURLSchemeDelegateList setObject:[NSValue valueWithNonretainedObject:delegate] forKey:applicationKeyWord];
+}
+
+- (void)removeExternalURLSchemeDelegateforApplicationKeyWord:(NSString *)applicationKeyWord
+{
+    [externalURLSchemeDelegateList removeObjectForKey:applicationKeyWord];
 }
 
 #pragma mark - Protocol Delegates

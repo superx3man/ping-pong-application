@@ -17,6 +17,8 @@ extern NSString *const kWAUServerEndpointContactSync;
 extern NSString *const kWAUServerEndpointPing;
 extern NSString *const kWAUServerEndpointPingSync;
 extern NSString *const kWAUServerEndpointUserRelation;
+extern NSString *const kWAUServerEndpointLinkExternal;
+extern NSString *const kWAUServerEndpointSyncLink;
 
 extern NSString *const kWAUDictionaryKeyDevelopment;
 
@@ -33,6 +35,7 @@ extern NSString *const kWAUDictionaryKeyGeneratedKey;
 
 extern NSString *const kWAUDictionaryKeyModifiedList;
 
+extern NSString *const kWAUDictionaryKeyContactList;
 extern NSString *const kWAUDictionaryKeyContactId;
 extern NSString *const kWAUDictionaryKeyIsNewContact;
 
@@ -45,7 +48,16 @@ extern NSString *const kWAUDictionaryKeyPingCount;
 
 extern NSString *const kWAUDictionaryKeyRelationType;
 
+extern NSString *const kWAUDictionaryKeyExternalId;
+extern NSString *const kWAUDictionaryKeyExternalList;
+extern NSString *const kWAUDictionaryKeyExternalType;
+
 extern float const kWAUContactUpdateAnimationDuration;
+
+typedef NS_ENUM(int, WAUExternalPlatform)
+{
+    WAUExternalPlatformFacebook
+};
 
 @interface WAUConstant : NSObject
 

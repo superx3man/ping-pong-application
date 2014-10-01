@@ -442,7 +442,7 @@
                                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                         </state>
                                                         <connections>
-                                                            <segue destination="iTU-wf-Uni" kind="presentation" identifier="AddUserWithQRCodeSegue" modalPresentationStyle="fullScreen" id="B9O-G4-zTg"/>
+                                                            <action selector="didTapOnAddUser:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Wxd-fG-RMW"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -754,6 +754,8 @@
                         <outlet property="profileSettingsButton" destination="sl1-ik-I27" id="GZm-Pn-fYf"/>
                         <segue destination="bqd-eM-rdp" kind="presentation" identifier="RegisterUserSegue" modalPresentationStyle="fullScreen" animates="NO" id="MO3-5S-Go4"/>
                         <segue destination="VRP-ka-veb" kind="show" identifier="OpenMapViewSegue" id="s3T-Wk-rDd"/>
+                        <segue destination="iTU-wf-Uni" kind="presentation" identifier="AddUserWithQRCodeSegue" modalPresentationStyle="fullScreen" id="4BG-ce-nu5"/>
+                        <segue destination="JOu-Vj-7FZ" kind="presentation" identifier="AddUserWithFacebookSegue" modalPresentationStyle="fullScreen" id="pwt-Ht-AtB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -1011,7 +1013,7 @@
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-1602" y="996"/>
+            <point key="canvasLocation" x="-1602" y="997"/>
         </scene>
         <!--Update User Color-->
         <scene sceneID="OwB-vW-iRO">
@@ -1190,10 +1192,10 @@
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o7E-VW-Abq">
-                                        <rect key="frame" x="175" y="264" width="117" height="36"/>
+                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o7E-VW-Abq">
+                                        <rect key="frame" x="170" y="264" width="122" height="36"/>
                                         <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="17"/>
-                                        <state key="normal" title="I got no code :(">
+                                        <state key="normal" title="I got no code :(.">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                             <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </state>
@@ -1235,6 +1237,187 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3wk-OR-mjw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="150" y="997"/>
+        </scene>
+        <!--Add Contact With Facebook View Controller-->
+        <scene sceneID="P5x-bh-Aq4">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="kg0-83-FbT" customClass="AddContactWithFacebookViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="88K-t4-iLH"/>
+                        <viewControllerLayoutGuide type="bottom" id="omv-lC-W2u"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="0hI-bQ-1qZ">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eCI-Wg-bmp">
+                                <rect key="frame" x="150" y="150" width="300" height="300"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Connecting with Facebook" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jH2-It-5Pt">
+                                        <rect key="frame" x="47" y="98" width="206" height="24"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="17"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Seems like you don't have any friend using Ping + Pong :(." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pki-eA-ELC">
+                                        <rect key="frame" x="8" y="77" width="284" height="47"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="17"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="An error may have occured, please re-login to Facebook" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WGR-6A-26x">
+                                        <rect key="frame" x="8" y="87" width="284" height="47"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="17"/>
+                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hUq-UT-QzL">
+                                        <rect key="frame" x="90" y="172" width="120" height="36"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="17"/>
+                                        <state key="normal" title="Try again later~">
+                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="tapOnExitButton:" destination="kg0-83-FbT" eventType="touchUpInside" id="1Wf-r7-oQe"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rC3-9N-ZCr">
+                                        <rect key="frame" x="188" y="264" width="104" height="36"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="17"/>
+                                        <state key="normal" title="Add No One!">
+                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="tapOnExitButton:" destination="kg0-83-FbT" eventType="touchUpInside" id="MYA-ok-OCp"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fVo-da-A3R">
+                                        <rect key="frame" x="8" y="264" width="159" height="36"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="17"/>
+                                        <state key="normal" title="Connect with friends">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="tapOnConnectButton:" destination="kg0-83-FbT" eventType="touchUpInside" id="OEp-oa-Bbc"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jis-bN-Sgf">
+                                        <rect key="frame" x="8" y="172" width="102" height="36"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="17"/>
+                                        <state key="normal" title="Knock knock!">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="tapOnLoginButton:" destination="kg0-83-FbT" eventType="touchUpInside" id="ESa-u5-HmO"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5If-W7-cJB">
+                                        <rect key="frame" x="248" y="172" width="44" height="36"/>
+                                        <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="17"/>
+                                        <state key="normal" title="Nope">
+                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="tapOnExitButton:" destination="kg0-83-FbT" eventType="touchUpInside" id="7M8-5S-bHU"/>
+                                        </connections>
+                                    </button>
+                                    <tableView clipsSubviews="YES" alpha="0.0" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="RpR-D5-BwB">
+                                        <rect key="frame" x="0.0" y="0.0" width="300" height="256"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <prototypes>
+                                            <tableViewCell contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="FacebookFriendCell" rowHeight="44" id="Ohn-oH-vtn" customClass="FacebookFriendListTableViewCell">
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ohn-oH-vtn" id="FvK-Yg-G1u">
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ogM-ni-jlZ">
+                                                            <rect key="frame" x="8" y="4" width="36" height="36"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="36" id="jwk-Mi-N0k"/>
+                                                                <constraint firstAttribute="width" constant="36" id="l3u-sQ-pMu"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AYm-0A-6ab">
+                                                            <rect key="frame" x="52" y="10" width="240" height="24"/>
+                                                            <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="17"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="centerY" secondItem="AYm-0A-6ab" secondAttribute="centerY" id="FoH-1W-Qsp"/>
+                                                        <constraint firstItem="AYm-0A-6ab" firstAttribute="leading" secondItem="ogM-ni-jlZ" secondAttribute="trailing" constant="8" id="K7p-LP-8gA"/>
+                                                        <constraint firstItem="ogM-ni-jlZ" firstAttribute="leading" secondItem="FvK-Yg-G1u" secondAttribute="leadingMargin" id="L2G-F3-ZRO"/>
+                                                        <constraint firstItem="AYm-0A-6ab" firstAttribute="trailing" secondItem="FvK-Yg-G1u" secondAttribute="trailingMargin" id="Ltc-yT-vaJ"/>
+                                                        <constraint firstAttribute="centerY" secondItem="ogM-ni-jlZ" secondAttribute="centerY" id="Wi4-MO-doG"/>
+                                                    </constraints>
+                                                </tableViewCellContentView>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                <connections>
+                                                    <outlet property="nameLabel" destination="AYm-0A-6ab" id="FxD-HM-Bv9"/>
+                                                    <outlet property="pictureImageView" destination="ogM-ni-jlZ" id="iur-yz-GRK"/>
+                                                </connections>
+                                            </tableViewCell>
+                                        </prototypes>
+                                    </tableView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="centerY" secondItem="Jis-bN-Sgf" secondAttribute="centerY" constant="-40" id="2eW-nG-PYG"/>
+                                    <constraint firstItem="RpR-D5-BwB" firstAttribute="top" secondItem="eCI-Wg-bmp" secondAttribute="top" id="3Ya-xF-8eR"/>
+                                    <constraint firstItem="fVo-da-A3R" firstAttribute="leading" secondItem="eCI-Wg-bmp" secondAttribute="leading" constant="8" id="59w-Yz-yIx"/>
+                                    <constraint firstAttribute="centerY" secondItem="5If-W7-cJB" secondAttribute="centerY" constant="-40" id="5mj-dM-JFc"/>
+                                    <constraint firstItem="Pki-eA-ELC" firstAttribute="leading" secondItem="eCI-Wg-bmp" secondAttribute="leading" constant="8" id="6qv-qF-DpW"/>
+                                    <constraint firstAttribute="centerX" secondItem="WGR-6A-26x" secondAttribute="centerX" id="80W-QQ-3dB"/>
+                                    <constraint firstItem="WGR-6A-26x" firstAttribute="leading" secondItem="eCI-Wg-bmp" secondAttribute="leading" constant="8" id="AWY-PB-29e"/>
+                                    <constraint firstAttribute="trailing" secondItem="WGR-6A-26x" secondAttribute="trailing" constant="8" id="AYa-xz-9RC"/>
+                                    <constraint firstAttribute="trailing" secondItem="rC3-9N-ZCr" secondAttribute="trailing" constant="8" id="ByJ-9i-yLf"/>
+                                    <constraint firstAttribute="trailing" secondItem="RpR-D5-BwB" secondAttribute="trailing" id="FAW-Vj-0c6"/>
+                                    <constraint firstItem="fVo-da-A3R" firstAttribute="top" secondItem="RpR-D5-BwB" secondAttribute="bottom" constant="8" id="Gdy-Zj-r3j"/>
+                                    <constraint firstAttribute="centerY" secondItem="jH2-It-5Pt" secondAttribute="centerY" constant="40" id="IP3-Pa-eiv"/>
+                                    <constraint firstAttribute="centerY" secondItem="hUq-UT-QzL" secondAttribute="centerY" constant="-40" id="IiU-nu-FoL"/>
+                                    <constraint firstAttribute="trailing" secondItem="5If-W7-cJB" secondAttribute="trailing" constant="8" id="Jt3-RJ-Kwz"/>
+                                    <constraint firstItem="RpR-D5-BwB" firstAttribute="leading" secondItem="eCI-Wg-bmp" secondAttribute="leading" id="LUi-Dq-vQl"/>
+                                    <constraint firstAttribute="centerX" secondItem="hUq-UT-QzL" secondAttribute="centerX" id="Q6V-uO-NoT"/>
+                                    <constraint firstAttribute="height" constant="300" id="RKM-y5-8D0"/>
+                                    <constraint firstAttribute="centerY" secondItem="Pki-eA-ELC" secondAttribute="centerY" constant="50" id="Ruq-Ze-pbx"/>
+                                    <constraint firstAttribute="width" constant="300" id="SeT-XE-qcC"/>
+                                    <constraint firstAttribute="centerX" secondItem="jH2-It-5Pt" secondAttribute="centerX" id="U7V-cK-W43"/>
+                                    <constraint firstAttribute="centerY" secondItem="WGR-6A-26x" secondAttribute="centerY" constant="40" id="e1C-7J-Hyk"/>
+                                    <constraint firstAttribute="bottom" secondItem="fVo-da-A3R" secondAttribute="bottom" id="eto-23-bLZ"/>
+                                    <constraint firstItem="Jis-bN-Sgf" firstAttribute="leading" secondItem="eCI-Wg-bmp" secondAttribute="leading" constant="8" id="jF9-Lq-kzg"/>
+                                    <constraint firstAttribute="centerX" secondItem="Pki-eA-ELC" secondAttribute="centerX" id="qJQ-so-IqI"/>
+                                    <constraint firstAttribute="bottom" secondItem="rC3-9N-ZCr" secondAttribute="bottom" id="x0B-pK-mN2"/>
+                                    <constraint firstAttribute="trailing" secondItem="Pki-eA-ELC" secondAttribute="trailing" constant="8" id="yij-Jq-dVT"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerY" secondItem="eCI-Wg-bmp" secondAttribute="centerY" id="swq-TK-764"/>
+                            <constraint firstAttribute="centerX" secondItem="eCI-Wg-bmp" secondAttribute="centerX" id="tTe-vr-3b7"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="ZGd-of-8PC"/>
+                    <connections>
+                        <outlet property="cancelButton" destination="rC3-9N-ZCr" id="AUf-ZC-Ylq"/>
+                        <outlet property="connectButton" destination="fVo-da-A3R" id="Swx-IG-qgQ"/>
+                        <outlet property="connectingLabel" destination="jH2-It-5Pt" id="bTo-YF-pR6"/>
+                        <outlet property="errorLabel" destination="WGR-6A-26x" id="1M6-N8-jck"/>
+                        <outlet property="errorOutButton" destination="5If-W7-cJB" id="frT-fK-heA"/>
+                        <outlet property="friendListTableView" destination="RpR-D5-BwB" id="Ns3-mo-trd"/>
+                        <outlet property="loginButton" destination="Jis-bN-Sgf" id="hkn-ua-3aT"/>
+                        <outlet property="sorryLabel" destination="Pki-eA-ELC" id="i7q-87-kgx"/>
+                        <outlet property="tryAgainButton" destination="hUq-UT-QzL" id="Wwd-QB-ERw"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DQ3-65-CGY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="150" y="1890"/>
         </scene>
         <!--ID Card-->
         <scene sceneID="vdd-Gs-Knu">
@@ -1334,6 +1517,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JgU-r3-Dhl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2585" y="108"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="pfl-hl-X8G">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="JOu-Vj-7FZ" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="RjG-8O-pj5">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="kg0-83-FbT" kind="relationship" relationship="rootViewController" id="byG-kE-kbv"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gVd-Bg-wu2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-662" y="1890"/>
         </scene>
     </scenes>
     <resources>

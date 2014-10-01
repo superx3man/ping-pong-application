@@ -52,6 +52,10 @@
 		4DB408DB19D8C54A00397D6F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D54BCE219D8BFBF004F2591 /* Foundation.framework */; };
 		4DB408DC19D8C55B00397D6F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D54BCE819D8C02D004F2591 /* CoreGraphics.framework */; };
 		4DB408DD19D8C56100397D6F /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DB408D619D8C33300397D6F /* ImageIO.framework */; };
+		4DC162E419DA0B4F00C9BA7A /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DC162E319DA0B4F00C9BA7A /* FacebookSDK.framework */; };
+		4DC162E819DA47C500C9BA7A /* AddContactWithFacebookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC162E719DA47C500C9BA7A /* AddContactWithFacebookViewController.m */; };
+		4DC162EE19DB869400C9BA7A /* FacebookFriendListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC162ED19DB869400C9BA7A /* FacebookFriendListTableViewCell.m */; };
+		4DC162F119DB8C2E00C9BA7A /* FacebookUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC162F019DB8C2E00C9BA7A /* FacebookUser.m */; };
 		4DD3F54B19CB42F700A77C1C /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DD3F54A19CB42F700A77C1C /* CoreData.framework */; };
 		4DD3F54D19CB42FD00A77C1C /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DD3F54C19CB42FD00A77C1C /* CoreLocation.framework */; };
 		4DD3F55019CB433000A77C1C /* LocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD3F54F19CB433000A77C1C /* LocationController.m */; };
@@ -157,6 +161,13 @@
 		4D8C62DD19B6B7E900F59CFF /* UsernameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UsernameViewController.m; sourceTree = "<group>"; };
 		4DB408D619D8C33300397D6F /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		4DB408D919D8C49A00397D6F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
+		4DC162E319DA0B4F00C9BA7A /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../Documents/FacebookSDK/FacebookSDK.framework; sourceTree = "<group>"; };
+		4DC162E619DA47C500C9BA7A /* AddContactWithFacebookViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddContactWithFacebookViewController.h; sourceTree = "<group>"; };
+		4DC162E719DA47C500C9BA7A /* AddContactWithFacebookViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddContactWithFacebookViewController.m; sourceTree = "<group>"; };
+		4DC162EC19DB869400C9BA7A /* FacebookFriendListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookFriendListTableViewCell.h; sourceTree = "<group>"; };
+		4DC162ED19DB869400C9BA7A /* FacebookFriendListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookFriendListTableViewCell.m; sourceTree = "<group>"; };
+		4DC162EF19DB8C2E00C9BA7A /* FacebookUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookUser.h; sourceTree = "<group>"; };
+		4DC162F019DB8C2E00C9BA7A /* FacebookUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookUser.m; sourceTree = "<group>"; };
 		4DD3F54A19CB42F700A77C1C /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		4DD3F54C19CB42FD00A77C1C /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		4DD3F54E19CB433000A77C1C /* LocationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationController.h; sourceTree = "<group>"; };
@@ -219,6 +230,7 @@
 				4DB408DB19D8C54A00397D6F /* Foundation.framework in Frameworks */,
 				4DB408DA19D8C54000397D6F /* UIKit.framework in Frameworks */,
 				4DD698AC19C4F29700D9D65D /* SystemConfiguration.framework in Frameworks */,
+				4DC162E419DA0B4F00C9BA7A /* FacebookSDK.framework in Frameworks */,
 				4DEAF5A519C87C0200CC1EC8 /* AVFoundation.framework in Frameworks */,
 				4D79C3A019D3C08D00CEB1E4 /* QuartzCore.framework in Frameworks */,
 				4D44828019CB949E007E3220 /* Security.framework in Frameworks */,
@@ -473,6 +485,8 @@
 		4D8C11D719C6377E00698F6D /* QRCode */ = {
 			isa = PBXGroup;
 			children = (
+				4D8C11DD19C66A7700698F6D /* AddContactWithQRCodeViewController.h */,
+				4D8C11DE19C66A7700698F6D /* AddContactWithQRCodeViewController.m */,
 				4D8C11D819C637B600698F6D /* IDCardViewController.h */,
 				4D8C11D919C637B600698F6D /* IDCardViewController.m */,
 			);
@@ -482,11 +496,23 @@
 		4D8C11DC19C66A3B00698F6D /* AddContacts */ = {
 			isa = PBXGroup;
 			children = (
+				4DC162E519DA478C00C9BA7A /* Facebook */,
 				4D8C11D719C6377E00698F6D /* QRCode */,
-				4D8C11DD19C66A7700698F6D /* AddContactWithQRCodeViewController.h */,
-				4D8C11DE19C66A7700698F6D /* AddContactWithQRCodeViewController.m */,
 			);
 			name = AddContacts;
+			sourceTree = "<group>";
+		};
+		4DC162E519DA478C00C9BA7A /* Facebook */ = {
+			isa = PBXGroup;
+			children = (
+				4DC162E619DA47C500C9BA7A /* AddContactWithFacebookViewController.h */,
+				4DC162E719DA47C500C9BA7A /* AddContactWithFacebookViewController.m */,
+				4DC162EC19DB869400C9BA7A /* FacebookFriendListTableViewCell.h */,
+				4DC162ED19DB869400C9BA7A /* FacebookFriendListTableViewCell.m */,
+				4DC162EF19DB8C2E00C9BA7A /* FacebookUser.h */,
+				4DC162F019DB8C2E00C9BA7A /* FacebookUser.m */,
+			);
+			name = Facebook;
 			sourceTree = "<group>";
 		};
 		4DD564BE19D9D28100A108D3 /* APAsyncDictionary */ = {
@@ -518,6 +544,7 @@
 				4DD3F54A19CB42F700A77C1C /* CoreData.framework */,
 				4D54BCE819D8C02D004F2591 /* CoreGraphics.framework */,
 				4DD3F54C19CB42FD00A77C1C /* CoreLocation.framework */,
+				4DC162E319DA0B4F00C9BA7A /* FacebookSDK.framework */,
 				4D54BCE219D8BFBF004F2591 /* Foundation.framework */,
 				4DB408D619D8C33300397D6F /* ImageIO.framework */,
 				4D49A89F19CFCF1400F8B382 /* MapKit.framework */,
@@ -713,6 +740,7 @@
 				4DEAF5B819C886BB00CC1EC8 /* RNEncryptor.m in Sources */,
 				4DEAF5B519C886BB00CC1EC8 /* RNCryptor.m in Sources */,
 				4D5BD6D719CF179000B7BC01 /* WAUConstant.m in Sources */,
+				4DC162F119DB8C2E00C9BA7A /* FacebookUser.m in Sources */,
 				4DD698B019C4FC6A00D9D65D /* WAULog.m in Sources */,
 				4D1A983D19D2007C0017CC7D /* MKMapView+SharedInstance.m in Sources */,
 				4D8267CA19B3BA6E00076974 /* AppDelegate.m in Sources */,
@@ -733,6 +761,7 @@
 				4D8C11DF19C66A7700698F6D /* AddContactWithQRCodeViewController.m in Sources */,
 				4D48C66A19BB984100D09FDA /* User.m in Sources */,
 				4D48C67319BCC92800D09FDA /* UpdateUserColorViewController.m in Sources */,
+				4DC162EE19DB869400C9BA7A /* FacebookFriendListTableViewCell.m in Sources */,
 				4D09BF7F19D0CD840009D0CF /* ContactMapAnnotationView.m in Sources */,
 				4D79C3A419D3C18600CEB1E4 /* UIView+Shake.m in Sources */,
 				4D44828A19CBC133007E3220 /* NSData+Conversion.m in Sources */,
@@ -742,6 +771,7 @@
 				4DD564C419D9D2BD00A108D3 /* NSThread+Block.m in Sources */,
 				4D8267CD19B3BA6E00076974 /* WheArU.xcdatamodeld in Sources */,
 				4DD698AA19C4F27F00D9D65D /* Reachability.m in Sources */,
+				4DC162E819DA47C500C9BA7A /* AddContactWithFacebookViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -846,6 +876,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/calvinng/Documents/FacebookSDK,
+				);
 				INFOPLIST_FILE = WheArU/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -869,6 +903,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/calvinng/Documents/FacebookSDK,
+				);
 				INFOPLIST_FILE = WheArU/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

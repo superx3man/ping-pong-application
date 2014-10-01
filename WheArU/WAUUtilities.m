@@ -11,6 +11,11 @@
 
 @implementation WAUUtilities
 
++ (AppDelegate *)applicationDelegate
+{
+    return (AppDelegate *) [[UIApplication sharedApplication] delegate];
+}
+
 + (BOOL)isUserNotificationBadgeEnabled
 {
     UIUserNotificationSettings *settings = [[UIApplication sharedApplication] currentUserNotificationSettings];

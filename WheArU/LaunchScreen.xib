@@ -15,7 +15,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bNc-RV-12i">
                     <rect key="frame" x="0.0" y="0.0" width="496" height="477"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_1024_1024.png" translatesAutoresizingMaskIntoConstraints="NO" id="KiS-53-JPe">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="icon_1024_1024.png" translatesAutoresizingMaskIntoConstraints="NO" id="KiS-53-JPe">
                             <rect key="frame" x="89" y="80" width="318" height="318"/>
                             <constraints>
                                 <constraint firstAttribute="width" secondItem="KiS-53-JPe" secondAttribute="height" multiplier="1:1" id="f8s-qD-q2S"/>

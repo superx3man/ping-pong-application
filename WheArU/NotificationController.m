@@ -34,7 +34,7 @@ NSString *const kWAUNotificationActionIdentifierSend = @"kWAUNotificationActionI
     if (self = [super init]) {
         delegateList = [[NSMutableArray alloc] init];
         
-        [((AppDelegate *) [[UIApplication sharedApplication] delegate]) setNotificationRegistrationDelegate:self];
+        [[WAUUtilities applicationDelegate] setNotificationRegistrationDelegate:self];
     }
     return self;
 }

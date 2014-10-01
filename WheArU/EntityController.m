@@ -11,6 +11,7 @@
 #import "AppDelegate.h"
 
 #import "UIColor+Hex.h"
+#import "WAUUtilities.h"
 
 
 @implementation EntityController
@@ -18,7 +19,7 @@
 - (id)init
 {
     if (self = [super init]) {
-        _managedObjectContext = [(AppDelegate *) [[UIApplication sharedApplication] delegate] managedObjectContext];
+        _managedObjectContext = [[WAUUtilities applicationDelegate] managedObjectContext];
     }
     return self;
 }
