@@ -27,11 +27,27 @@
     return [[UIApplication sharedApplication] applicationState] == UIApplicationStateBackground;
 }
 
++ (BOOL)shouldShowHelpScreen:(NSString *)identifier
+{
+    NSString *userDefaultKey = [NSString stringWithFormat:@"ShouldShowHelpScreen%@", identifier];
+    BOOL shouldShow = [[NSUserDefaults standardUserDefaults] objectForKey:userDefaultKey] == nil;
+    if (shouldShow) [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:1] forKey:userDefaultKey];
+    return shouldShow;
+}
+
 + (BOOL)shouldShowUserHelpScreen
 {
-    BOOL shouldShow = [[NSUserDefaults standardUserDefaults] objectForKey:@"ShouldShowUserHelpScreen"] == nil;
-    if (shouldShow) [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:1] forKey:@"ShouldShowUserHelpScreen"];
-    return shouldShow;
+    return [self shouldShowHelpScreen:@"User"];
+}
+
++ (BOOL)shouldShowContactHelpScreen
+{
+    return [self shouldShowHelpScreen:@"Contact"];
+}
+
++ (BOOL)shouldShowMapHelpScreen
+{
+    return [self shouldShowHelpScreen:@"Map"];
 }
 
 @end

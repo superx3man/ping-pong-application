@@ -58,6 +58,9 @@
     [[profileSettingsButton imageView] setContentMode:UIViewContentModeScaleAspectFit];
     [addContactButton setImage:[[[addContactButton imageView] image] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
     [[addContactButton imageView] setContentMode:UIViewContentModeScaleAspectFit];
+    
+    [addContactButton setEnabled:NO];
+    [[EncryptionController sharedInstance] addDelegate:self];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -88,9 +91,8 @@
     [super viewDidAppear:animated];
     
     if (![userController isUserRegistered]) [self performSegueWithIdentifier:@"RegisterUserSegue" sender:self];
-    else {
-        if ([WAUUtilities shouldShowUserHelpScreen]) [self performSegueWithIdentifier:@"ShowContactListHelpSegue" sender:self];
-    }
+    else if ([WAUUtilities shouldShowUserHelpScreen]) [self performSegueWithIdentifier:@"ShowContactListHelpSegue" sender:self];
+    else if ([[contactListController recentContactList] count] > 0 && [WAUUtilities shouldShowContactHelpScreen]) [self performSegueWithIdentifier:@"ShowContactHelpSegue" sender:self];
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
@@ -109,7 +111,7 @@
         ContactMapViewController *contactMapViewController = (ContactMapViewController *) [segue destinationViewController];
         [contactMapViewController setContactController:(ContactController *) sender];
     }
-    else if ([[segue identifier] isEqualToString:@"ShowContactListHelpSegue"]) {
+    else if ([[segue identifier] isEqualToString:@"ShowContactListHelpSegue"] || [[segue identifier] isEqualToString:@"ShowContactHelpSegue"]) {
         [[segue destinationViewController] setModalPresentationStyle:UIModalPresentationCustom];
     }
 }
@@ -255,6 +257,15 @@
 {
     dispatch_async(dispatch_get_main_queue(), ^{
         [contactListTableView reloadData];
+    });
+}
+
+#pragma mark EncryptionControllerDelegate
+
+- (void)controllerDidSetGeneratedKey:(EncryptionController *)controller
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [addContactButton setEnabled:YES];
     });
 }
 

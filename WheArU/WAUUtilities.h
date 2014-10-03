@@ -20,5 +20,7 @@
 + (BOOL)isApplicationRunningInBackground;
 
 + (BOOL)shouldShowUserHelpScreen;
++ (BOOL)shouldShowContactHelpScreen;
++ (BOOL)shouldShowMapHelpScreen;
 
 @end

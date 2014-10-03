@@ -18,6 +18,7 @@
 #import "MKMapView+SharedInstance.h"
 #import "UIView+Shake.h"
 #import "WAUConstant.h"
+#import "WAUUtilities.h"
 
 
 @interface ContactMapViewController ()
@@ -113,6 +114,13 @@
     [self scrollToOriginalPositionAnimated:NO];
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    
+    if ([WAUUtilities shouldShowMapHelpScreen])  [self performSelector:@selector(showHelpScreen) withObject:nil afterDelay:0.f];
+}
+
 - (void)viewDidDisappear:(BOOL)animated
 {
     [contactMapView setShowsUserLocation:NO];
@@ -136,6 +144,13 @@
      {
          [self scrollToOriginalPositionAnimated:YES];
      } completion:nil];
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"ShowMapHelpSegue"]) {
+        [[segue destinationViewController] setModalPresentationStyle:UIModalPresentationCustom];
+    }
 }
 
 #pragma mark - Controls
@@ -171,6 +186,11 @@
 
 #pragma mark - Functions
 #pragma mark Support
+
+- (void)showHelpScreen
+{
+    [self performSegueWithIdentifier:@"ShowMapHelpSegue" sender:self];
+}
 
 - (void)scrollToOriginalPositionAnimated:(BOOL)animated
 {

@@ -44,7 +44,7 @@
         if (requestResult != nil && [requestResult count] >= 1) {
             currentUser = (User *) [requestResult lastObject];
             if ([currentUser userId] != nil) [self setUserId:[currentUser userId]];
-            else [self registerUser];
+            else [self performSelectorInBackground:@selector(registerUser) withObject:nil];
             
             [super setUsername:[currentUser username]];
             [super setUserColor:[UIColor colorFromHexString:[currentUser userColor]]];
@@ -90,7 +90,7 @@
     [request setFailureHandler:^(WAUServerConnectorRequest *connectorRequest)
      {
          [WAULog log:@"failed to register user" from:self];
-         [self performSelector:@selector(registerUser) withObject:nil afterDelay:60];
+         [self performSelector:@selector(registerUser) withObject:nil afterDelay:10];
      }];
     [request setSuccessHandler:^(WAUServerConnectorRequest *connectorRequest, NSObject *requestResult)
      {
@@ -161,7 +161,7 @@
         [[self managedObjectContext] save:nil];
         
         _fetchCount = 0;
-        [self registerUser];
+        [self performSelectorInBackground:@selector(registerUser) withObject:nil];
     }
 }
 

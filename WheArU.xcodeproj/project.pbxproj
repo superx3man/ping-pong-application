@@ -38,6 +38,8 @@
 		4D8267D319B3BA6E00076974 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D8267D119B3BA6E00076974 /* Main.storyboard */; };
 		4D8267D519B3BA6E00076974 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D8267D419B3BA6E00076974 /* Images.xcassets */; };
 		4D8267F119B3D29400076974 /* ContactListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D8267F019B3D29400076974 /* ContactListViewController.m */; };
+		4D86B9FD19DE4E2100E0C529 /* ContactHelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D86B9FC19DE4E2100E0C529 /* ContactHelpViewController.m */; };
+		4D86BA0019DE56D700E0C529 /* MapHelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D86B9FF19DE56D700E0C529 /* MapHelpViewController.m */; };
 		4D8C11CD19C6321800698F6D /* id_card.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D8C11CB19C6321800698F6D /* id_card.png */; };
 		4D8C11CE19C6321800698F6D /* id_card@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D8C11CC19C6321800698F6D /* id_card@2x.png */; };
 		4D8C11D119C6328A00698F6D /* profile_settings.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D8C11CF19C6328A00698F6D /* profile_settings.png */; };
@@ -150,6 +152,10 @@
 		4D8267E019B3BA6E00076974 /* WheArUTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WheArUTests.m; sourceTree = "<group>"; };
 		4D8267EF19B3D29400076974 /* ContactListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactListViewController.h; sourceTree = "<group>"; };
 		4D8267F019B3D29400076974 /* ContactListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactListViewController.m; sourceTree = "<group>"; };
+		4D86B9FB19DE4E2100E0C529 /* ContactHelpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactHelpViewController.h; sourceTree = "<group>"; };
+		4D86B9FC19DE4E2100E0C529 /* ContactHelpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactHelpViewController.m; sourceTree = "<group>"; };
+		4D86B9FE19DE56D700E0C529 /* MapHelpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapHelpViewController.h; sourceTree = "<group>"; };
+		4D86B9FF19DE56D700E0C529 /* MapHelpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapHelpViewController.m; sourceTree = "<group>"; };
 		4D8C11CB19C6321800698F6D /* id_card.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = id_card.png; sourceTree = "<group>"; };
 		4D8C11CC19C6321800698F6D /* id_card@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "id_card@2x.png"; sourceTree = "<group>"; };
 		4D8C11CF19C6328A00698F6D /* profile_settings.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = profile_settings.png; sourceTree = "<group>"; };
@@ -532,10 +538,14 @@
 		4DC162F719DCFB6400C9BA7A /* Help */ = {
 			isa = PBXGroup;
 			children = (
+				4D86B9FB19DE4E2100E0C529 /* ContactHelpViewController.h */,
+				4D86B9FC19DE4E2100E0C529 /* ContactHelpViewController.m */,
 				4DC162F819DCFB7F00C9BA7A /* ContactListHelpViewController.h */,
 				4DC162F919DCFB7F00C9BA7A /* ContactListHelpViewController.m */,
 				4DC162FB19DD029400C9BA7A /* HelpNonAnimatedTransitioning.h */,
 				4DC162FC19DD029400C9BA7A /* HelpNonAnimatedTransitioning.m */,
+				4D86B9FE19DE56D700E0C529 /* MapHelpViewController.h */,
+				4D86B9FF19DE56D700E0C529 /* MapHelpViewController.m */,
 			);
 			name = Help;
 			sourceTree = "<group>";
@@ -790,6 +800,7 @@
 				4D09BF7C19D0C2360009D0CF /* ContactMapAnnotation.m in Sources */,
 				4D8C11DA19C637B600698F6D /* IDCardViewController.m in Sources */,
 				4D4C613119B52D41003AB18B /* UIColor+Hex.m in Sources */,
+				4D86B9FD19DE4E2100E0C529 /* ContactHelpViewController.m in Sources */,
 				4D8267C719B3BA6E00076974 /* main.m in Sources */,
 				4DF6EABC19CA00DD001BC176 /* WAUServerConnector.m in Sources */,
 				4DD8863919C785B1003C7CE2 /* EntityController.m in Sources */,
@@ -803,6 +814,7 @@
 				4D48C67319BCC92800D09FDA /* UpdateUserColorViewController.m in Sources */,
 				4DC162EE19DB869400C9BA7A /* FacebookFriendListTableViewCell.m in Sources */,
 				4D09BF7F19D0CD840009D0CF /* ContactMapAnnotationView.m in Sources */,
+				4D86BA0019DE56D700E0C529 /* MapHelpViewController.m in Sources */,
 				4D79C3A419D3C18600CEB1E4 /* UIView+Shake.m in Sources */,
 				4D44828A19CBC133007E3220 /* NSData+Conversion.m in Sources */,
 				4D8C62DB19B6B00900F59CFF /* RegistrationViewController.m in Sources */,
