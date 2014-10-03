@@ -35,6 +35,7 @@ NSString *const kWAUNotificationActionIdentifierSend = @"kWAUNotificationActionI
         delegateList = [[NSMutableArray alloc] init];
         
         [[WAUUtilities applicationDelegate] setNotificationRegistrationDelegate:self];
+        [[WAUUtilities applicationDelegate] addApplicationStateChangeDelegate:self];
     }
     return self;
 }
@@ -118,7 +119,6 @@ NSString *const kWAUNotificationActionIdentifierSend = @"kWAUNotificationActionI
          {
              [WAULog log:[NSString stringWithFormat:@"failed to ping contact: %@", [contact userId]] from:self];
              [contact setPingStatus:WAUContactPingStatusFailed];
-             [contact didSendNotification:NO];
              
              if (semaphore != NULL) dispatch_semaphore_signal(semaphore);
          }];
@@ -127,14 +127,11 @@ NSString *const kWAUNotificationActionIdentifierSend = @"kWAUNotificationActionI
              [WAULog log:[NSString stringWithFormat:@"ping contact: %@", [contact userId]] from:self];
              [contact setPing:0];
              [contact setPingStatus:WAUContactPingStatusSuccess];
-             [contact didSendNotification:YES];
              
              if (semaphore != NULL) dispatch_semaphore_signal(semaphore);
          }];
         [[WAUServerConnector sharedInstance] sendRequest:request withTag:[NSString stringWithFormat:@"PingContact-%@", [contact userId]]];
     } synchrounous:[WAUUtilities isApplicationRunningInBackground]];
-    
-    [contact willSendNotification];
     
     if (semaphore != NULL) dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
 }
@@ -167,7 +164,7 @@ NSString *const kWAUNotificationActionIdentifierSend = @"kWAUNotificationActionI
          }
          [[ContactListController sharedInstance] refreshContactList];
          
-         if ([WAUUtilities isUserNotificationBadgeEnabled]) [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+         if (![WAUUtilities isApplicationRunningInBackground] && [WAUUtilities isUserNotificationBadgeEnabled]) [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
          isSyncing = NO;
      }];
      [[WAUServerConnector sharedInstance] sendRequest:request withTag:@"SyncRequest"];
@@ -196,6 +193,13 @@ NSString *const kWAUNotificationActionIdentifierSend = @"kWAUNotificationActionI
 - (void)didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
 {
     [WAULog log:[NSString stringWithFormat:@"device failed to register remote notification error: %@", [error localizedDescription]] from:self];
+}
+
+#pragma mark ApplicationStateChangeDelegate
+
+- (void)didBecomeActive
+{
+    [self performSelectorInBackground:@selector(syncLocationRequestFromServer) withObject:nil];
 }
 
 @end

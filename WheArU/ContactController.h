@@ -42,12 +42,9 @@ typedef NS_ENUM(int, WAUContactPingStatus)
 
 - (void)validateContactVersion:(int)version;
 
-- (void)willSendNotification;
-- (void)didSendNotification:(BOOL)isSuccess;
-
 - (void)removeFromList;
 
-- (void)incrementPing;
+- (void)incrementPing:(int)count;
 - (void)setLastUpdated:(int64_t)lastUpdated withPingCount:(int16_t)pingCount;
 
 @end
@@ -56,6 +53,7 @@ typedef NS_ENUM(int, WAUContactPingStatus)
 
 @optional
 - (void)contactDidUpdateLocation:(ContactController *)controller;
+- (void)contactDidUpdatePingStatus:(ContactController *)controller;
 
 - (void)contactDidUpdateUsername:(ContactController *)controller;
 - (void)contactDidUpdateUserIcon:(ContactController *)controller;

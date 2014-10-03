@@ -21,4 +21,9 @@
     return self;
 }
 
+- (void)purgePicture
+{
+    _picture = nil;
+}
+
 @end

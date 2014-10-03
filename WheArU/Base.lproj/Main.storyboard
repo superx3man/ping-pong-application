@@ -377,8 +377,8 @@
                                                     <constraint firstAttribute="width" constant="68" id="jlv-vC-Qx7"/>
                                                 </constraints>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Calvin Ng" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x7l-pU-4Zy">
-                                                <rect key="frame" x="108" y="8" width="401" height="84"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x7l-pU-4Zy">
+                                                <rect key="frame" x="108" y="8" width="451" height="84"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="84" id="6yI-k8-N2Y"/>
                                                 </constraints>
@@ -387,7 +387,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BcL-GF-8NM">
-                                                <rect key="frame" x="525" y="8" width="67" height="84"/>
+                                                <rect key="frame" x="575" y="8" width="17" height="84"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="84" id="dvs-Hf-fil"/>
                                                 </constraints>
@@ -522,7 +522,7 @@
                                                                     </constraints>
                                                                 </imageView>
                                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EkP-np-ECe">
-                                                                    <rect key="frame" x="108" y="8" width="372" height="84"/>
+                                                                    <rect key="frame" x="108" y="8" width="468" height="84"/>
                                                                     <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="30"/>
                                                                     <state key="normal">
                                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -536,8 +536,7 @@
                                                                         <action selector="showTextPlaceholder:" destination="dw7-qm-jC1" eventType="touchDown" id="Nh1-6X-3J6"/>
                                                                     </connections>
                                                                 </button>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="-" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="viw-Z7-Gdf">
-                                                                    <rect key="frame" x="496" y="8" width="96" height="84"/>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="viw-Z7-Gdf">
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="84" id="MR8-eB-dIu"/>
                                                                     </constraints>
@@ -581,7 +580,7 @@
                                                                     </constraints>
                                                                 </view>
                                                                 <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hold To Ping!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oCv-O4-AEw">
-                                                                    <rect key="frame" x="108" y="8" width="372" height="84"/>
+                                                                    <rect key="frame" x="108" y="8" width="468" height="84"/>
                                                                     <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="30"/>
                                                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
@@ -756,6 +755,7 @@
                         <segue destination="VRP-ka-veb" kind="show" identifier="OpenMapViewSegue" id="s3T-Wk-rDd"/>
                         <segue destination="iTU-wf-Uni" kind="presentation" identifier="AddUserWithQRCodeSegue" modalPresentationStyle="fullScreen" id="4BG-ce-nu5"/>
                         <segue destination="JOu-Vj-7FZ" kind="presentation" identifier="AddUserWithFacebookSegue" modalPresentationStyle="fullScreen" id="pwt-Ht-AtB"/>
+                        <segue destination="qEl-CU-8S8" kind="presentation" identifier="ShowContactListHelpSegue" modalPresentationStyle="fullScreen" animates="NO" id="S0z-gZ-bdf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -787,8 +787,8 @@
                                                     <constraint firstAttribute="width" constant="68" id="sOY-qa-mTh"/>
                                                 </constraints>
                                             </imageView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Calvin Ng" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X8E-Dn-xwc">
-                                                <rect key="frame" x="100" y="8" width="380" height="84"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="clip" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X8E-Dn-xwc">
+                                                <rect key="frame" x="100" y="8" width="476" height="84"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="84" id="HWx-N2-WKX"/>
                                                 </constraints>
@@ -796,8 +796,7 @@
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="999dys" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a1E-pB-OEn">
-                                                <rect key="frame" x="496" y="8" width="96" height="84"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1000" verticalHuggingPriority="251" horizontalCompressionResistancePriority="1000" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a1E-pB-OEn">
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="84" id="ged-J1-UpF"/>
                                                 </constraints>
@@ -1013,7 +1012,7 @@
                     </connections>
                 </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-1602" y="997"/>
+            <point key="canvasLocation" x="-1602" y="1890"/>
         </scene>
         <!--Update User Color-->
         <scene sceneID="OwB-vW-iRO">
@@ -1116,6 +1115,86 @@
             </objects>
             <point key="canvasLocation" x="150" y="108"/>
         </scene>
+        <!--Contact List Help View Controller-->
+        <scene sceneID="uyp-QD-uPX">
+            <objects>
+                <viewController storyboardIdentifier="ContactListHelpViewController" id="qEl-CU-8S8" customClass="ContactListHelpViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="lwd-f6-zsh"/>
+                        <viewControllerLayoutGuide type="bottom" id="JLb-K4-J0Q"/>
+                    </layoutGuides>
+                    <view key="view" opaque="NO" contentMode="scaleToFill" id="2J6-0Z-mqZ">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4a8-nh-Bee">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" red="0.88586956521739135" green="0.88586956521739135" blue="0.88586956521739135" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="4a8-nh-Bee" secondAttribute="height" multiplier="1:1" id="g7O-TU-ehw"/>
+                                </constraints>
+                                <variation key="heightClass=regular-widthClass=compact" ambiguous="YES">
+                                    <rect key="frame" x="-200" y="0.0" width="800" height="800"/>
+                                </variation>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JDq-QQ-cgf">
+                                <rect key="frame" x="324" y="45" width="200" height="50"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="finger.png" translatesAutoresizingMaskIntoConstraints="NO" id="x37-NZ-IKI">
+                                        <rect key="frame" x="160" y="9" width="32" height="32"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="32" id="cCw-jY-fMv"/>
+                                            <constraint firstAttribute="width" constant="32" id="nAs-mH-5oB"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="x37-NZ-IKI" secondAttribute="trailing" constant="8" id="P3z-g6-KgU"/>
+                                    <constraint firstAttribute="height" constant="50" id="V0X-Gc-2k9"/>
+                                    <constraint firstAttribute="width" constant="200" id="qQ2-bh-dj2"/>
+                                    <constraint firstAttribute="centerY" secondItem="x37-NZ-IKI" secondAttribute="centerY" id="xph-oR-z94"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Swipe for more options" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yw9-Eu-5D2">
+                                <rect key="frame" x="335" y="103" width="179" height="24"/>
+                                <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="JDq-QQ-cgf" firstAttribute="top" secondItem="lwd-f6-zsh" secondAttribute="bottom" constant="25" id="2e8-Sm-v81"/>
+                            <constraint firstAttribute="centerX" secondItem="4a8-nh-Bee" secondAttribute="centerX" id="5FR-NM-uue"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="JDq-QQ-cgf" secondAttribute="trailing" constant="60" id="5H6-SY-7gh"/>
+                            <constraint firstAttribute="centerY" secondItem="4a8-nh-Bee" secondAttribute="centerY" id="DqF-yX-Yq0"/>
+                            <constraint firstItem="4a8-nh-Bee" firstAttribute="height" relation="greaterThanOrEqual" secondItem="2J6-0Z-mqZ" secondAttribute="height" id="XKx-dh-cOt"/>
+                            <constraint firstItem="4a8-nh-Bee" firstAttribute="width" relation="greaterThanOrEqual" secondItem="2J6-0Z-mqZ" secondAttribute="width" id="cPO-4k-ztA"/>
+                            <constraint firstItem="Yw9-Eu-5D2" firstAttribute="top" secondItem="JDq-QQ-cgf" secondAttribute="bottom" constant="8" id="qR9-sG-UUu"/>
+                            <constraint firstAttribute="width" secondItem="4a8-nh-Bee" secondAttribute="width" placeholder="YES" id="yij-HP-pVs"/>
+                            <constraint firstItem="Yw9-Eu-5D2" firstAttribute="centerX" secondItem="JDq-QQ-cgf" secondAttribute="centerX" id="zNf-oc-amQ"/>
+                        </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="Tox-U9-xwJ" appends="YES" id="BbF-wW-sg6"/>
+                        </connections>
+                    </view>
+                    <connections>
+                        <outlet property="backgroundView" destination="4a8-nh-Bee" id="eDZ-mj-Ewx"/>
+                        <outlet property="swipeFingerImageView" destination="x37-NZ-IKI" id="Otb-w6-rUy"/>
+                        <outlet property="swipeView" destination="JDq-QQ-cgf" id="0NM-WS-dIj"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="J38-Ae-4j5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="Tox-U9-xwJ">
+                    <connections>
+                        <action selector="didTapOnScreen:" destination="qEl-CU-8S8" id="xHc-3F-THM"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="-2585" y="997"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="oOM-ac-TkI">
             <objects>
@@ -1192,7 +1271,7 @@
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o7E-VW-Abq">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o7E-VW-Abq">
                                         <rect key="frame" x="170" y="264" width="122" height="36"/>
                                         <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="17"/>
                                         <state key="normal" title="I got no code :(.">
@@ -1253,7 +1332,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eCI-Wg-bmp">
                                 <rect key="frame" x="150" y="150" width="300" height="300"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Connecting with Facebook" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jH2-It-5Pt">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Connecting with Facebook" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jH2-It-5Pt">
                                         <rect key="frame" x="47" y="98" width="206" height="24"/>
                                         <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="17"/>
                                         <nil key="highlightedColor"/>
@@ -1539,6 +1618,7 @@
     </scenes>
     <resources>
         <image name="add_user.png" width="64" height="64"/>
+        <image name="finger.png" width="32" height="32"/>
         <image name="locate.png" width="64" height="64"/>
         <image name="ping_failed.png" width="16" height="16"/>
         <image name="ping_ok.png" width="16" height="16"/>

@@ -65,5 +65,10 @@
 	<string>1603694613191558</string>
 	<key>FacebookDisplayName</key>
 	<string>Ping + Pong</string>
+	<key>ShouldShowHelpScreen</key>
+	<dict>
+		<key>UserMenu</key>
+		<true/>
+	</dict>
 </dict>
 </plist>

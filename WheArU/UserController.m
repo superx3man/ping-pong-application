@@ -264,4 +264,23 @@
     [self setModified:YES];
 }
 
+- (void)incrementFetchCount:(int)count
+{
+    [self setFetchCount:[self fetchCount] + count];
+}
+
+- (void)setFetchCount:(int)fetchCount
+{
+    if (_fetchCount == fetchCount) return;
+    _fetchCount = fetchCount;
+    
+    [currentUser setFetchCount:fetchCount];
+    [[self managedObjectContext] save:nil];
+    
+    for (id retainedDelegate in delegateList) {
+        id<UserControllerDelegate> delegate = [retainedDelegate nonretainedObjectValue];
+        if ([delegate respondsToSelector:@selector(controllerDidReceiveNewFetch:)]) [delegate controllerDidReceiveNewFetch:self];
+    }
+}
+
 @end

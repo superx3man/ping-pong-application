@@ -52,7 +52,6 @@ NSString *const kWAUUserDictionaryKeyFacebookUserId = @"WAUFacebookUserId";
     [super viewDidLoad];
     
     [[WAUUtilities applicationDelegate] addExternalURLSchemeDelegate:self forApplicationKeyWord:@"facebook"];
-    [self validateFacebookSession:[[FBSession activeSession] state] != FBSessionStateCreatedTokenLoaded];
     
     facebookUserId = [[NSUserDefaults standardUserDefaults] objectForKey:kWAUUserDictionaryKeyFacebookUserId];
     facebookFriendList = [[NSMutableArray alloc] init];
@@ -99,6 +98,17 @@ NSString *const kWAUUserDictionaryKeyFacebookUserId = @"WAUFacebookUserId";
     [errorOutButton setAlpha:0.f];
     
     [friendListTableView setAlpha:0.f];
+    
+    [self validateFacebookSession:[[FBSession activeSession] state] != FBSessionStateCreatedTokenLoaded];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    for (FacebookUser *user in facebookFriendList) {
+        [user purgePicture];
+    }
+    
+    [super viewDidDisappear:animated];
 }
 
 #pragma mark - Controls

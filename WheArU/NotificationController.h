@@ -19,7 +19,7 @@ extern NSString *const kWAUNotificationActionIdentifierSend;
 
 @protocol NotificationControllerDelegate;
 
-@interface NotificationController : NSObject <EncryptionControllerDelegate, NotificationRegistrationDelegate>
+@interface NotificationController : NSObject <EncryptionControllerDelegate, NotificationRegistrationDelegate, ApplicationStateChangeDelegate>
 
 + (NotificationController *)sharedInstance;
 

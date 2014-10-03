@@ -27,6 +27,8 @@
 
 - (NSString *)QRCodeDescription;
 
+- (void)incrementFetchCount:(int)count;
+
 @end
 
 @protocol UserControllerDelegate <NSObject>
@@ -37,5 +39,7 @@
 - (void)userDidUpdateUsername:(UserController *)controller;
 - (void)userDidUpdateUserIcon:(UserController *)controller;
 - (void)userDidUpdateUserColor:(UserController *)controller;
+
+- (void)controllerDidReceiveNewFetch:(UserController *)controller;
 
 @end

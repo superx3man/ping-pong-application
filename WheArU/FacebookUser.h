@@ -20,4 +20,6 @@
 
 - (id)initWithId:(NSString *)userId name:(NSString *)name pictureLink:(NSString *)pictureLink;
 
+- (void)purgePicture;
+
 @end

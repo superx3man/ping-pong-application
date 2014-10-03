@@ -68,8 +68,6 @@
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-    [[NotificationController sharedInstance] syncLocationRequestFromServer];
-    
     for (id retainedDelegate in applicationStateChangeDelegateList) {
         id<ApplicationStateChangeDelegate> delegate = [retainedDelegate nonretainedObjectValue];
         if ([delegate respondsToSelector:@selector(didBecomeActive)]) [delegate didBecomeActive];
@@ -163,8 +161,9 @@
     }
     else if ([messageType isEqualToString:@"ping"]) {
         if ([[UIApplication sharedApplication] applicationState] != UIApplicationStateInactive) {
-            [[ContactListController sharedInstance] updateOrCreateContactWithUserInfo:userInfo];
-            [[ContactListController sharedInstance] refreshContactList];
+            AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+            
+            [[NotificationController sharedInstance] syncLocationRequestFromServer];
         }
         fetchResult = UIBackgroundFetchResultNewData;
     }

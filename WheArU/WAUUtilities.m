@@ -24,7 +24,14 @@
 
 + (BOOL)isApplicationRunningInBackground
 {
-    return [[UIApplication sharedApplication] applicationState] != UIApplicationStateActive;
+    return [[UIApplication sharedApplication] applicationState] == UIApplicationStateBackground;
+}
+
++ (BOOL)shouldShowUserHelpScreen
+{
+    BOOL shouldShow = [[NSUserDefaults standardUserDefaults] objectForKey:@"ShouldShowUserHelpScreen"] == nil;
+    if (shouldShow) [[NSUserDefaults standardUserDefaults] setObject:[NSNumber numberWithInt:1] forKey:@"ShouldShowUserHelpScreen"];
+    return shouldShow;
 }
 
 @end

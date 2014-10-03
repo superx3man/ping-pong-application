@@ -107,22 +107,6 @@
     if ([self version] != version) [self syncContact];
 }
 
-- (void)willSendNotification
-{
-    for (id retainedDelegate in delegateList) {
-        id<ContactControllerDelegate> delegate = [retainedDelegate nonretainedObjectValue];
-        if ([delegate respondsToSelector:@selector(controllerWillSendNotification:)]) [delegate controllerWillSendNotification:self];
-    }
-}
-
-- (void)didSendNotification:(BOOL)isSuccess
-{
-    for (id retainedDelegate in delegateList) {
-        id<ContactControllerDelegate> delegate = [retainedDelegate nonretainedObjectValue];
-        if ([delegate respondsToSelector:@selector(controller:didSendNotifcation:)]) [delegate controller:self didSendNotifcation:isSuccess];
-    }
-}
-
 - (void)removeFromList
 {
     [[self managedObjectContext] deleteObject:currentContact];
@@ -182,9 +166,9 @@
     [[self managedObjectContext] save:nil];
 }
 
-- (void)incrementPing
+- (void)incrementPing:(int)count
 {
-    [self setPing:[self ping] + 1];
+    [self setPing:[self ping] + count];
 }
 
 - (void)setPing:(int16_t)ping
@@ -200,6 +184,17 @@
     }
 }
 
+- (void)setPingStatus:(WAUContactPingStatus)pingStatus
+{
+    if (_pingStatus == pingStatus) return;
+    _pingStatus = pingStatus;
+    
+    for (id retainedDelegate in delegateList) {
+        id<ContactControllerDelegate> delegate = [retainedDelegate nonretainedObjectValue];
+        if ([delegate respondsToSelector:@selector(contactDidUpdatePingStatus:)]) [delegate contactDidUpdatePingStatus:self];
+    }
+}
+
 - (void)setLastUpdated:(int64_t)lastUpdated
 {
     [self setLastUpdated:lastUpdated withPingCount:0];
@@ -212,8 +207,7 @@
     [currentContact setLastUpdated:lastUpdated];
     [[self managedObjectContext] save:nil];
     
-    if (pingCount == 0) [self incrementPing];
-    else [self setPing:pingCount];
+    [self incrementPing:pingCount];
     
     for (id retainedDelegate in delegateList) {
         id<ContactControllerDelegate> delegate = [retainedDelegate nonretainedObjectValue];

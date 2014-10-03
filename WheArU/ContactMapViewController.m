@@ -142,9 +142,20 @@
 
 - (IBAction)tapOnDelete:(id)sender
 {
-    [[ContactListController sharedInstance] blockContactController:[self contactController]];
-    [[ContactListController sharedInstance] refreshContactList];
-    [[self navigationController] popViewControllerAnimated:YES];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Delete Contact" message:@"This will block and delete this user" preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction *deleteAction = [UIAlertAction actionWithTitle:@"Delete" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action)
+                                   {
+                                       [[ContactListController sharedInstance] blockContactController:[self contactController]];
+                                       [[ContactListController sharedInstance] refreshContactList];
+                                       [[self navigationController] popViewControllerAnimated:YES];
+                                   }];
+    [alertController addAction:deleteAction];
+    
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+    [alertController addAction:cancelAction];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
 }
 
 - (IBAction)tapOnLocate:(id)sender
@@ -154,6 +165,7 @@
 
 - (IBAction)tapOnSideSpace:(id)sender
 {
+    [[self contactController] setPing:0];
     [[self navigationController] popViewControllerAnimated:YES];
 }
 
@@ -410,12 +422,7 @@
     });
 }
 
-- (void)controllerWillSendNotification:(ContactController *)controller
-{
-    [self layoutPingStatusView];
-}
-
-- (void)controller:(ContactController *)controller didSendNotifcation:(BOOL)isSuccess
+- (void)contactDidUpdatePingStatus:(ContactController *)controller
 {
     [self layoutPingStatusView];
 }

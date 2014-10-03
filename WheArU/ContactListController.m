@@ -200,7 +200,10 @@
         [contactController setAccuracy:[[locationInfoList objectAtIndex:3] doubleValue]];
         
         int64_t lastUpdated = [[locationInfoList objectAtIndex:4] longLongValue];
-        if (pingCount > 0) [contactController setLastUpdated:lastUpdated withPingCount:pingCount];
+        if (pingCount > 0) {
+            [contactController setLastUpdated:lastUpdated withPingCount:pingCount];
+            [[UserController sharedInstance] incrementFetchCount:pingCount];
+        }
         else [contactController setLastUpdated:lastUpdated];
         
         int64_t currentTimestamp = [[NSDate date] timeIntervalSince1970];

@@ -312,12 +312,7 @@
     });
 }
 
-- (void)controllerWillSendNotification:(ContactController *)controller
-{
-    [self layoutPingStatusView];
-}
-
-- (void)controller:(ContactController *)controller didSendNotifcation:(BOOL)isSuccess
+- (void)contactDidUpdatePingStatus:(ContactController *)controller
 {
     [self layoutPingStatusView];
 }

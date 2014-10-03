@@ -19,4 +19,6 @@
 + (BOOL)isUserNotificationBadgeEnabled;
 + (BOOL)isApplicationRunningInBackground;
 
++ (BOOL)shouldShowUserHelpScreen;
+
 @end

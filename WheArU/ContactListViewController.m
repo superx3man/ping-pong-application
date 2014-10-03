@@ -13,6 +13,7 @@
 #import "UpdateUserColorViewController.h"
 #import "AddContactWithQRCodeViewController.h"
 
+#import "WAUConstant.h"
 #import "WAUUtilities.h"
 
 
@@ -86,9 +87,9 @@
 {
     [super viewDidAppear:animated];
     
-    if (![userController isUserRegistered]) {
-        [self performSegueWithIdentifier:@"RegisterUserSegue" sender:self];
-        return;
+    if (![userController isUserRegistered]) [self performSegueWithIdentifier:@"RegisterUserSegue" sender:self];
+    else {
+        if ([WAUUtilities shouldShowUserHelpScreen]) [self performSegueWithIdentifier:@"ShowContactListHelpSegue" sender:self];
     }
 }
 
@@ -107,6 +108,9 @@
     if ([[segue identifier] isEqualToString:@"OpenMapViewSegue"]) {
         ContactMapViewController *contactMapViewController = (ContactMapViewController *) [segue destinationViewController];
         [contactMapViewController setContactController:(ContactController *) sender];
+    }
+    else if ([[segue identifier] isEqualToString:@"ShowContactListHelpSegue"]) {
+        [[segue destinationViewController] setModalPresentationStyle:UIModalPresentationCustom];
     }
 }
 
@@ -169,6 +173,16 @@
     [currentUserPingLabel setTextColor:[userController wordColor]];
     [currentUserLabel setTextColor:[userController wordColor]];
     [currentUserFetchCount setTextColor:[userController wordColor]];
+}
+
+- (void)controllerDidReceiveNewFetch:(UserController *)controller
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [UIView transitionWithView:currentUserFetchCount duration:kWAUContactUpdateAnimationDuration options:(UIViewAnimationOptionTransitionCrossDissolve | UIViewAnimationOptionBeginFromCurrentState) animations:^
+         {
+             [currentUserFetchCount setText:[NSString stringWithFormat:@"%d", [controller fetchCount]]];
+         } completion:nil];
+    });
 }
 
 #pragma mark ContactListControllerDelegate

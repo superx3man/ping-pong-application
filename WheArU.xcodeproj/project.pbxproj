@@ -56,6 +56,11 @@
 		4DC162E819DA47C500C9BA7A /* AddContactWithFacebookViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC162E719DA47C500C9BA7A /* AddContactWithFacebookViewController.m */; };
 		4DC162EE19DB869400C9BA7A /* FacebookFriendListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC162ED19DB869400C9BA7A /* FacebookFriendListTableViewCell.m */; };
 		4DC162F119DB8C2E00C9BA7A /* FacebookUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC162F019DB8C2E00C9BA7A /* FacebookUser.m */; };
+		4DC162F619DC844100C9BA7A /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DC162F519DC844100C9BA7A /* AudioToolbox.framework */; };
+		4DC162FA19DCFB7F00C9BA7A /* ContactListHelpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC162F919DCFB7F00C9BA7A /* ContactListHelpViewController.m */; };
+		4DC162FD19DD029400C9BA7A /* HelpNonAnimatedTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DC162FC19DD029400C9BA7A /* HelpNonAnimatedTransitioning.m */; };
+		4DC1630519DE3D9100C9BA7A /* finger@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DC1630319DE3D9100C9BA7A /* finger@2x.png */; };
+		4DC1630619DE3D9100C9BA7A /* finger.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DC1630419DE3D9100C9BA7A /* finger.png */; };
 		4DD3F54B19CB42F700A77C1C /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DD3F54A19CB42F700A77C1C /* CoreData.framework */; };
 		4DD3F54D19CB42FD00A77C1C /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4DD3F54C19CB42FD00A77C1C /* CoreLocation.framework */; };
 		4DD3F55019CB433000A77C1C /* LocationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD3F54F19CB433000A77C1C /* LocationController.m */; };
@@ -168,6 +173,13 @@
 		4DC162ED19DB869400C9BA7A /* FacebookFriendListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookFriendListTableViewCell.m; sourceTree = "<group>"; };
 		4DC162EF19DB8C2E00C9BA7A /* FacebookUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookUser.h; sourceTree = "<group>"; };
 		4DC162F019DB8C2E00C9BA7A /* FacebookUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FacebookUser.m; sourceTree = "<group>"; };
+		4DC162F519DC844100C9BA7A /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		4DC162F819DCFB7F00C9BA7A /* ContactListHelpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactListHelpViewController.h; sourceTree = "<group>"; };
+		4DC162F919DCFB7F00C9BA7A /* ContactListHelpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactListHelpViewController.m; sourceTree = "<group>"; };
+		4DC162FB19DD029400C9BA7A /* HelpNonAnimatedTransitioning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HelpNonAnimatedTransitioning.h; sourceTree = "<group>"; };
+		4DC162FC19DD029400C9BA7A /* HelpNonAnimatedTransitioning.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HelpNonAnimatedTransitioning.m; sourceTree = "<group>"; };
+		4DC1630319DE3D9100C9BA7A /* finger@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "finger@2x.png"; sourceTree = "<group>"; };
+		4DC1630419DE3D9100C9BA7A /* finger.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = finger.png; sourceTree = "<group>"; };
 		4DD3F54A19CB42F700A77C1C /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		4DD3F54C19CB42FD00A77C1C /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		4DD3F54E19CB433000A77C1C /* LocationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationController.h; sourceTree = "<group>"; };
@@ -225,6 +237,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DC162F619DC844100C9BA7A /* AudioToolbox.framework in Frameworks */,
 				4DB408DD19D8C56100397D6F /* ImageIO.framework in Frameworks */,
 				4DB408DC19D8C55B00397D6F /* CoreGraphics.framework in Frameworks */,
 				4DB408DB19D8C54A00397D6F /* Foundation.framework in Frameworks */,
@@ -455,6 +468,7 @@
 		4D8267EE19B3D26D00076974 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				4DC162F719DCFB6400C9BA7A /* Help */,
 				4D8C11DC19C66A3B00698F6D /* AddContacts */,
 				4D4C611019B4CB82003AB18B /* ContactList */,
 				4D09BF7919D0C1FB0009D0CF /* ContactMap */,
@@ -515,6 +529,26 @@
 			name = Facebook;
 			sourceTree = "<group>";
 		};
+		4DC162F719DCFB6400C9BA7A /* Help */ = {
+			isa = PBXGroup;
+			children = (
+				4DC162F819DCFB7F00C9BA7A /* ContactListHelpViewController.h */,
+				4DC162F919DCFB7F00C9BA7A /* ContactListHelpViewController.m */,
+				4DC162FB19DD029400C9BA7A /* HelpNonAnimatedTransitioning.h */,
+				4DC162FC19DD029400C9BA7A /* HelpNonAnimatedTransitioning.m */,
+			);
+			name = Help;
+			sourceTree = "<group>";
+		};
+		4DC162FE19DE3C6B00C9BA7A /* HelpIcons */ = {
+			isa = PBXGroup;
+			children = (
+				4DC1630419DE3D9100C9BA7A /* finger.png */,
+				4DC1630319DE3D9100C9BA7A /* finger@2x.png */,
+			);
+			name = HelpIcons;
+			sourceTree = "<group>";
+		};
 		4DD564BE19D9D28100A108D3 /* APAsyncDictionary */ = {
 			isa = PBXGroup;
 			children = (
@@ -540,6 +574,7 @@
 		4DD698AD19C4F29B00D9D65D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4DC162F519DC844100C9BA7A /* AudioToolbox.framework */,
 				4DEAF5A419C87C0200CC1EC8 /* AVFoundation.framework */,
 				4DD3F54A19CB42F700A77C1C /* CoreData.framework */,
 				4D54BCE819D8C02D004F2591 /* CoreGraphics.framework */,
@@ -570,6 +605,7 @@
 			children = (
 				4D62F4AA19D8B108008219AC /* AppIcons */,
 				4DEDDD4B19D63B0500CA94C7 /* ButtonIcons */,
+				4DC162FE19DE3C6B00C9BA7A /* HelpIcons */,
 				4DEDDD4C19D63B1D00CA94C7 /* PingIcons */,
 			);
 			name = Images;
@@ -700,6 +736,7 @@
 				4D4D174019D505200081798D /* ping_failed@2x.png in Resources */,
 				4DD698BA19C5510C00D9D65D /* settings.png in Resources */,
 				4D4D173D19D503940081798D /* ping_ok.png in Resources */,
+				4DC1630519DE3D9100C9BA7A /* finger@2x.png in Resources */,
 				4D4D174119D505200081798D /* ping_failed.png in Resources */,
 				4D8C11D119C6328A00698F6D /* profile_settings.png in Resources */,
 				4D8C11D519C6347400698F6D /* add_user.png in Resources */,
@@ -711,6 +748,7 @@
 				4D49A8A419CFDCD900F8B382 /* LaunchScreen.xib in Resources */,
 				4DEDDD4A19D63AFF00CA94C7 /* remove_user.png in Resources */,
 				4DD698B919C5510C00D9D65D /* settings@2x.png in Resources */,
+				4DC1630619DE3D9100C9BA7A /* finger.png in Resources */,
 				4D8267D519B3BA6E00076974 /* Images.xcassets in Resources */,
 				4DEDDD4919D63AFF00CA94C7 /* remove_user@2x.png in Resources */,
 				4D4D173C19D503940081798D /* ping_ok@2x.png in Resources */,
@@ -735,6 +773,7 @@
 				4D4C611319B4CBAE003AB18B /* ContactListTableViewCell.m in Sources */,
 				4D8267F119B3D29400076974 /* ContactListViewController.m in Sources */,
 				4D48C67A19BCD1EF00D09FDA /* UpdateUserIconViewController.m in Sources */,
+				4DC162FD19DD029400C9BA7A /* HelpNonAnimatedTransitioning.m in Sources */,
 				4DF6EAB819C9FD32001BC176 /* Reachability+SharedInstance.m in Sources */,
 				4DF76E2B19CFC91B001BCE04 /* ContactMapViewController.m in Sources */,
 				4DEAF5B819C886BB00CC1EC8 /* RNEncryptor.m in Sources */,
@@ -757,6 +796,7 @@
 				4DD564C119D9D29800A108D3 /* APAsyncDictionary.m in Sources */,
 				4DF6EAC219CA0A21001BC176 /* WAUServerConnectorRequest.m in Sources */,
 				4D5BD6DB19CF256200B7BC01 /* NSString+Hash.m in Sources */,
+				4DC162FA19DCFB7F00C9BA7A /* ContactListHelpViewController.m in Sources */,
 				4D8C62DE19B6B7E900F59CFF /* UsernameViewController.m in Sources */,
 				4D8C11DF19C66A7700698F6D /* AddContactWithQRCodeViewController.m in Sources */,
 				4D48C66A19BB984100D09FDA /* User.m in Sources */,
