@@ -1340,7 +1340,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Seems like you don't have any friend using Ping + Pong :(." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pki-eA-ELC">
-                                        <rect key="frame" x="8" y="77" width="284" height="47"/>
+                                        <rect key="frame" x="8" y="87" width="284" height="47"/>
                                         <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="17"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -1350,7 +1350,7 @@
                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hUq-UT-QzL">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hUq-UT-QzL">
                                         <rect key="frame" x="90" y="172" width="120" height="36"/>
                                         <fontDescription key="fontDescription" name="Avenir-Roman" family="Avenir" pointSize="17"/>
                                         <state key="normal" title="Try again later~">
@@ -1465,7 +1465,7 @@
                                     <constraint firstItem="RpR-D5-BwB" firstAttribute="leading" secondItem="eCI-Wg-bmp" secondAttribute="leading" id="LUi-Dq-vQl"/>
                                     <constraint firstAttribute="centerX" secondItem="hUq-UT-QzL" secondAttribute="centerX" id="Q6V-uO-NoT"/>
                                     <constraint firstAttribute="height" constant="300" id="RKM-y5-8D0"/>
-                                    <constraint firstAttribute="centerY" secondItem="Pki-eA-ELC" secondAttribute="centerY" constant="50" id="Ruq-Ze-pbx"/>
+                                    <constraint firstAttribute="centerY" secondItem="Pki-eA-ELC" secondAttribute="centerY" constant="40" id="Ruq-Ze-pbx"/>
                                     <constraint firstAttribute="width" constant="300" id="SeT-XE-qcC"/>
                                     <constraint firstAttribute="centerX" secondItem="jH2-It-5Pt" secondAttribute="centerX" id="U7V-cK-W43"/>
                                     <constraint firstAttribute="centerY" secondItem="WGR-6A-26x" secondAttribute="centerY" constant="40" id="e1C-7J-Hyk"/>

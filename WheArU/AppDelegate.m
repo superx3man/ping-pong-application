@@ -81,9 +81,9 @@
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
-    for (NSString *applicationKeyWord in externalURLSchemeDelegateList) {
-        if ([sourceApplication rangeOfString:applicationKeyWord].location != NSNotFound) {
-            id<ExternalURLSchemeDelegate> delegate = [[externalURLSchemeDelegateList objectForKey:applicationKeyWord] nonretainedObjectValue];
+    for (NSString *urlScheme in externalURLSchemeDelegateList) {
+        if ([[url scheme] isEqualToString:urlScheme]) {
+            id<ExternalURLSchemeDelegate> delegate = [[externalURLSchemeDelegateList objectForKey:urlScheme] nonretainedObjectValue];
             return [delegate handleOpenURL:url sourceApplication:sourceApplication];
         }
     }
@@ -98,9 +98,9 @@
     [applicationStateChangeDelegateList addObject:[NSValue valueWithNonretainedObject:delegate]];
 }
 
-- (void)addExternalURLSchemeDelegate:(id<ExternalURLSchemeDelegate>)delegate forApplicationKeyWord:(NSString *)applicationKeyWord
+- (void)addExternalURLSchemeDelegate:(id<ExternalURLSchemeDelegate>)delegate forURLScheme:(NSString *)urlScheme
 {
-    [externalURLSchemeDelegateList setObject:[NSValue valueWithNonretainedObject:delegate] forKey:applicationKeyWord];
+    [externalURLSchemeDelegateList setObject:[NSValue valueWithNonretainedObject:delegate] forKey:urlScheme];
 }
 
 - (void)removeExternalURLSchemeDelegateforApplicationKeyWord:(NSString *)applicationKeyWord

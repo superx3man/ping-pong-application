@@ -51,7 +51,8 @@ NSString *const kWAUUserDictionaryKeyFacebookUserId = @"WAUFacebookUserId";
 {
     [super viewDidLoad];
     
-    [[WAUUtilities applicationDelegate] addExternalURLSchemeDelegate:self forApplicationKeyWord:@"facebook"];
+    NSString *facebookUrlScheme = [NSString stringWithFormat:@"fb%@", [[NSBundle mainBundle] objectForInfoDictionaryKey:@"FacebookAppID"]];
+    [[WAUUtilities applicationDelegate] addExternalURLSchemeDelegate:self forURLScheme:facebookUrlScheme];
     
     facebookUserId = [[NSUserDefaults standardUserDefaults] objectForKey:kWAUUserDictionaryKeyFacebookUserId];
     facebookFriendList = [[NSMutableArray alloc] init];
@@ -91,7 +92,7 @@ NSString *const kWAUUserDictionaryKeyFacebookUserId = @"WAUFacebookUserId";
     [sorryLabel setAlpha:0.f];
     [errorLabel setAlpha:0.f];
     
-    [tryAgainButton setAlpha:0.f];
+    [tryAgainButton setAlpha:1.f];
     [cancelButton setAlpha:0.f];
     [connectButton setAlpha:0.f];
     [loginButton setAlpha:0.f];
@@ -155,11 +156,17 @@ NSString *const kWAUUserDictionaryKeyFacebookUserId = @"WAUFacebookUserId";
     dispatch_async(dispatch_get_main_queue(), ^{
         [UIView animateWithDuration:kWAUContactUpdateAnimationDuration delay:0.f options:(UIViewAnimationOptionTransitionCrossDissolve | UIViewAnimationOptionBeginFromCurrentState) animations:^
          {
+             [connectingLabel setAlpha:1.f];
+             [sorryLabel setAlpha:0.f];
              [errorLabel setAlpha:0.f];
+             
+             [tryAgainButton setAlpha:1.f];
+             [cancelButton setAlpha:0.f];
+             [connectButton setAlpha:0.f];
              [loginButton setAlpha:0.f];
              [errorOutButton setAlpha:0.f];
              
-             [connectingLabel setAlpha:1.f];
+             [friendListTableView setAlpha:0.f];
          } completion:nil];
     });
     [self validateFacebookSession:YES];
@@ -202,10 +209,16 @@ NSString *const kWAUUserDictionaryKeyFacebookUserId = @"WAUFacebookUserId";
         [UIView animateWithDuration:kWAUContactUpdateAnimationDuration delay:0.f options:(UIViewAnimationOptionTransitionCrossDissolve | UIViewAnimationOptionBeginFromCurrentState) animations:^
          {
              [connectingLabel setAlpha:0.f];
-             
+             [sorryLabel setAlpha:0.f];
              [errorLabel setAlpha:1.f];
+             
+             [tryAgainButton setAlpha:0.f];
+             [cancelButton setAlpha:0.f];
+             [connectButton setAlpha:0.f];
              [loginButton setAlpha:1.f];
              [errorOutButton setAlpha:1.f];
+             
+             [friendListTableView setAlpha:0.f];
          } completion:nil];
     });
 }
@@ -272,9 +285,16 @@ NSString *const kWAUUserDictionaryKeyFacebookUserId = @"WAUFacebookUserId";
             [UIView animateWithDuration:kWAUContactUpdateAnimationDuration delay:0.f options:(UIViewAnimationOptionTransitionCrossDissolve | UIViewAnimationOptionBeginFromCurrentState) animations:^
              {
                  [connectingLabel setAlpha:0.f];
-                 
                  [sorryLabel setAlpha:1.f];
+                 [errorLabel setAlpha:0.f];
+                 
                  [tryAgainButton setAlpha:1.f];
+                 [cancelButton setAlpha:0.f];
+                 [connectButton setAlpha:0.f];
+                 [loginButton setAlpha:0.f];
+                 [errorOutButton setAlpha:0.f];
+                 
+                 [friendListTableView setAlpha:0.f];
              } completion:nil];
         });
     }
@@ -284,10 +304,16 @@ NSString *const kWAUUserDictionaryKeyFacebookUserId = @"WAUFacebookUserId";
             [UIView animateWithDuration:kWAUContactUpdateAnimationDuration delay:0.f options:(UIViewAnimationOptionTransitionCrossDissolve | UIViewAnimationOptionBeginFromCurrentState) animations:^
              {
                  [connectingLabel setAlpha:0.f];
+                 [sorryLabel setAlpha:0.f];
+                 [errorLabel setAlpha:0.f];
                  
-                 [friendListTableView setAlpha:1.f];
+                 [tryAgainButton setAlpha:0.f];
                  [cancelButton setAlpha:1.f];
                  [connectButton setAlpha:1.f];
+                 [loginButton setAlpha:0.f];
+                 [errorOutButton setAlpha:0.f];
+                 
+                 [friendListTableView setAlpha:1.f];
              } completion:nil];
         });
     }

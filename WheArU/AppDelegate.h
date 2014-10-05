@@ -28,7 +28,7 @@
 
 - (void)addApplicationStateChangeDelegate:(id<ApplicationStateChangeDelegate>)delegate;
 
-- (void)addExternalURLSchemeDelegate:(id<ExternalURLSchemeDelegate>)delegate forApplicationKeyWord:(NSString *)applicationKeyWord;
+- (void)addExternalURLSchemeDelegate:(id<ExternalURLSchemeDelegate>)delegate forURLScheme:(NSString *)urlScheme;
 - (void)removeExternalURLSchemeDelegateforApplicationKeyWord:(NSString *)applicationKeyWord;
 
 - (void)saveContext;
