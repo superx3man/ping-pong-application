@@ -32,6 +32,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [Crashlytics startWithAPIKey:@"47c585f537b52af7f1f6f56f7fec15a0d3086467"];
+    
     [FBFriendPickerViewController class];
     
     applicationStateChangeDelegateList = [[NSMutableArray alloc] init];

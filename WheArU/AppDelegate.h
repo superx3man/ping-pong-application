@@ -10,6 +10,7 @@
 #import <CoreData/CoreData.h>
 #import <FacebookSDK/FacebookSDK.h>
 #import <AudioToolbox/AudioToolbox.h> 
+#import <Crashlytics/Crashlytics.h>
 
 
 @protocol NotificationRegistrationDelegate;

@@ -11,6 +11,7 @@
 		4D09BF7F19D0CD840009D0CF /* ContactMapAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D09BF7E19D0CD840009D0CF /* ContactMapAnnotationView.m */; };
 		4D09BF9019D1254D0009D0CF /* MKCircle+ContactController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D09BF8F19D1254D0009D0CF /* MKCircle+ContactController.m */; };
 		4D1A983D19D2007C0017CC7D /* MKMapView+SharedInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D1A983C19D2007C0017CC7D /* MKMapView+SharedInstance.m */; };
+		4D20F36619E188FA004C5697 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D20F36519E188FA004C5697 /* Crashlytics.framework */; };
 		4D44828019CB949E007E3220 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D44827F19CB949E007E3220 /* Security.framework */; };
 		4D44828A19CBC133007E3220 /* NSData+Conversion.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D44828919CBC133007E3220 /* NSData+Conversion.m */; };
 		4D48C66A19BB984100D09FDA /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D48C66919BB984100D09FDA /* User.m */; };
@@ -103,6 +104,7 @@
 		4D09BF8F19D1254D0009D0CF /* MKCircle+ContactController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKCircle+ContactController.m"; sourceTree = "<group>"; };
 		4D1A983B19D2007C0017CC7D /* MKMapView+SharedInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKMapView+SharedInstance.h"; sourceTree = "<group>"; };
 		4D1A983C19D2007C0017CC7D /* MKMapView+SharedInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKMapView+SharedInstance.m"; sourceTree = "<group>"; };
+		4D20F36519E188FA004C5697 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		4D44827F19CB949E007E3220 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		4D44828819CBC133007E3220 /* NSData+Conversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Conversion.h"; sourceTree = "<group>"; };
 		4D44828919CBC133007E3220 /* NSData+Conversion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Conversion.m"; sourceTree = "<group>"; };
@@ -249,6 +251,7 @@
 				4DB408DB19D8C54A00397D6F /* Foundation.framework in Frameworks */,
 				4DB408DA19D8C54000397D6F /* UIKit.framework in Frameworks */,
 				4DD698AC19C4F29700D9D65D /* SystemConfiguration.framework in Frameworks */,
+				4D20F36619E188FA004C5697 /* Crashlytics.framework in Frameworks */,
 				4DC162E419DA0B4F00C9BA7A /* FacebookSDK.framework in Frameworks */,
 				4DEAF5A519C87C0200CC1EC8 /* AVFoundation.framework in Frameworks */,
 				4D79C3A019D3C08D00CEB1E4 /* QuartzCore.framework in Frameworks */,
@@ -589,6 +592,7 @@
 				4DD3F54A19CB42F700A77C1C /* CoreData.framework */,
 				4D54BCE819D8C02D004F2591 /* CoreGraphics.framework */,
 				4DD3F54C19CB42FD00A77C1C /* CoreLocation.framework */,
+				4D20F36519E188FA004C5697 /* Crashlytics.framework */,
 				4DC162E319DA0B4F00C9BA7A /* FacebookSDK.framework */,
 				4D54BCE219D8BFBF004F2591 /* Foundation.framework */,
 				4DB408D619D8C33300397D6F /* ImageIO.framework */,
@@ -689,6 +693,7 @@
 				4D8267BD19B3BA6E00076974 /* Sources */,
 				4D8267BE19B3BA6E00076974 /* Frameworks */,
 				4D8267BF19B3BA6E00076974 /* Resources */,
+				4D20F36419E188B4004C5697 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -768,6 +773,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4D20F36419E188B4004C5697 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Crashlytics.framework/run 47c585f537b52af7f1f6f56f7fec15a0d3086467 b66f986384a4d9dc9632d0ec78df885f86287025faf2f0e7de18d7d095df36f5";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4D8267BD19B3BA6E00076974 /* Sources */ = {
@@ -931,6 +952,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/calvinng/Documents/FacebookSDK,
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = WheArU/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -958,6 +980,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					/Users/calvinng/Documents/FacebookSDK,
+					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = WheArU/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
