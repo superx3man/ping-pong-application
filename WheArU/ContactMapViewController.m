@@ -118,7 +118,7 @@
 {
     [super viewDidAppear:animated];
     
-    if ([WAUUtilities shouldShowMapHelpScreen])  [self performSelector:@selector(showHelpScreen) withObject:nil afterDelay:0.f];
+    if ([WAUUtilities shouldShowMapHelpScreen]) [self performSelector:@selector(showHelpScreen) withObject:nil afterDelay:0.f];
 }
 
 - (void)viewDidDisappear:(BOOL)animated

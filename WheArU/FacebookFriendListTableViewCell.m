@@ -19,6 +19,9 @@
 
 - (void)awakeFromNib
 {
+    [self setBackgroundColor:[UIColor clearColor]];
+    [[self contentView] setBackgroundColor:[UIColor clearColor]];
+    
     [nameLabel setTextColor:[[UserController sharedInstance] wordColor]];
     [self setTintColor:[[UserController sharedInstance] wordColor]];
     

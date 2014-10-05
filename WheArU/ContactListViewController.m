@@ -91,8 +91,8 @@
     [super viewDidAppear:animated];
     
     if (![userController isUserRegistered]) [self performSegueWithIdentifier:@"RegisterUserSegue" sender:self];
-    else if ([WAUUtilities shouldShowUserHelpScreen]) [self performSegueWithIdentifier:@"ShowContactListHelpSegue" sender:self];
-    else if ([[contactListController recentContactList] count] > 0 && [WAUUtilities shouldShowContactHelpScreen]) [self performSegueWithIdentifier:@"ShowContactHelpSegue" sender:self];
+    else if ([WAUUtilities shouldShowUserHelpScreen]) [self performSelector:@selector(showUserHelpScreen) withObject:nil afterDelay:0.f];
+    else if ([[contactListController recentContactList] count] > 0 && [WAUUtilities shouldShowContactHelpScreen]) [self performSelector:@selector(showContactHelpScreen) withObject:nil afterDelay:0.f];
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
@@ -146,6 +146,16 @@
 
 #pragma mark - Functions
 #pragma mark Support
+
+- (void)showUserHelpScreen
+{
+    [self performSegueWithIdentifier:@"ShowContactListHelpSegue" sender:self];
+}
+
+- (void)showContactHelpScreen
+{
+    [self performSegueWithIdentifier:@"ShowContactHelpSegue" sender:self];
+}
 
 - (void)scrollToOriginalPositionAnimated:(BOOL)animated
 {
