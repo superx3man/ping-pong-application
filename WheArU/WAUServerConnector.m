@@ -20,7 +20,7 @@
 #import "WAUUtilities.h"
 
 
-float const kWAUServerConnectorRequestTimeout = 5.f;
+float const kWAUServerConnectorRequestTimeout = 10.f;
 
 @implementation WAUServerConnector
 {

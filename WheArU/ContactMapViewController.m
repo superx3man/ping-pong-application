@@ -319,8 +319,8 @@
         });
     }
     else {
-        [pingNumberLabel setText:[NSString stringWithFormat:@"%d", MIN([[self contactController] ping], 99)]];
         dispatch_async(dispatch_get_main_queue(), ^{
+            [pingNumberLabel setText:[NSString stringWithFormat:@"%d", MIN([[self contactController] ping], 99)]];
             [UIView animateWithDuration:kWAUContactUpdateAnimationDuration delay:0.f options:(UIViewAnimationOptionTransitionCrossDissolve | UIViewAnimationOptionBeginFromCurrentState) animations:^
              {
                  [pingStatusView setAlpha:pingStatusViewAlpha];

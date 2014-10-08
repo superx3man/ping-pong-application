@@ -106,13 +106,9 @@ NSString *const kWAUNotificationActionIdentifierSend = @"kWAUNotificationActionI
         [locationInfo addObject:[NSNumber numberWithDouble:[location coordinate].longitude]];
         [locationInfo addObject:[NSNumber numberWithDouble:[location altitude]]];
         [locationInfo addObject:[NSNumber numberWithDouble:[location horizontalAccuracy]]];
-        [locationInfo addObject:[NSNumber numberWithLongLong:[[NSDate date] timeIntervalSince1970]]];
+        [locationInfo addObject:[NSNumber numberWithLongLong:[[location timestamp] timeIntervalSince1970]]];
         NSString *locationString = [locationInfo componentsJoinedByString:@":"];
         [userDictionary setObject:locationString forKey:kWAUDictionaryKeyLocationInfo];
-        
-#ifdef DEBUG
-        [userDictionary setObject:[NSNumber numberWithInt:1] forKey:kWAUDictionaryKeyDevelopment];
-#endif
         
         WAUServerConnectorRequest *request = [[WAUServerConnectorRequest alloc] initWithEndPoint:kWAUServerEndpointPing method:@"POST" parameters:userDictionary];
         [request setFailureHandler:^(WAUServerConnectorRequest *connectorRequest)

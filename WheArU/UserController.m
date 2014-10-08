@@ -32,7 +32,11 @@
     if (self = [super init]) {
         delegateList = [[NSMutableArray alloc] init];
         
+#ifdef DEBUG
+        [self setPlatform:WAUUserPlatformTypeIOSDev];
+#else
         [self setPlatform:WAUUserPlatformTypeIOS];
+#endif
         
         NSEntityDescription *entity = [NSEntityDescription entityForName:kWAUCoreDataEntityUser inManagedObjectContext:[self managedObjectContext]];
         NSFetchRequest *request = [[NSFetchRequest alloc] init];
@@ -118,6 +122,7 @@
     [userDictionary setObject:[self userId] forKey:kWAUDictionaryKeyUserId];
     
     NSMutableDictionary *modifiedDictionary = [[NSMutableDictionary alloc] init];
+    [modifiedDictionary setObject:[NSNumber numberWithInt:[self platform]] forKey:kWAUDictionaryKeyPlatform];
     [modifiedDictionary setObject:[currentUser username] forKey:kWAUDictionaryKeyUsername];
     [modifiedDictionary setObject:[currentUser userColor] forKey:kWAUDictionaryKeyUserColor];
     if ([currentUser userIcon] != nil) [modifiedDictionary setObject:[[currentUser userIcon] base64EncodedStringWithOptions:kNilOptions] forKey:kWAUDictionaryKeyUserIcon];

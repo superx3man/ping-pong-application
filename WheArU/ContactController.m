@@ -64,10 +64,6 @@
     [userDictionary setObject:[self userId] forKey:kWAUDictionaryKeyContactId];
     [userDictionary setObject:[NSNumber numberWithBool:[self version] == 0] forKey:kWAUDictionaryKeyIsNewContact];
     
-#ifdef DEBUG
-    [userDictionary setObject:[NSNumber numberWithInt:1] forKey:kWAUDictionaryKeyDevelopment];
-#endif
-    
     WAUServerConnectorRequest *request = [[WAUServerConnectorRequest alloc] initWithEndPoint:kWAUServerEndpointContactSync method:@"POST" parameters:userDictionary];
     [request setFailureHandler:^(WAUServerConnectorRequest *connectorRequest)
      {
@@ -189,9 +185,11 @@
     if (_pingStatus == pingStatus) return;
     _pingStatus = pingStatus;
     
-    for (id retainedDelegate in delegateList) {
-        id<ContactControllerDelegate> delegate = [retainedDelegate nonretainedObjectValue];
-        if ([delegate respondsToSelector:@selector(contactDidUpdatePingStatus:)]) [delegate contactDidUpdatePingStatus:self];
+    if (pingStatus != WAUContactPingStatusNotification) {
+        for (id retainedDelegate in delegateList) {
+            id<ContactControllerDelegate> delegate = [retainedDelegate nonretainedObjectValue];
+            if ([delegate respondsToSelector:@selector(contactDidUpdatePingStatus:)]) [delegate contactDidUpdatePingStatus:self];
+        }
     }
 }
 

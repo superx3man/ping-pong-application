@@ -59,9 +59,19 @@
 {
     [locationManager startUpdatingLocation];
     if (isSynchrounous) {
-        updateHandler([locationManager location]);
+        CLLocation *location = [locationManager location];
+        int count = 0;
+        while ((location == nil || [[NSDate date] timeIntervalSinceDate:[location timestamp]]) > 60.f && count < 3) {
+            sleep(1);
+            [locationManager stopUpdatingLocation];
+            [locationManager startUpdatingLocation];
+            
+            location = [locationManager location];
+            count++;
+        }
         [locationManager stopUpdatingLocation];
-        if ([updateBlockList count] != 0) [locationManager startUpdatingLocation];
+        
+        updateHandler([locationManager location]);
     }
     else {
         [updateBlockList addObject:updateHandler];

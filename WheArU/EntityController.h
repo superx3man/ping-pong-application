@@ -13,6 +13,7 @@
 typedef NS_ENUM(int, WAUUserPlatformType)
 {
     WAUUserPlatformTypeIOS,
+    WAUUserPlatformTypeIOSDev,
     WAUUserPlatformTypeAndroid
 };
 
