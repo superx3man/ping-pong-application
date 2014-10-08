@@ -74,7 +74,9 @@
         updateHandler([locationManager location]);
     }
     else {
-        [updateBlockList addObject:updateHandler];
+        @synchronized(updateBlockList) {
+            [updateBlockList addObject:updateHandler];
+        }
     }
 }
 
@@ -84,9 +86,11 @@
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
     CLLocation *mostRecentLocation = [locations lastObject];
-    for (void (^updateHandler)(CLLocation *) in updateBlockList) {
-        updateHandler(mostRecentLocation);
-        [updateBlockList removeObject:updateHandler];
+    @synchronized(updateBlockList) {
+        for (void (^updateHandler)(CLLocation *) in updateBlockList) {
+            updateHandler(mostRecentLocation);
+        }
+        [updateBlockList removeAllObjects];
     }
     
     [locationManager stopUpdatingLocation];

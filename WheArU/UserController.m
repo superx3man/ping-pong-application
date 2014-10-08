@@ -18,6 +18,7 @@
 #import "WAULog.h"
 #import "WAUServerConnector.h"
 #import "WAUServerConnectorRequest.h"
+#import "WAUUtilities.h"
 
 
 @implementation UserController
@@ -147,7 +148,9 @@
 
 - (void)addDelegate:(id<UserControllerDelegate>)delegate
 {
-    [delegateList addObject:[NSValue valueWithNonretainedObject:delegate]];
+    @synchronized(delegateList) {
+        [delegateList addObject:[NSValue valueWithNonretainedObject:delegate]];
+    }
     
     if ([self userId] != nil && [delegate respondsToSelector:@selector(controllerDidSetUserId:)]) [delegate controllerDidSetUserId:self];
 }
@@ -188,10 +191,7 @@
     if ([[self userId] isEqualToString:userId]) return;
     [super setUserId:userId];
     
-    for (id retainedDelegate in delegateList) {
-        id<UserControllerDelegate> delegate = [retainedDelegate nonretainedObjectValue];
-        if ([delegate respondsToSelector:@selector(controllerDidSetUserId:)]) [delegate controllerDidSetUserId:self];
-    }
+    [WAUUtilities callDelegateList:delegateList withSelector:@selector(controllerDidSetUserId:)];
 }
 
 - (void)setModified:(BOOL)isModified
@@ -229,10 +229,7 @@
     [currentUser setUsername:username];
     [[self managedObjectContext] save:nil];
     
-    for (id retainedDelegate in delegateList) {
-        id<UserControllerDelegate> delegate = [retainedDelegate nonretainedObjectValue];
-        if ([delegate respondsToSelector:@selector(userDidUpdateUsername:)]) [delegate userDidUpdateUsername:self];
-    }
+    [WAUUtilities callDelegateList:delegateList withSelector:@selector(userDidUpdateUsername:)];
     
     [self setModified:YES];
 }
@@ -245,10 +242,7 @@
     [currentUser setUserIcon:UIImageJPEGRepresentation(userIcon, 1.f)];
     [[self managedObjectContext] save:nil];
     
-    for (id retainedDelegate in delegateList) {
-        id<UserControllerDelegate> delegate = [retainedDelegate nonretainedObjectValue];
-        if ([delegate respondsToSelector:@selector(userDidUpdateUserIcon:)]) [delegate userDidUpdateUserIcon:self];
-    }
+    [WAUUtilities callDelegateList:delegateList withSelector:@selector(userDidUpdateUserIcon:)];
     
     [self setModified:YES];
 }
@@ -261,10 +255,7 @@
     [currentUser setUserColor:[UIColor hexStringFromColor:userColor]];
     [[self managedObjectContext] save:nil];
     
-    for (id retainedDelegate in delegateList) {
-        id<UserControllerDelegate> delegate = [retainedDelegate nonretainedObjectValue];
-        if ([delegate respondsToSelector:@selector(userDidUpdateUserColor:)]) [delegate userDidUpdateUserColor:self];
-    }
+    [WAUUtilities callDelegateList:delegateList withSelector:@selector(userDidUpdateUserColor:)];
     
     [self setModified:YES];
 }
@@ -282,10 +273,7 @@
     [currentUser setFetchCount:fetchCount];
     [[self managedObjectContext] save:nil];
     
-    for (id retainedDelegate in delegateList) {
-        id<UserControllerDelegate> delegate = [retainedDelegate nonretainedObjectValue];
-        if ([delegate respondsToSelector:@selector(controllerDidReceiveNewFetch:)]) [delegate controllerDidReceiveNewFetch:self];
-    }
+    [WAUUtilities callDelegateList:delegateList withSelector:@selector(controllerDidReceiveNewFetch:)];
 }
 
 @end

@@ -50,4 +50,14 @@
     return [self shouldShowHelpScreen:@"Map"];
 }
 
++ (void)callDelegateList:(NSArray *)delegateList withSelector:(SEL)selector
+{
+    @synchronized(delegateList) {
+        for (id retainedDelegate in delegateList) {
+            id delegate = [retainedDelegate nonretainedObjectValue];
+            if ([delegate respondsToSelector:selector]) [delegate performSelector:selector withObject:self];
+        }
+    }
+}
+
 @end

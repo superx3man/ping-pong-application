@@ -17,6 +17,7 @@
 #import "WAULog.h"
 #import "WAUServerConnector.h"
 #import "WAUServerConnectorRequest.h"
+#import "WAUUtilities.h"
 
 
 NSString *const kWAUSystemKey = @"4pl5YeFT1MX7QZsND!6v116@7lM1vIxz(SEX*aG)";
@@ -77,7 +78,9 @@ NSString *const kWAUUserDictionaryKeyGeneratedKey = @"WAUGeneratedKey";
 
 - (void)addDelegate:(id<EncryptionControllerDelegate>)delegate
 {
-    [delegateList addObject:[NSValue valueWithNonretainedObject:delegate]];
+    @synchronized(delegateList) {
+        [delegateList addObject:[NSValue valueWithNonretainedObject:delegate]];
+    }
     
     if ([self generatedKey] != nil && [delegate respondsToSelector:@selector(controllerDidSetGeneratedKey:)]) [delegate controllerDidSetGeneratedKey:self];
 }
@@ -109,11 +112,7 @@ NSString *const kWAUUserDictionaryKeyGeneratedKey = @"WAUGeneratedKey";
     _generatedKey = generatedKey;
     
     [[NSUserDefaults standardUserDefaults] setObject:generatedKey forKey:kWAUUserDictionaryKeyGeneratedKey];
-    
-    for (id retainedDelegate in delegateList) {
-        id<EncryptionControllerDelegate> delegate = [retainedDelegate nonretainedObjectValue];
-        if ([delegate respondsToSelector:@selector(controllerDidSetGeneratedKey:)]) [delegate controllerDidSetGeneratedKey:self];
-    }
+    [WAUUtilities callDelegateList:delegateList withSelector:@selector(controllerDidSetGeneratedKey:)];
 }
 
 @end

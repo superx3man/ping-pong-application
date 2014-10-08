@@ -62,18 +62,12 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
-    for (id retainedDelegate in applicationStateChangeDelegateList) {
-        id<ApplicationStateChangeDelegate> delegate = [retainedDelegate nonretainedObjectValue];
-        if ([delegate respondsToSelector:@selector(willEnterForeground)]) [delegate willEnterForeground];
-    }
+    [WAUUtilities callDelegateList:applicationStateChangeDelegateList withSelector:@selector(willEnterForeground)];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-    for (id retainedDelegate in applicationStateChangeDelegateList) {
-        id<ApplicationStateChangeDelegate> delegate = [retainedDelegate nonretainedObjectValue];
-        if ([delegate respondsToSelector:@selector(didBecomeActive)]) [delegate didBecomeActive];
-    }
+    [WAUUtilities callDelegateList:applicationStateChangeDelegateList withSelector:@selector(didBecomeActive)];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
@@ -97,7 +91,9 @@
 
 - (void)addApplicationStateChangeDelegate:(id<ApplicationStateChangeDelegate>)delegate
 {
-    [applicationStateChangeDelegateList addObject:[NSValue valueWithNonretainedObject:delegate]];
+    @synchronized(applicationStateChangeDelegateList) {
+        [applicationStateChangeDelegateList addObject:[NSValue valueWithNonretainedObject:delegate]];
+    }
 }
 
 - (void)addExternalURLSchemeDelegate:(id<ExternalURLSchemeDelegate>)delegate forURLScheme:(NSString *)urlScheme

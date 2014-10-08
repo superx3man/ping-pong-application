@@ -10,11 +10,13 @@
 
 #import "UserController.h"
 
+#import "APAsyncDictionary.h"
 #import "UIColor+Hex.h"
 #import "WAUConstant.h"
 #import "WAULog.h"
 #import "WAUServerConnector.h"
 #import "WAUServerConnectorRequest.h"
+#import "WAUUtilities.h"
 
 
 @implementation ContactController
@@ -90,12 +92,16 @@
 
 - (void)addDelegate:(id<ContactControllerDelegate>)delegate;
 {
-    [delegateList addObject:[NSValue valueWithNonretainedObject:delegate]];
+    @synchronized(delegateList) {
+        [delegateList addObject:[NSValue valueWithNonretainedObject:delegate]];
+    }
 }
 
 - (void)removeDelegate:(id<ContactControllerDelegate>)delegate
 {
-    [delegateList removeObject:[NSValue valueWithNonretainedObject:delegate]];
+    @synchronized(delegateList) {
+        [delegateList removeObject:[NSValue valueWithNonretainedObject:delegate]];
+    }
 }
 
 - (void)validateContactVersion:(int)version
@@ -119,10 +125,7 @@
     [currentContact setUsername:username];
     [[self managedObjectContext] save:nil];
     
-    for (id retainedDelegate in delegateList) {
-        id<ContactControllerDelegate> delegate = [retainedDelegate nonretainedObjectValue];
-        if ([delegate respondsToSelector:@selector(contactDidUpdateUsername:)]) [delegate contactDidUpdateUsername:self];
-    }
+    [WAUUtilities callDelegateList:delegateList withSelector:@selector(contactDidUpdateUsername:)];
 }
 
 - (void)setUserIcon:(UIImage *)userIcon
@@ -133,10 +136,7 @@
     [currentContact setUserIcon:UIImageJPEGRepresentation(userIcon, 1.f)];
     [[self managedObjectContext] save:nil];
     
-    for (id retainedDelegate in delegateList) {
-        id<ContactControllerDelegate> delegate = [retainedDelegate nonretainedObjectValue];
-        if ([delegate respondsToSelector:@selector(contactDidUpdateUserIcon:)]) [delegate contactDidUpdateUserIcon:self];
-    }
+    [WAUUtilities callDelegateList:delegateList withSelector:@selector(contactDidUpdateUserIcon:)];
 }
 
 - (void)setUserColor:(UIColor *)userColor
@@ -147,10 +147,7 @@
     [currentContact setUserColor:[UIColor hexStringFromColor:userColor]];
     [[self managedObjectContext] save:nil];
     
-    for (id retainedDelegate in delegateList) {
-        id<ContactControllerDelegate> delegate = [retainedDelegate nonretainedObjectValue];
-        if ([delegate respondsToSelector:@selector(contactDidUpdateUserColor:)]) [delegate contactDidUpdateUserColor:self];
-    }
+    [WAUUtilities callDelegateList:delegateList withSelector:@selector(contactDidUpdateUserColor:)];
 }
 
 - (void)setVersion:(int32_t)version
@@ -185,12 +182,7 @@
     if (_pingStatus == pingStatus) return;
     _pingStatus = pingStatus;
     
-    if (pingStatus != WAUContactPingStatusNotification) {
-        for (id retainedDelegate in delegateList) {
-            id<ContactControllerDelegate> delegate = [retainedDelegate nonretainedObjectValue];
-            if ([delegate respondsToSelector:@selector(contactDidUpdatePingStatus:)]) [delegate contactDidUpdatePingStatus:self];
-        }
-    }
+    if (pingStatus != WAUContactPingStatusNotification) [WAUUtilities callDelegateList:delegateList withSelector:@selector(contactDidUpdatePingStatus:)];
 }
 
 - (void)setLastUpdated:(int64_t)lastUpdated
@@ -207,10 +199,7 @@
     
     [self incrementPing:pingCount];
     
-    for (id retainedDelegate in delegateList) {
-        id<ContactControllerDelegate> delegate = [retainedDelegate nonretainedObjectValue];
-        if ([delegate respondsToSelector:@selector(contactDidUpdateLocation:)]) [delegate contactDidUpdateLocation:self];
-    }
+    [WAUUtilities callDelegateList:delegateList withSelector:@selector(contactDidUpdateLocation:)];
 }
 
 - (void)setLatitude:(double)latitude

@@ -114,17 +114,16 @@
 
 - (void)addDelegate:(id<ContactListControllerDelegate>)delegate
 {
-    [delegateList addObject:[NSValue valueWithNonretainedObject:delegate]];
+    @synchronized(delegateList) {
+        [delegateList addObject:[NSValue valueWithNonretainedObject:delegate]];
+    }
 }
 
 - (void)refreshContactList
 {
     [self sortContactList];
     
-    for (id retainedDelegate in delegateList) {
-        id<ContactListControllerDelegate> delegate = [retainedDelegate nonretainedObjectValue];
-        if ([delegate respondsToSelector:@selector(listUpdated:)]) [delegate listUpdated:self];
-    }
+    [WAUUtilities callDelegateList:delegateList withSelector:@selector(listUpdated:)];
 }
 
 - (ContactController *)createContactWithJSONDescription:(NSString *)encryptedJsonString

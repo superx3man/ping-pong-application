@@ -77,12 +77,16 @@ NSString *const kWAUNotificationActionIdentifierSend = @"kWAUNotificationActionI
 
 - (void)addDelegate:(id<NotificationControllerDelegate>)delegate
 {
-    [delegateList addObject:[NSValue valueWithNonretainedObject:delegate]];
+    @synchronized(delegateList) {
+        [delegateList addObject:[NSValue valueWithNonretainedObject:delegate]];
+    }
 }
 
 - (void)removeDelegate:(id<NotificationControllerDelegate>)delegate
 {
-    [delegateList removeObject:[NSValue valueWithNonretainedObject:delegate]];
+    @synchronized(delegateList) {
+        [delegateList removeObject:[NSValue valueWithNonretainedObject:delegate]];
+    }
 }
 
 - (void)requestForLocationFromContact:(ContactController *)contact
