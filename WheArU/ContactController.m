@@ -125,7 +125,7 @@
     [currentContact setUsername:username];
     [[self managedObjectContext] save:nil];
     
-    [WAUUtilities callDelegateList:delegateList withSelector:@selector(contactDidUpdateUsername:)];
+    [WAUUtilities object:self performSelector:@selector(contactDidUpdateUsername:) onDelegateList:delegateList];
 }
 
 - (void)setUserIcon:(UIImage *)userIcon
@@ -136,7 +136,7 @@
     [currentContact setUserIcon:UIImageJPEGRepresentation(userIcon, 1.f)];
     [[self managedObjectContext] save:nil];
     
-    [WAUUtilities callDelegateList:delegateList withSelector:@selector(contactDidUpdateUserIcon:)];
+    [WAUUtilities object:self performSelector:@selector(contactDidUpdateUserIcon:) onDelegateList:delegateList];
 }
 
 - (void)setUserColor:(UIColor *)userColor
@@ -147,7 +147,7 @@
     [currentContact setUserColor:[UIColor hexStringFromColor:userColor]];
     [[self managedObjectContext] save:nil];
     
-    [WAUUtilities callDelegateList:delegateList withSelector:@selector(contactDidUpdateUserColor:)];
+    [WAUUtilities object:self performSelector:@selector(contactDidUpdateUserColor:) onDelegateList:delegateList];
 }
 
 - (void)setVersion:(int32_t)version
@@ -182,7 +182,7 @@
     if (_pingStatus == pingStatus) return;
     _pingStatus = pingStatus;
     
-    if (pingStatus != WAUContactPingStatusNotification) [WAUUtilities callDelegateList:delegateList withSelector:@selector(contactDidUpdatePingStatus:)];
+    if (pingStatus != WAUContactPingStatusNotification) [WAUUtilities object:self performSelector:@selector(contactDidUpdatePingStatus:) onDelegateList:delegateList];
 }
 
 - (void)setLastUpdated:(int64_t)lastUpdated
@@ -199,7 +199,7 @@
     
     [self incrementPing:pingCount];
     
-    [WAUUtilities callDelegateList:delegateList withSelector:@selector(contactDidUpdateLocation:)];
+    [WAUUtilities object:self performSelector:@selector(contactDidUpdateLocation:) onDelegateList:delegateList];
 }
 
 - (void)setLatitude:(double)latitude

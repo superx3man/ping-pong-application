@@ -24,5 +24,6 @@
 + (BOOL)shouldShowMapHelpScreen;
 
 + (void)callDelegateList:(NSArray *)delegateList withSelector:(SEL)selector;
++ (void)object:(id)object performSelector:(SEL)selector onDelegateList:(NSArray *)delegateList;
 
 @end

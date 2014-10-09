@@ -60,4 +60,14 @@
     }
 }
 
++ (void)object:(id)object performSelector:(SEL)selector onDelegateList:(NSArray *)delegateList
+{
+    @synchronized(delegateList) {
+        for (id retainedDelegate in delegateList) {
+            id delegate = [retainedDelegate nonretainedObjectValue];
+            if ([delegate respondsToSelector:selector]) [delegate performSelector:selector withObject:object];
+        }
+    }
+}
+
 @end

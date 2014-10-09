@@ -122,8 +122,7 @@
 - (void)refreshContactList
 {
     [self sortContactList];
-    
-    [WAUUtilities callDelegateList:delegateList withSelector:@selector(listUpdated:)];
+    [WAUUtilities object:self performSelector:@selector(listUpdated:) onDelegateList:delegateList];
 }
 
 - (ContactController *)createContactWithJSONDescription:(NSString *)encryptedJsonString
