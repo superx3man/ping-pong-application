@@ -112,7 +112,7 @@ NSString *const kWAUUserDictionaryKeyGeneratedKey = @"WAUGeneratedKey";
     _generatedKey = generatedKey;
     
     [[NSUserDefaults standardUserDefaults] setObject:generatedKey forKey:kWAUUserDictionaryKeyGeneratedKey];
-    [WAUUtilities object:self performSelector:@selector(controllerDidSetGeneratedKey:) onDelegateList:delegateList];
+    [WAUUtilities performSelector:@selector(controllerDidSetGeneratedKey:) onDelegateList:delegateList withObject:self];
 }
 
 @end

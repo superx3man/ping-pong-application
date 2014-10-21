@@ -62,12 +62,12 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
-    [WAUUtilities object:self performSelector:@selector(willEnterForeground) onDelegateList:applicationStateChangeDelegateList];
+    [WAUUtilities performSelector:@selector(willEnterForeground) onDelegateList:applicationStateChangeDelegateList withObject:nil];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-    [WAUUtilities object:self performSelector:@selector(didBecomeActive) onDelegateList:applicationStateChangeDelegateList];
+    [WAUUtilities performSelector:@selector(didBecomeActive) onDelegateList:applicationStateChangeDelegateList withObject:nil];
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application

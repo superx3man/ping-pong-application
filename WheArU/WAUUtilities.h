@@ -23,7 +23,6 @@
 + (BOOL)shouldShowContactHelpScreen;
 + (BOOL)shouldShowMapHelpScreen;
 
-+ (void)callDelegateList:(NSArray *)delegateList withSelector:(SEL)selector;
-+ (void)object:(id)object performSelector:(SEL)selector onDelegateList:(NSArray *)delegateList;
++ (void)performSelector:(SEL)selector onDelegateList:(NSArray *)delegateList withObject:(id)object;
 
 @end

@@ -125,7 +125,7 @@
     [currentContact setUsername:username];
     [[self managedObjectContext] save:nil];
     
-    [WAUUtilities object:self performSelector:@selector(contactDidUpdateUsername:) onDelegateList:delegateList];
+    [WAUUtilities performSelector:@selector(contactDidUpdateUsername:) onDelegateList:delegateList withObject:self];
 }
 
 - (void)setUserIcon:(UIImage *)userIcon
@@ -136,7 +136,7 @@
     [currentContact setUserIcon:UIImageJPEGRepresentation(userIcon, 1.f)];
     [[self managedObjectContext] save:nil];
     
-    [WAUUtilities object:self performSelector:@selector(contactDidUpdateUserIcon:) onDelegateList:delegateList];
+    [WAUUtilities performSelector:@selector(contactDidUpdateUserIcon:) onDelegateList:delegateList withObject:self];
 }
 
 - (void)setUserColor:(UIColor *)userColor
@@ -147,7 +147,7 @@
     [currentContact setUserColor:[UIColor hexStringFromColor:userColor]];
     [[self managedObjectContext] save:nil];
     
-    [WAUUtilities object:self performSelector:@selector(contactDidUpdateUserColor:) onDelegateList:delegateList];
+    [WAUUtilities performSelector:@selector(contactDidUpdateUserColor:) onDelegateList:delegateList withObject:self];
 }
 
 - (void)setVersion:(int32_t)version
@@ -182,7 +182,7 @@
     if (_pingStatus == pingStatus) return;
     _pingStatus = pingStatus;
     
-    if (pingStatus != WAUContactPingStatusNotification) [WAUUtilities object:self performSelector:@selector(contactDidUpdatePingStatus:) onDelegateList:delegateList];
+    if (pingStatus != WAUContactPingStatusNotification) [WAUUtilities performSelector:@selector(contactDidUpdatePingStatus:) onDelegateList:delegateList withObject:self];
 }
 
 - (void)setLastUpdated:(int64_t)lastUpdated
@@ -199,7 +199,7 @@
     
     [self incrementPing:pingCount];
     
-    [WAUUtilities object:self performSelector:@selector(contactDidUpdateLocation:) onDelegateList:delegateList];
+    [WAUUtilities performSelector:@selector(contactDidUpdateLocation:) onDelegateList:delegateList withObject:self];
 }
 
 - (void)setLatitude:(double)latitude

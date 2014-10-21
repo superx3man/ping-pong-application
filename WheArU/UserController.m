@@ -191,7 +191,7 @@
     if ([[self userId] isEqualToString:userId]) return;
     [super setUserId:userId];
     
-    [WAUUtilities object:self performSelector:@selector(controllerDidSetUserId:) onDelegateList:delegateList];
+    [WAUUtilities performSelector:@selector(controllerDidSetUserId:) onDelegateList:delegateList withObject:self];
 }
 
 - (void)setModified:(BOOL)isModified
@@ -229,7 +229,7 @@
     [currentUser setUsername:username];
     [[self managedObjectContext] save:nil];
     
-    [WAUUtilities object:self performSelector:@selector(userDidUpdateUsername:) onDelegateList:delegateList];
+    [WAUUtilities performSelector:@selector(userDidUpdateUsername:) onDelegateList:delegateList withObject:self];
     
     [self setModified:YES];
 }
@@ -242,7 +242,7 @@
     [currentUser setUserIcon:UIImageJPEGRepresentation(userIcon, 1.f)];
     [[self managedObjectContext] save:nil];
     
-    [WAUUtilities object:self performSelector:@selector(userDidUpdateUserIcon:) onDelegateList:delegateList];
+    [WAUUtilities performSelector:@selector(userDidUpdateUserIcon:) onDelegateList:delegateList withObject:self];
     
     [self setModified:YES];
 }
@@ -255,7 +255,7 @@
     [currentUser setUserColor:[UIColor hexStringFromColor:userColor]];
     [[self managedObjectContext] save:nil];
     
-    [WAUUtilities object:self performSelector:@selector(userDidUpdateUserColor:) onDelegateList:delegateList];
+    [WAUUtilities performSelector:@selector(userDidUpdateUserColor:) onDelegateList:delegateList withObject:self];
     
     [self setModified:YES];
 }
@@ -273,7 +273,7 @@
     [currentUser setFetchCount:fetchCount];
     [[self managedObjectContext] save:nil];
     
-    [WAUUtilities object:self performSelector:@selector(controllerDidReceiveNewFetch:) onDelegateList:delegateList];
+    [WAUUtilities performSelector:@selector(controllerDidReceiveNewFetch:) onDelegateList:delegateList withObject:self];
 }
 
 @end
