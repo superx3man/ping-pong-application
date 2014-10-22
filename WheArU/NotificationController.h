@@ -27,7 +27,9 @@ extern NSString *const kWAUNotificationActionIdentifierSend;
 - (void)removeDelegate:(id<NotificationControllerDelegate>)delegate;
 
 - (void)requestForLocationFromContact:(ContactController *)contact;
+- (void)requestForLocationFromContact:(ContactController *)contact inBackground:(UIBackgroundTaskIdentifier)taskIdentifier;
 - (void)syncLocationRequestFromServer;
+- (void)syncLocationRequestFromServerInBackground:(UIBackgroundTaskIdentifier)taskIdentifier;
 
 @end
 

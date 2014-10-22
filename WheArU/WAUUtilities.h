@@ -17,6 +17,8 @@
 + (AppDelegate *)applicationDelegate;
 
 + (BOOL)isUserNotificationBadgeEnabled;
+
++ (BOOL)isApplicationRunningInForeground;
 + (BOOL)isApplicationRunningInBackground;
 
 + (BOOL)shouldShowUserHelpScreen;
@@ -24,5 +26,7 @@
 + (BOOL)shouldShowMapHelpScreen;
 
 + (void)performSelector:(SEL)selector onDelegateList:(NSArray *)delegateList withObject:(id)object;
+
++ (void)endBackgroundTask:(UIBackgroundTaskIdentifier)taskIdentifier;
 
 @end

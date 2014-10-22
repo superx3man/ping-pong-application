@@ -11,6 +11,7 @@
 #import "AppDelegate.h"
 
 #import "WAUConstant.h"
+#import "WAULog.h"
 
 
 @implementation LocationController
@@ -57,28 +58,11 @@
 
 #pragma mark External
 
-- (void)retrieveLocationWithUpdateBlock:(void (^)(CLLocation *))updateHandler synchrounous:(BOOL)isSynchrounous
+- (void)retrieveLocationWithUpdateBlock:(void (^)(CLLocation *))updateHandler
 {
     [locationManager startUpdatingLocation];
-    if (isSynchrounous) {
-        CLLocation *location = [locationManager location];
-        int count = 0;
-        while ((location == nil || [[NSDate date] timeIntervalSinceDate:[location timestamp]]) > 60.f && count < 3) {
-            sleep(1);
-            [locationManager stopUpdatingLocation];
-            [locationManager startUpdatingLocation];
-            
-            location = [locationManager location];
-            count++;
-        }
-        [locationManager stopUpdatingLocation];
-        
-        updateHandler([locationManager location]);
-    }
-    else {
-        @synchronized(updateBlockList) {
-            [updateBlockList addObject:updateHandler];
-        }
+    @synchronized(updateBlockList) {
+        [updateBlockList addObject:updateHandler];
     }
 }
 
@@ -91,7 +75,11 @@
     if ([updateBlockList count] == 0) return;
     
     CLLocation *mostRecentLocation = [locations lastObject];
-    if ([mostRecentLocation horizontalAccuracy] > kWAULocationTargetAccuracy || [[NSDate date] timeIntervalSinceDate:[mostRecentLocation timestamp]] > 10.f) {
+    float accuracy = [mostRecentLocation horizontalAccuracy];
+    NSTimeInterval timeDifference = [[NSDate date] timeIntervalSinceDate:[mostRecentLocation timestamp]];
+    [WAULog log:[NSString stringWithFormat:@"accuracy: %f time difference: %f", accuracy, timeDifference] from:self];
+    
+    if (accuracy > kWAULocationTargetAccuracy || timeDifference > 10.f) {
         currentRetryCount++;
         if (currentRetryCount <= kWAULocationMaximumRetryFetch) return;
     }

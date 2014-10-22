@@ -22,6 +22,11 @@
     return ([settings types] & UIUserNotificationTypeBadge) == 1;
 }
 
++ (BOOL)isApplicationRunningInForeground
+{
+    return [[UIApplication sharedApplication] applicationState] == UIApplicationStateActive;
+}
+
 + (BOOL)isApplicationRunningInBackground
 {
     return [[UIApplication sharedApplication] applicationState] == UIApplicationStateBackground;
@@ -61,6 +66,11 @@
             }
         }
     }
+}
+
++ (void)endBackgroundTask:(UIBackgroundTaskIdentifier)taskIdentifier
+{
+    if (taskIdentifier != UIBackgroundTaskInvalid) [[UIApplication sharedApplication] endBackgroundTask:taskIdentifier];
 }
 
 @end

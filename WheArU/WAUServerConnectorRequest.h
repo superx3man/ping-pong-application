@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface WAUServerConnectorRequest : NSObject
 
@@ -21,6 +22,8 @@
 
 @property (nonatomic, strong) void (^successHandler)(WAUServerConnectorRequest *, NSObject *);
 @property (nonatomic, strong) void (^failureHandler)(WAUServerConnectorRequest *);
+
+@property (nonatomic, assign) UIBackgroundTaskIdentifier backgroundTaskIdentifier;
 
 - (id)initWithEndPoint:(NSString *)endPoint method:(NSString *)method parameters:(NSDictionary *)parameters;
 - (id)initWithURL:(NSURL *)URL method:(NSString *)method parameters:(NSDictionary *)parameters;

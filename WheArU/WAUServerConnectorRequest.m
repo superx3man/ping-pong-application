@@ -32,6 +32,8 @@
         [self setDecryptionNeeded:YES];
         [self setSignatureNeeded:YES];
         [self setResultInJSON:YES];
+        
+        [self setBackgroundTaskIdentifier:UIBackgroundTaskInvalid];
     }
     return self;
 }

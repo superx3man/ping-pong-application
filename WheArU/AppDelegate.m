@@ -135,10 +135,17 @@
 - (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void (^)())completionHandler
 {
     if ([identifier isEqualToString:kWAUNotificationActionIdentifierSend]) {
-        ContactController *contactController = [[ContactListController sharedInstance] updateOrCreateContactWithUserInfo:userInfo];
-        [[NotificationController sharedInstance] requestForLocationFromContact:contactController];
+        __block UIBackgroundTaskIdentifier backgroundTask = [application beginBackgroundTaskWithName:[NSString stringWithFormat:@"LocationFetch-%d", arc4random()] expirationHandler:^{
+            [application endBackgroundTask:backgroundTask];
+            backgroundTask = UIBackgroundTaskInvalid;
+        }];
         
-        if ([WAUUtilities isUserNotificationBadgeEnabled]) [[UIApplication sharedApplication] setApplicationIconBadgeNumber:[[UIApplication sharedApplication] applicationIconBadgeNumber] - 1];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            ContactController *contactController = [[ContactListController sharedInstance] updateOrCreateContactWithUserInfo:userInfo];
+            [[NotificationController sharedInstance] requestForLocationFromContact:contactController inBackground:backgroundTask];
+            
+            if ([WAUUtilities isUserNotificationBadgeEnabled]) [[UIApplication sharedApplication] setApplicationIconBadgeNumber:[[UIApplication sharedApplication] applicationIconBadgeNumber] - 1];
+        });
     }
     completionHandler();
 }
@@ -150,18 +157,20 @@
     
     [WAULog log:[NSString stringWithFormat:@"Received notification type: %@", messageType] from:self];
     
-    if ([messageType isEqualToString:@"contact"]) {
-        ContactController *contactController = [[ContactListController sharedInstance] createContactWithContactInfo:userInfo];
-        if (contactController != nil) {
-            [[ContactListController sharedInstance] refreshContactList];
-            fetchResult = UIBackgroundFetchResultNewData;
-        }
-    }
-    else if ([messageType isEqualToString:@"ping"]) {
-        if ([[UIApplication sharedApplication] applicationState] != UIApplicationStateInactive) {
+    if ([messageType isEqualToString:@"ping"]) {
+        if ([WAUUtilities isApplicationRunningInForeground]) {
             AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
-            
             [[NotificationController sharedInstance] syncLocationRequestFromServer];
+        }
+        else if ([WAUUtilities isApplicationRunningInBackground]) {
+            __block UIBackgroundTaskIdentifier backgroundTask = [application beginBackgroundTaskWithName:[NSString stringWithFormat:@"PingSync-%d", arc4random()] expirationHandler:^{
+                [application endBackgroundTask:backgroundTask];
+                backgroundTask = UIBackgroundTaskInvalid;
+            }];
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                [[NotificationController sharedInstance] syncLocationRequestFromServerInBackground:backgroundTask];
+            });
         }
         fetchResult = UIBackgroundFetchResultNewData;
     }

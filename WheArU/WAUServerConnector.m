@@ -99,37 +99,30 @@ float const kWAUServerConnectorRequestTimeout = 10.f;
         [request setValue:[NSString stringWithFormat:@"WAUSign %@|%@", nonce, encryptedHash] forHTTPHeaderField:@"Authorization"];
     }
     
-    dispatch_semaphore_t semaphore = NULL;
-    if ([WAUUtilities isApplicationRunningInBackground] || isSynchrounous) semaphore = dispatch_semaphore_create(0);
-    
-    NSURLSessionDataTask *postDataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error)
-                                          {
-                                              int httpStatusCode = (int) [(NSHTTPURLResponse *) response statusCode];
-                                              if (error != nil || httpStatusCode != 200) {
-                                                  [WAULog log:[NSString stringWithFormat:@"http request error: %@ status code: %d", [error localizedDescription], httpStatusCode] from:self];
-                                                  if ([connectorRequest failureHandler] != nil) {
-                                                      [connectorRequest failureHandler](connectorRequest);
-                                                  }
-                                              }
-                                              else {
-                                                  if ([connectorRequest successHandler] != nil) {
-                                                      NSObject *requestResult = data;
-                                                      if ([connectorRequest isDecryptionNeeded]) {
-                                                          NSString *plainRequest = [[EncryptionController sharedInstance] decryptStringWithSystemKey:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]];
-                                                          requestResult = [plainRequest dataUsingEncoding:NSUTF8StringEncoding];
-                                                          if ([connectorRequest isResultInJSON]) {
-                                                              requestResult = [NSJSONSerialization JSONObjectWithData:[plainRequest dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
-                                                          }
-                                                      }
-                                                      [connectorRequest successHandler](connectorRequest, requestResult);
-                                                  }
-                                              }
-                                              
-                                              if (semaphore != NULL) dispatch_semaphore_signal(semaphore);
-                                          }];
+    NSURLSessionDataTask *postDataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        int httpStatusCode = (int) [(NSHTTPURLResponse *) response statusCode];
+        if (error != nil || httpStatusCode != 200) {
+            [WAULog log:[NSString stringWithFormat:@"http request error: %@ status code: %d", [error localizedDescription], httpStatusCode] from:self];
+            if ([connectorRequest failureHandler] != nil) {
+                [connectorRequest failureHandler](connectorRequest);
+            }
+        }
+        else {
+            if ([connectorRequest successHandler] != nil) {
+                NSObject *requestResult = data;
+                if ([connectorRequest isDecryptionNeeded]) {
+                    NSString *plainRequest = [[EncryptionController sharedInstance] decryptStringWithSystemKey:[[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]];
+                    requestResult = [plainRequest dataUsingEncoding:NSUTF8StringEncoding];
+                    if ([connectorRequest isResultInJSON]) {
+                        requestResult = [NSJSONSerialization JSONObjectWithData:[plainRequest dataUsingEncoding:NSUTF8StringEncoding] options:kNilOptions error:nil];
+                    }
+                }
+                [connectorRequest successHandler](connectorRequest, requestResult);
+            }
+        }
+        [WAUUtilities endBackgroundTask:[connectorRequest backgroundTaskIdentifier]];
+    }];
     [postDataTask resume];
-    
-    if (semaphore != NULL) dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
 }
 
 #pragma mark External
