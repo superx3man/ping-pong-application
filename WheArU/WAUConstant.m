@@ -54,6 +54,9 @@ NSString *const kWAUDictionaryKeyExternalType = @"etype";
 
 float const kWAUContactUpdateAnimationDuration = 0.3f;
 
+int const kWAULocationMaximumRetryFetch = 3;
+float const kWAULocationTargetAccuracy = 100.f;
+
 @implementation WAUConstant
 
 @end

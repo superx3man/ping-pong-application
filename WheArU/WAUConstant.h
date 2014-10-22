@@ -54,6 +54,9 @@ extern NSString *const kWAUDictionaryKeyExternalType;
 
 extern float const kWAUContactUpdateAnimationDuration;
 
+extern int const kWAULocationMaximumRetryFetch;
+extern float const kWAULocationTargetAccuracy;
+
 typedef NS_ENUM(int, WAUExternalPlatform)
 {
     WAUExternalPlatformFacebook

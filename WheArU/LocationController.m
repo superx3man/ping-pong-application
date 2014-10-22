@@ -10,6 +10,8 @@
 
 #import "AppDelegate.h"
 
+#import "WAUConstant.h"
+
 
 @implementation LocationController
 {
@@ -85,7 +87,16 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
+    static float currentRetryCount = 0;
+    if ([updateBlockList count] == 0) return;
+    
     CLLocation *mostRecentLocation = [locations lastObject];
+    if ([mostRecentLocation horizontalAccuracy] > kWAULocationTargetAccuracy || [[NSDate date] timeIntervalSinceDate:[mostRecentLocation timestamp]] > 10.f) {
+        currentRetryCount++;
+        if (currentRetryCount <= kWAULocationMaximumRetryFetch) return;
+    }
+    currentRetryCount = 0;
+    
     @synchronized(updateBlockList) {
         for (void (^updateHandler)(CLLocation *) in updateBlockList) {
             updateHandler(mostRecentLocation);
