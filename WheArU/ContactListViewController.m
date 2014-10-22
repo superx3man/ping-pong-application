@@ -189,12 +189,10 @@
 
 - (void)controllerDidReceiveNewFetch:(UserController *)controller
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [UIView transitionWithView:currentUserFetchCount duration:kWAUContactUpdateAnimationDuration options:(UIViewAnimationOptionTransitionCrossDissolve | UIViewAnimationOptionBeginFromCurrentState) animations:^
-         {
-             [currentUserFetchCount setText:[NSString stringWithFormat:@"%d", [controller fetchCount]]];
-         } completion:nil];
-    });
+    [UIView transitionWithView:currentUserFetchCount duration:kWAUContactUpdateAnimationDuration options:(UIViewAnimationOptionTransitionCrossDissolve | UIViewAnimationOptionBeginFromCurrentState) animations:^
+     {
+         [currentUserFetchCount setText:[NSString stringWithFormat:@"%d", [controller fetchCount]]];
+     } completion:nil];
 }
 
 #pragma mark ContactListControllerDelegate
@@ -202,10 +200,8 @@
 - (void)listUpdated:(ContactListController *)controller
 {
     if (![WAUUtilities isApplicationRunningInBackground]) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [contactListTableView reloadData];
-            [contactListTableView layoutIfNeeded];
-        });
+        [contactListTableView reloadData];
+        [contactListTableView layoutIfNeeded];
     }
 }
 
@@ -265,18 +261,14 @@
 
 - (void)willEnterForeground
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [contactListTableView reloadData];
-    });
+    [contactListTableView reloadData];
 }
 
 #pragma mark EncryptionControllerDelegate
 
 - (void)controllerDidSetGeneratedKey:(EncryptionController *)controller
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [addContactButton setEnabled:YES];
-    });
+    [addContactButton setEnabled:YES];
 }
 
 @end

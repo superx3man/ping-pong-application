@@ -153,22 +153,21 @@ NSString *const kWAUUserDictionaryKeyFacebookUserId = @"WAUFacebookUserId";
 
 - (IBAction)tapOnLoginButton:(id)sender
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [UIView animateWithDuration:kWAUContactUpdateAnimationDuration delay:0.f options:(UIViewAnimationOptionTransitionCrossDissolve | UIViewAnimationOptionBeginFromCurrentState) animations:^
-         {
-             [connectingLabel setAlpha:1.f];
-             [sorryLabel setAlpha:0.f];
-             [errorLabel setAlpha:0.f];
-             
-             [tryAgainButton setAlpha:1.f];
-             [cancelButton setAlpha:0.f];
-             [connectButton setAlpha:0.f];
-             [loginButton setAlpha:0.f];
-             [errorOutButton setAlpha:0.f];
-             
-             [friendListTableView setAlpha:0.f];
-         } completion:nil];
-    });
+    [UIView animateWithDuration:kWAUContactUpdateAnimationDuration delay:0.f options:(UIViewAnimationOptionTransitionCrossDissolve | UIViewAnimationOptionBeginFromCurrentState) animations:^
+     {
+         [connectingLabel setAlpha:1.f];
+         [sorryLabel setAlpha:0.f];
+         [errorLabel setAlpha:0.f];
+         
+         [tryAgainButton setAlpha:1.f];
+         [cancelButton setAlpha:0.f];
+         [connectButton setAlpha:0.f];
+         [loginButton setAlpha:0.f];
+         [errorOutButton setAlpha:0.f];
+         
+         [friendListTableView setAlpha:0.f];
+     } completion:nil];
+    
     [self validateFacebookSession:YES];
 }
 
@@ -199,28 +198,26 @@ NSString *const kWAUUserDictionaryKeyFacebookUserId = @"WAUFacebookUserId";
         [WAULog log:@"session errored out" from:self];
         [[FBSession activeSession] closeAndClearTokenInformation];
         
-        [self showLoginScreen];
+        [self performSelectorOnMainThread:@selector(showLoginScreen) withObject:nil waitUntilDone:NO];
     }
 }
 
 - (void)showLoginScreen
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [UIView animateWithDuration:kWAUContactUpdateAnimationDuration delay:0.f options:(UIViewAnimationOptionTransitionCrossDissolve | UIViewAnimationOptionBeginFromCurrentState) animations:^
-         {
-             [connectingLabel setAlpha:0.f];
-             [sorryLabel setAlpha:0.f];
-             [errorLabel setAlpha:1.f];
-             
-             [tryAgainButton setAlpha:0.f];
-             [cancelButton setAlpha:0.f];
-             [connectButton setAlpha:0.f];
-             [loginButton setAlpha:1.f];
-             [errorOutButton setAlpha:1.f];
-             
-             [friendListTableView setAlpha:0.f];
-         } completion:nil];
-    });
+    [UIView animateWithDuration:kWAUContactUpdateAnimationDuration delay:0.f options:(UIViewAnimationOptionTransitionCrossDissolve | UIViewAnimationOptionBeginFromCurrentState) animations:^
+     {
+         [connectingLabel setAlpha:0.f];
+         [sorryLabel setAlpha:0.f];
+         [errorLabel setAlpha:1.f];
+         
+         [tryAgainButton setAlpha:0.f];
+         [cancelButton setAlpha:0.f];
+         [connectButton setAlpha:0.f];
+         [loginButton setAlpha:1.f];
+         [errorOutButton setAlpha:1.f];
+         
+         [friendListTableView setAlpha:0.f];
+     } completion:nil];
 }
 
 - (void)updateUserExternalId
@@ -274,48 +271,44 @@ NSString *const kWAUUserDictionaryKeyFacebookUserId = @"WAUFacebookUserId";
              
              [facebookFriendList addObject:[[FacebookUser alloc] initWithId:friendId name:friendName pictureLink:friendPicture]];
          }
-         [self handleFriendList];
+         [self performSelectorOnMainThread:@selector(handleFriendList) withObject:nil waitUntilDone:NO];
      }];
 }
 
 - (void)handleFriendList
 {
     if ([facebookFriendList count] == 0) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [UIView animateWithDuration:kWAUContactUpdateAnimationDuration delay:0.f options:(UIViewAnimationOptionTransitionCrossDissolve | UIViewAnimationOptionBeginFromCurrentState) animations:^
-             {
-                 [connectingLabel setAlpha:0.f];
-                 [sorryLabel setAlpha:1.f];
-                 [errorLabel setAlpha:0.f];
-                 
-                 [tryAgainButton setAlpha:1.f];
-                 [cancelButton setAlpha:0.f];
-                 [connectButton setAlpha:0.f];
-                 [loginButton setAlpha:0.f];
-                 [errorOutButton setAlpha:0.f];
-                 
-                 [friendListTableView setAlpha:0.f];
-             } completion:nil];
-        });
+        [UIView animateWithDuration:kWAUContactUpdateAnimationDuration delay:0.f options:(UIViewAnimationOptionTransitionCrossDissolve | UIViewAnimationOptionBeginFromCurrentState) animations:^
+         {
+             [connectingLabel setAlpha:0.f];
+             [sorryLabel setAlpha:1.f];
+             [errorLabel setAlpha:0.f];
+             
+             [tryAgainButton setAlpha:1.f];
+             [cancelButton setAlpha:0.f];
+             [connectButton setAlpha:0.f];
+             [loginButton setAlpha:0.f];
+             [errorOutButton setAlpha:0.f];
+             
+             [friendListTableView setAlpha:0.f];
+         } completion:nil];
     }
     else {
         [friendListTableView reloadData];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [UIView animateWithDuration:kWAUContactUpdateAnimationDuration delay:0.f options:(UIViewAnimationOptionTransitionCrossDissolve | UIViewAnimationOptionBeginFromCurrentState) animations:^
-             {
-                 [connectingLabel setAlpha:0.f];
-                 [sorryLabel setAlpha:0.f];
-                 [errorLabel setAlpha:0.f];
-                 
-                 [tryAgainButton setAlpha:0.f];
-                 [cancelButton setAlpha:1.f];
-                 [connectButton setAlpha:1.f];
-                 [loginButton setAlpha:0.f];
-                 [errorOutButton setAlpha:0.f];
-                 
-                 [friendListTableView setAlpha:1.f];
-             } completion:nil];
-        });
+        [UIView animateWithDuration:kWAUContactUpdateAnimationDuration delay:0.f options:(UIViewAnimationOptionTransitionCrossDissolve | UIViewAnimationOptionBeginFromCurrentState) animations:^
+         {
+             [connectingLabel setAlpha:0.f];
+             [sorryLabel setAlpha:0.f];
+             [errorLabel setAlpha:0.f];
+             
+             [tryAgainButton setAlpha:0.f];
+             [cancelButton setAlpha:1.f];
+             [connectButton setAlpha:1.f];
+             [loginButton setAlpha:0.f];
+             [errorOutButton setAlpha:0.f];
+             
+             [friendListTableView setAlpha:1.f];
+         } completion:nil];
     }
 }
 

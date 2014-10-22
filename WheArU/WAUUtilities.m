@@ -55,7 +55,10 @@
     @synchronized(delegateList) {
         for (id retainedDelegate in delegateList) {
             id delegate = [retainedDelegate nonretainedObjectValue];
-            if ([delegate respondsToSelector:selector]) [delegate performSelector:selector withObject:object];
+            if ([delegate respondsToSelector:selector]) {
+                if ([delegate isKindOfClass:[UIResponder class]]) [delegate performSelectorOnMainThread:selector withObject:object waitUntilDone:NO];
+                else [delegate performSelectorInBackground:selector withObject:object];
+            }
         }
     }
 }

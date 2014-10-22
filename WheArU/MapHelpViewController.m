@@ -92,30 +92,26 @@
 
 - (void)animateSwipe
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [swipeFingerImageView setTransform:CGAffineTransformIdentity];
-        [UIView animateWithDuration:1.f delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^
-         {
-             [swipeFingerImageView setTransform:CGAffineTransformMakeTranslation(0.f - ([swipeView frame].size.width - 16.f - 32.f), 0.f)];
-         } completion:^(BOOL finished)
-         {
-             if (finished && shouldAnimate) [self performSelector:@selector(animateSwipe) withObject:nil afterDelay:1.f];
-         }];
-    });
+    [swipeFingerImageView setTransform:CGAffineTransformIdentity];
+    [UIView animateWithDuration:1.f delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^
+     {
+         [swipeFingerImageView setTransform:CGAffineTransformMakeTranslation(0.f - ([swipeView frame].size.width - 16.f - 32.f), 0.f)];
+     } completion:^(BOOL finished)
+     {
+         if (finished && shouldAnimate) [self performSelector:@selector(animateSwipe) withObject:nil afterDelay:1.f];
+     }];
 }
 
 - (void)animateBackwardSwipe
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [backwardSwipeFingerImageView setTransform:CGAffineTransformIdentity];
-        [UIView animateWithDuration:1.f delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^
-         {
-             [backwardSwipeFingerImageView setTransform:CGAffineTransformMakeTranslation([backwardSwipeView frame].size.width - 16.f - 32.f, 0.f)];
-         } completion:^(BOOL finished)
-         {
-             if (finished && shouldAnimate) [self performSelector:@selector(animateBackwardSwipe) withObject:nil afterDelay:1.f];
-         }];
-    });
+    [backwardSwipeFingerImageView setTransform:CGAffineTransformIdentity];
+    [UIView animateWithDuration:1.f delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^
+     {
+         [backwardSwipeFingerImageView setTransform:CGAffineTransformMakeTranslation([backwardSwipeView frame].size.width - 16.f - 32.f, 0.f)];
+     } completion:^(BOOL finished)
+     {
+         if (finished && shouldAnimate) [self performSelector:@selector(animateBackwardSwipe) withObject:nil afterDelay:1.f];
+     }];
 }
 
 #pragma mark - Controls

@@ -91,31 +91,27 @@
 
 - (void)animateSwipe
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [swipeFingerImageView setTransform:CGAffineTransformIdentity];
-        [UIView animateWithDuration:1.f delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^
-         {
-             [swipeFingerImageView setTransform:CGAffineTransformMakeTranslation(-([swipeView frame].size.width - 16.f - 32.f), 0.f)];
-         } completion:^(BOOL finished)
-         {
-             if (finished && shouldAnimate) [self performSelector:@selector(animateSwipe) withObject:nil afterDelay:1.f];
-         }];
-    });
+    [swipeFingerImageView setTransform:CGAffineTransformIdentity];
+    [UIView animateWithDuration:1.f delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^
+     {
+         [swipeFingerImageView setTransform:CGAffineTransformMakeTranslation(-([swipeView frame].size.width - 16.f - 32.f), 0.f)];
+     } completion:^(BOOL finished)
+     {
+         if (finished && shouldAnimate) [self performSelector:@selector(animateSwipe) withObject:nil afterDelay:1.f];
+     }];
 }
 
 - (void)animateHoldTap
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [holdTapFingerImageView setTransform:CGAffineTransformIdentity];
-        [UIView animateWithDuration:1.f delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^
-         {
-             [holdTapFingerImageView setTransform:CGAffineTransformMakeScale(0.85f, 0.85f)];
-             [holdTapFingerImageView setTransform:CGAffineTransformMakeRotation(M_PI * -10.f / 180.0)];
-         } completion:^(BOOL finished)
-         {
-             if (finished && shouldAnimate) [self performSelector:@selector(animateHoldTap) withObject:nil afterDelay:1.f];
-         }];
-    });
+    [holdTapFingerImageView setTransform:CGAffineTransformIdentity];
+    [UIView animateWithDuration:1.f delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^
+     {
+         [holdTapFingerImageView setTransform:CGAffineTransformMakeScale(0.85f, 0.85f)];
+         [holdTapFingerImageView setTransform:CGAffineTransformMakeRotation(M_PI * -10.f / 180.0)];
+     } completion:^(BOOL finished)
+     {
+         if (finished && shouldAnimate) [self performSelector:@selector(animateHoldTap) withObject:nil afterDelay:1.f];
+     }];
 }
 
 #pragma mark - Controls
