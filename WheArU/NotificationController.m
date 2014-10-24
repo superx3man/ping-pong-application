@@ -105,7 +105,7 @@ NSString *const kWAUNotificationActionIdentifierSend = @"kWAUNotificationActionI
          NSMutableDictionary *userDictionary = [[NSMutableDictionary alloc] init];
          [userDictionary setObject:[[UserController sharedInstance] userId] forKey:kWAUDictionaryKeyUserId];
          [userDictionary setObject:[contact userId] forKey:kWAUDictionaryKeyContactId];
-         [userDictionary setObject:[NSNumber numberWithInt:0] forKey:kWAUDictionaryKeyPingType];
+         [userDictionary setObject:[NSNumber numberWithInt:[contact ping] > 0 ? 1 : 0] forKey:kWAUDictionaryKeyPingType];
          
          NSMutableArray *locationInfo = [[NSMutableArray alloc] init];
          [locationInfo addObject:[NSNumber numberWithDouble:[location coordinate].latitude]];
