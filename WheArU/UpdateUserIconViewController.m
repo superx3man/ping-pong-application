@@ -165,7 +165,10 @@ typedef NS_ENUM(NSInteger, WAUUpdateUserIconState)
 
 - (IBAction)didTapOnImageView:(id)sender
 {
-    if (currentState == WAUUpdateUserIconStateInitial && (backCameraDevice != nil || frontCameraDevice != nil)) {
+    if (backCameraDevice == nil && frontCameraDevice == nil) {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+    }
+    else if (currentState == WAUUpdateUserIconStateInitial) {
         currentState = WAUUpdateUserIconStateCapturingVideo;
         
         [cameraView setHidden:NO];

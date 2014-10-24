@@ -20,10 +20,12 @@
 
 @implementation AddContactWithQRCodeViewController
 {
+    IBOutlet UIView *cameraBackgroundView;
     IBOutlet UIView *cameraView;
     
     IBOutlet UILabel *instructionLabel;
     
+    IBOutlet UIButton *enableCameraButton;
     IBOutlet UIButton *showMineButton;
     IBOutlet UIButton *backButton;
     
@@ -31,6 +33,8 @@
     AVCaptureVideoPreviewLayer *cameraPreviewLayer;
     
     ContactListController *contactListController;
+    
+    BOOL isCameraPermissionGranted;
 }
 
 - (void)viewDidLoad
@@ -49,32 +53,29 @@
     [backButton setTitleColor:[[UserController sharedInstance] wordColor] forState:UIControlStateHighlighted];
     [backButton setTitleColor:[[UserController sharedInstance] wordColor] forState:UIControlStateSelected];
     
-    AVCaptureDevice *videoDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-    AVCaptureDeviceInput *deviceInput = [AVCaptureDeviceInput deviceInputWithDevice:videoDevice error:nil];
+    [enableCameraButton setTitleColor:[[UserController sharedInstance] wordColor] forState:UIControlStateNormal];
+    [enableCameraButton setTitleColor:[[UserController sharedInstance] wordColor] forState:UIControlStateHighlighted];
+    [enableCameraButton setTitleColor:[[UserController sharedInstance] wordColor] forState:UIControlStateSelected];
     
-    captureSession = [[AVCaptureSession alloc] init];
-    [captureSession addInput:deviceInput];
+    [[cameraBackgroundView layer] setBorderColor:[[[UserController sharedInstance] wordColor] CGColor]];
+    [[cameraBackgroundView layer] setBorderWidth:0.5f];
     
-    cameraPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:captureSession];
-    [cameraPreviewLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
-    [cameraPreviewLayer setFrame:[cameraView bounds]];
-    [[cameraView layer] addSublayer:cameraPreviewLayer];
-    
-    AVCaptureMetadataOutput *captureOutput = [[AVCaptureMetadataOutput alloc] init];
-    [captureOutput setMetadataObjectsDelegate:self queue:dispatch_get_main_queue()];
-    [captureSession addOutput:captureOutput];
-    
-    if ([[captureOutput availableMetadataObjectTypes] containsObject:AVMetadataObjectTypeQRCode]) {
-        [captureOutput setMetadataObjectTypes:[NSArray arrayWithObjects:AVMetadataObjectTypeQRCode, nil]];
-    }
+    isCameraPermissionGranted = [self initiateCamera];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     
-    [self setCameraOrientation];
-    [captureSession startRunning];
+    if (!isCameraPermissionGranted) {
+        [AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
+            if (granted) {
+                isCameraPermissionGranted = [self initiateCamera];
+                if (isCameraPermissionGranted) [self startCamera];
+            }
+        }];
+    }
+    else [self startCamera];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -96,6 +97,37 @@
 
 #pragma mark - Functions
 #pragma mark Support
+
+- (BOOL)initiateCamera
+{
+    AVCaptureDevice *videoDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    AVCaptureDeviceInput *deviceInput = [AVCaptureDeviceInput deviceInputWithDevice:videoDevice error:nil];
+    if (deviceInput == nil) return false;
+    
+    captureSession = [[AVCaptureSession alloc] init];
+    [captureSession addInput:deviceInput];
+    
+    cameraPreviewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:captureSession];
+    [cameraPreviewLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
+    [cameraPreviewLayer setFrame:[cameraView bounds]];
+    [[cameraView layer] addSublayer:cameraPreviewLayer];
+    
+    AVCaptureMetadataOutput *captureOutput = [[AVCaptureMetadataOutput alloc] init];
+    [captureOutput setMetadataObjectsDelegate:self queue:dispatch_get_main_queue()];
+    [captureSession addOutput:captureOutput];
+    
+    if ([[captureOutput availableMetadataObjectTypes] containsObject:AVMetadataObjectTypeQRCode]) {
+        [captureOutput setMetadataObjectTypes:[NSArray arrayWithObjects:AVMetadataObjectTypeQRCode, nil]];
+    }
+    
+    return true;
+}
+
+- (void)startCamera
+{
+    [self setCameraOrientation];
+    [captureSession startRunning];
+}
 
 - (AVCaptureVideoOrientation)setCameraOrientation
 {
@@ -131,6 +163,11 @@
 - (IBAction)didTapOnBackButton:(id)sender
 {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)didTapOnEnableCameraButton:(id)sender
+{
+    if (!isCameraPermissionGranted) [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
 }
 
 #pragma mark - Delegates
