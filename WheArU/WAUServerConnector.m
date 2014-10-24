@@ -28,6 +28,8 @@ float const kWAUServerConnectorRequestTimeout = 10.f;
     
     APAsyncDictionary *pendingRequestList;
     WAUServerConnectorPendingRequestState pendingRequestState;
+    
+    dispatch_queue_t webQueue;
 }
 
 - (id)init
@@ -38,6 +40,9 @@ float const kWAUServerConnectorRequestTimeout = 10.f;
         
         pendingRequestList = [[APAsyncDictionary alloc] init];
         pendingRequestState = WAUServerConnectorPendingRequestStateIdle;
+        
+        NSString *name = [NSString stringWithFormat:@"com.calvinx3.WAUServerConnector.%ld", (unsigned long)self.hash];
+        webQueue = dispatch_queue_create([name cStringUsingEncoding:NSASCIIStringEncoding], DISPATCH_QUEUE_CONCURRENT);
     }
     return self;
 }
@@ -69,15 +74,16 @@ float const kWAUServerConnectorRequestTimeout = 10.f;
          for (NSString *tag in tagList) {
              WAUServerConnectorRequest *request = [pendingRequestList objectForKeySynchronously:tag];
              [pendingRequestList removeObjectForKey:tag];
-             [self sendRequest:request synchrounous:YES];
+             
+             dispatch_barrier_async(webQueue, ^{
+                 [self sendRequest:request];
+             });
          }
          pendingRequestState = WAUServerConnectorPendingRequestStateIdle;
-         
-         if ([pendingRequestList objectsCountSynchronously] != 0) [self reachabilityChanged:notification];
      }];
 }
 
-- (void)sendRequest:(WAUServerConnectorRequest *)connectorRequest synchrounous:(BOOL)isSynchrounous
+- (void)sendRequest:(WAUServerConnectorRequest *)connectorRequest
 {
     NSURLSession *session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:nil delegateQueue:nil];
     
@@ -129,7 +135,11 @@ float const kWAUServerConnectorRequestTimeout = 10.f;
 
 - (void)sendRequest:(WAUServerConnectorRequest *)connectorRequest withTag:(NSString *)tag
 {
-    if ([reachibility isReachable]) [self sendRequest:connectorRequest synchrounous:NO];
+    if ([reachibility isReachable]) {
+        dispatch_barrier_async(webQueue, ^{
+            [self sendRequest:connectorRequest];
+        });
+    }
     else [pendingRequestList setObject:connectorRequest forKey:tag];
 }
 
