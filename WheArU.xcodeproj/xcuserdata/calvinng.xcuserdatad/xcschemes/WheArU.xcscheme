@@ -34,6 +34,20 @@
                ReferencedContainer = "container:WheArU.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "4D0E14581A8ABB8B00E7F4BD"
+               BuildableName = "PingPongKitTests.xctest"
+               BlueprintName = "PingPongKitTests"
+               ReferencedContainer = "container:WheArU.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -49,6 +63,16 @@
                BlueprintIdentifier = "4D8267D919B3BA6E00076974"
                BuildableName = "PingPongTests.xctest"
                BlueprintName = "PingPongTests"
+               ReferencedContainer = "container:WheArU.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "4D0E14581A8ABB8B00E7F4BD"
+               BuildableName = "PingPongKitTests.xctest"
+               BlueprintName = "PingPongKitTests"
                ReferencedContainer = "container:WheArU.xcodeproj">
             </BuildableReference>
          </TestableReference>

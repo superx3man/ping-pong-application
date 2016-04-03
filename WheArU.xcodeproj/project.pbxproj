@@ -10,6 +10,9 @@
 		4D09BF7C19D0C2360009D0CF /* ContactMapAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D09BF7B19D0C2360009D0CF /* ContactMapAnnotation.m */; };
 		4D09BF7F19D0CD840009D0CF /* ContactMapAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D09BF7E19D0CD840009D0CF /* ContactMapAnnotationView.m */; };
 		4D09BF9019D1254D0009D0CF /* MKCircle+ContactController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D09BF8F19D1254D0009D0CF /* MKCircle+ContactController.m */; };
+		4D0E14541A8ABB8A00E7F4BD /* PingPongKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 4D0E14531A8ABB8A00E7F4BD /* PingPongKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4D0E14661A8ABB8B00E7F4BD /* PingPongKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D0E144F1A8ABB8A00E7F4BD /* PingPongKit.framework */; };
+		4D0E14671A8ABB8B00E7F4BD /* PingPongKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 4D0E144F1A8ABB8A00E7F4BD /* PingPongKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		4D1A983D19D2007C0017CC7D /* MKMapView+SharedInstance.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D1A983C19D2007C0017CC7D /* MKMapView+SharedInstance.m */; };
 		4D20F36619E188FA004C5697 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D20F36519E188FA004C5697 /* Crashlytics.framework */; };
 		4D44828019CB949E007E3220 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D44827F19CB949E007E3220 /* Security.framework */; };
@@ -95,6 +98,40 @@
 		4DF76E2B19CFC91B001BCE04 /* ContactMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DF76E2A19CFC91B001BCE04 /* ContactMapViewController.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		4D0E14641A8ABB8B00E7F4BD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4D8267B919B3BA6E00076974 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 4D0E144E1A8ABB8A00E7F4BD;
+			remoteInfo = PingPongKit;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		4D0E146D1A8ABB8B00E7F4BD /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				4D0E14671A8ABB8B00E7F4BD /* PingPongKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4D34A8191A89B1DA00D8B02A /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		4D09BF7A19D0C2360009D0CF /* ContactMapAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactMapAnnotation.h; sourceTree = "<group>"; };
 		4D09BF7B19D0C2360009D0CF /* ContactMapAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactMapAnnotation.m; sourceTree = "<group>"; };
@@ -102,9 +139,14 @@
 		4D09BF7E19D0CD840009D0CF /* ContactMapAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactMapAnnotationView.m; sourceTree = "<group>"; };
 		4D09BF8E19D1254D0009D0CF /* MKCircle+ContactController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKCircle+ContactController.h"; sourceTree = "<group>"; };
 		4D09BF8F19D1254D0009D0CF /* MKCircle+ContactController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKCircle+ContactController.m"; sourceTree = "<group>"; };
+		4D0E144F1A8ABB8A00E7F4BD /* PingPongKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PingPongKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		4D0E14521A8ABB8A00E7F4BD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4D0E14531A8ABB8A00E7F4BD /* PingPongKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PingPongKit.h; sourceTree = "<group>"; };
 		4D1A983B19D2007C0017CC7D /* MKMapView+SharedInstance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKMapView+SharedInstance.h"; sourceTree = "<group>"; };
 		4D1A983C19D2007C0017CC7D /* MKMapView+SharedInstance.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKMapView+SharedInstance.m"; sourceTree = "<group>"; };
 		4D20F36519E188FA004C5697 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
+		4D34A8091A89B1DA00D8B02A /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
+		4D34A81B1A89BD3300D8B02A /* PingPong.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PingPong.entitlements; sourceTree = "<group>"; };
 		4D44827F19CB949E007E3220 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		4D44828819CBC133007E3220 /* NSData+Conversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Conversion.h"; sourceTree = "<group>"; };
 		4D44828919CBC133007E3220 /* NSData+Conversion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Conversion.m"; sourceTree = "<group>"; };
@@ -150,8 +192,6 @@
 		4D8267CC19B3BA6E00076974 /* WheArU.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = WheArU.xcdatamodel; sourceTree = "<group>"; };
 		4D8267D219B3BA6E00076974 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		4D8267D419B3BA6E00076974 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		4D8267DF19B3BA6E00076974 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4D8267E019B3BA6E00076974 /* WheArUTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WheArUTests.m; sourceTree = "<group>"; };
 		4D8267EF19B3D29400076974 /* ContactListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactListViewController.h; sourceTree = "<group>"; };
 		4D8267F019B3D29400076974 /* ContactListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactListViewController.m; sourceTree = "<group>"; };
 		4D86B9FB19DE4E2100E0C529 /* ContactHelpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactHelpViewController.h; sourceTree = "<group>"; };
@@ -241,6 +281,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		4D0E144B1A8ABB8A00E7F4BD /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4D8267BE19B3BA6E00076974 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -252,6 +299,7 @@
 				4DB408DA19D8C54000397D6F /* UIKit.framework in Frameworks */,
 				4DD698AC19C4F29700D9D65D /* SystemConfiguration.framework in Frameworks */,
 				4D20F36619E188FA004C5697 /* Crashlytics.framework in Frameworks */,
+				4D0E14661A8ABB8B00E7F4BD /* PingPongKit.framework in Frameworks */,
 				4DC162E419DA0B4F00C9BA7A /* FacebookSDK.framework in Frameworks */,
 				4DEAF5A519C87C0200CC1EC8 /* AVFoundation.framework in Frameworks */,
 				4D79C3A019D3C08D00CEB1E4 /* QuartzCore.framework in Frameworks */,
@@ -285,6 +333,23 @@
 				4D09BF8F19D1254D0009D0CF /* MKCircle+ContactController.m */,
 			);
 			name = "MKCircle+ContactController";
+			sourceTree = "<group>";
+		};
+		4D0E14501A8ABB8A00E7F4BD /* PingPongKit */ = {
+			isa = PBXGroup;
+			children = (
+				4D0E14531A8ABB8A00E7F4BD /* PingPongKit.h */,
+				4D0E14511A8ABB8A00E7F4BD /* Supporting Files */,
+			);
+			path = PingPongKit;
+			sourceTree = "<group>";
+		};
+		4D0E14511A8ABB8A00E7F4BD /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4D0E14521A8ABB8A00E7F4BD /* Info.plist */,
+			);
+			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		4D1A983A19D200650017CC7D /* MKMapView+SharedInstance */ = {
@@ -410,11 +475,11 @@
 		4D8267B819B3BA6E00076974 = {
 			isa = PBXGroup;
 			children = (
-				4DD698AD19C4F29B00D9D65D /* Frameworks */,
-				4DD698B219C54EC200D9D65D /* Images */,
-				4D8267C219B3BA6E00076974 /* Products */,
 				4D8267C319B3BA6E00076974 /* WheArU */,
-				4D8267DD19B3BA6E00076974 /* WheArUTests */,
+				4D0E14501A8ABB8A00E7F4BD /* PingPongKit */,
+				4DD698B219C54EC200D9D65D /* Images */,
+				4DD698AD19C4F29B00D9D65D /* Frameworks */,
+				4D8267C219B3BA6E00076974 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -422,6 +487,7 @@
 			isa = PBXGroup;
 			children = (
 				4D8267C119B3BA6E00076974 /* PingPong.app */,
+				4D0E144F1A8ABB8A00E7F4BD /* PingPongKit.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -429,6 +495,7 @@
 		4D8267C319B3BA6E00076974 /* WheArU */ = {
 			isa = PBXGroup;
 			children = (
+				4D34A81B1A89BD3300D8B02A /* PingPong.entitlements */,
 				4D8267C819B3BA6E00076974 /* AppDelegate.h */,
 				4D8267C919B3BA6E00076974 /* AppDelegate.m */,
 				4D4C611519B4CFC3003AB18B /* BackEndControllers */,
@@ -453,23 +520,6 @@
 			children = (
 				4D8267C519B3BA6E00076974 /* Info.plist */,
 				4D8267C619B3BA6E00076974 /* main.m */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		4D8267DD19B3BA6E00076974 /* WheArUTests */ = {
-			isa = PBXGroup;
-			children = (
-				4D8267E019B3BA6E00076974 /* WheArUTests.m */,
-				4D8267DE19B3BA6E00076974 /* Supporting Files */,
-			);
-			path = WheArUTests;
-			sourceTree = "<group>";
-		};
-		4D8267DE19B3BA6E00076974 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				4D8267DF19B3BA6E00076974 /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -601,6 +651,7 @@
 				4D44827F19CB949E007E3220 /* Security.framework */,
 				4DD698AB19C4F29700D9D65D /* SystemConfiguration.framework */,
 				4D54BCE019D8BFB4004F2591 /* UIKit.framework */,
+				4D34A8091A89B1DA00D8B02A /* NotificationCenter.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -685,7 +736,36 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		4D0E144C1A8ABB8A00E7F4BD /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4D0E14541A8ABB8A00E7F4BD /* PingPongKit.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
+		4D0E144E1A8ABB8A00E7F4BD /* PingPongKit */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4D0E146C1A8ABB8B00E7F4BD /* Build configuration list for PBXNativeTarget "PingPongKit" */;
+			buildPhases = (
+				4D0E144A1A8ABB8A00E7F4BD /* Sources */,
+				4D0E144B1A8ABB8A00E7F4BD /* Frameworks */,
+				4D0E144C1A8ABB8A00E7F4BD /* Headers */,
+				4D0E144D1A8ABB8A00E7F4BD /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PingPongKit;
+			productName = PingPongKit;
+			productReference = 4D0E144F1A8ABB8A00E7F4BD /* PingPongKit.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		4D8267C019B3BA6E00076974 /* WheArU */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4D8267E419B3BA6E00076974 /* Build configuration list for PBXNativeTarget "WheArU" */;
@@ -694,10 +774,13 @@
 				4D8267BE19B3BA6E00076974 /* Frameworks */,
 				4D8267BF19B3BA6E00076974 /* Resources */,
 				4D20F36419E188B4004C5697 /* ShellScript */,
+				4D34A8191A89B1DA00D8B02A /* Embed App Extensions */,
+				4D0E146D1A8ABB8B00E7F4BD /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				4D0E14651A8ABB8B00E7F4BD /* PBXTargetDependency */,
 			);
 			name = WheArU;
 			productName = WheArU;
@@ -713,10 +796,17 @@
 				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = "Hok Man Ng";
 				TargetAttributes = {
+					4D0E144E1A8ABB8A00E7F4BD = {
+						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = SCWYZHQGMF;
+					};
 					4D8267C019B3BA6E00076974 = {
 						CreatedOnToolsVersion = 6.0;
 						DevelopmentTeam = SCWYZHQGMF;
 						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
 							com.apple.BackgroundModes = {
 								enabled = 1;
 							};
@@ -738,11 +828,19 @@
 			projectRoot = "";
 			targets = (
 				4D8267C019B3BA6E00076974 /* WheArU */,
+				4D0E144E1A8ABB8A00E7F4BD /* PingPongKit */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		4D0E144D1A8ABB8A00E7F4BD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4D8267BF19B3BA6E00076974 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -791,6 +889,13 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		4D0E144A1A8ABB8A00E7F4BD /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		4D8267BD19B3BA6E00076974 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -850,6 +955,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		4D0E14651A8ABB8B00E7F4BD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 4D0E144E1A8ABB8A00E7F4BD /* PingPongKit */;
+			targetProxy = 4D0E14641A8ABB8B00E7F4BD /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		4D8267D119B3BA6E00076974 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -863,6 +976,52 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		4D0E14681A8ABB8B00E7F4BD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = PingPongKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		4D0E14691A8ABB8B00E7F4BD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = PingPongKit/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		4D8267E219B3BA6E00076974 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -946,6 +1105,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = WheArU/PingPong.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -974,6 +1134,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = WheArU/PingPong.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -998,6 +1159,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		4D0E146C1A8ABB8B00E7F4BD /* Build configuration list for PBXNativeTarget "PingPongKit" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4D0E14681A8ABB8B00E7F4BD /* Debug */,
+				4D0E14691A8ABB8B00E7F4BD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		4D8267BC19B3BA6E00076974 /* Build configuration list for PBXProject "WheArU" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
